@@ -17,7 +17,7 @@
         </div>
         <div class="form-group" v-for="n in selected">
             <label :for="'answer' + n" v-text="'Atsakymas NR.' + n"></label>
-            <input v-model="answer[n]" :class="{'border-success':answer[n], 'border-danger':!answer[n]}" class="form-control" type="text" :name="'answer' + n" @keyup="submitValidation">
+            <input v-model="answers[n]" :class="{'border-success':answers[n], 'border-danger':!answers[n]}" class="form-control" type="text" :name="'answers['+n+']'" @keyup="submitValidation">
         </div>
         <div v-if=errors.length class="form-group">
             <div class="text-danger" v-for="error in errors" v-text="error"></div>
@@ -25,7 +25,7 @@
         <div class="form-group" v-if="selected">
             <h6>Pasirinkite visus teisingus atsakymus</h6>
             <div class="custom-control custom-checkbox" v-for="n in selected">
-                <input type="checkbox" class="custom-control-input" :name="'correct_answer' + n" :id="'correct_answer' + n" :checked="correctAnswer[n]">
+                <input type="checkbox" class="custom-control-input" :name="'correct_answers['+n+']'" :id="'correct_answer' + n" :checked="correctAnswers[n]">
                 <label class="custom-control-label" :for="'correct_answer' + n" v-text="'NR.' + n"></label>
             </div>
         </div>
@@ -39,8 +39,8 @@
             return {
                 selected: 4,
                 question: null,
-                answer: [],
-                correctAnswer:[],
+                answers: [],
+                correctAnswers:[],
                 isDisabled:true,
             }
         },
@@ -70,34 +70,27 @@
         },
         methods: {
             submitValidation:function () {
-                this.isDisabled = !(this.question && this.answer.filter(Boolean).length === this.selected);
+                this.isDisabled = !(this.question && this.answers.filter(Boolean).length === this.selected);
             },
             resetAnswers:function () {
-                this.answer.splice(this.selected + 1);
-                this.correctAnswer.splice(this.selected + 1);
+                this.answers.splice(this.selected + 1);
+                this.correctAnswers.splice(this.selected + 1);
                 this.submitValidation();
             },
             showInputValues:function () {
                 let jsonInputs = JSON.parse(this.inputValues);
-                if(Object.keys(jsonInputs).length !== 0){
+                console.log(jsonInputs);
+                let length = Object.keys(jsonInputs).length
+                console.log(jsonInputs);
+                if(length){
+                    Object.entries(jsonInputs.answers).forEach((element)=>{
+                        this.answers[element[0]]= element[1];
+                    });
                     this.question = jsonInputs.question;
-                    let max = 0;
-                    Object.keys(jsonInputs).forEach((key)=> {
-                            if(/^answer/.test(key)){
-                                let index = parseInt(key.slice(6));
-                                if(max < index){
-                                    max = index;
-                                }
-                                if(jsonInputs[key]){
-                                    this.answer[index] = jsonInputs[key];
-                                }
-                            } else if(/^correct_answer/.test(key)){
-                                let index = parseInt(key.slice(14));
-                                this.correctAnswer[index] = true;
-                            }
-                        }
-                    )
-                    this.selected = max;
+                    if(jsonInputs.correct_answers){
+                        this.correctAnswers = jsonInputs.correct_answers;
+                    }
+                    this.selected = Object.keys(jsonInputs.answers).length;
                 }
             }
         }
