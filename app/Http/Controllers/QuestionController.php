@@ -10,67 +10,56 @@ use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create($url) {
         $test = Test::where('url', $url)->where('user_id', Auth::user()->id)->firstOrFail();
-        if ($test) {
-            return view('question.create',['test' => $test]);
-        } else {
-            return redirect(route('login'));
-        }
+        return view('question.create', ['test' => $test]);
     }
     public function store(Request $request)
     {
         $test = Test::findOrFail($request->test_id);
-        if (Auth::check() && $test->user_id === Auth::user()->id) {
-            $request->validate([
-                'question'=>'required|max:255',
-                'answers.*' => 'required|max:255',
-            ]);
-            $question = new Question();
-            $question->content = $request->question;
-            $question->test_id = $request->test_id;
-            $question->save();
-            $this->saveAnswer($request, 'create', $question->id);
-            return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai išsaugotas!');
-        } else {
-            return redirect(route('login'));
-        }
+        $request->validate([
+            'question'=>'required|max:255',
+            'answers.*' => 'required|max:255',
+        ]);
+        $question = new Question();
+        $question->content = $request->question;
+        $question->test_id = $request->test_id;
+        $question->save();
+        $this->saveAnswer($request, 'create', $question->id);
+        return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai išsaugotas!');
     }
     public function edit($id){
-        $question = Question::find($id);
+        $question = Question::findOrFail($id);
         $answers = $question->answers->toArray();
-        if ($question && $answers) {
-            $values = [];
-            $values['question'] = $question->content;
-            foreach ($answers as $key => $answer){
-                $values['answers'][$key + 1] = $answer['content'];
-                if($answer['correct'] === 1){
-                    $values['correct_answers'][$key + 1] = $answer['correct'];
-                }
+        $values = [];
+        $values['question'] = $question->content;
+        foreach ($answers as $key => $answer){
+            $values['answers'][$key + 1] = $answer['content'];
+            if($answer['correct'] === 1){
+                $values['correct_answers'][$key + 1] = $answer['correct'];
             }
-            return view('question.edit',['values' => $values,'question' => $question]);
-        } else {
-            return redirect(route('login'));
         }
+        return view('question.edit',['values' => $values,'question' => $question]);
     }
     public function update(Request $request, $id){
-        $question = Question::find($id);
+        $question = Question::findOrFail($id);
         $test = Test::findOrFail($question->test_id);
-        if(Auth::check() && $test->user_id === Auth::user()->id){
-            $request->validate([
-                'question'=>'required|max:255',
-                'answers.*' => 'required|max:255',
-            ]);
-            $question->content = $request->question;
-            $question->save();
-            $this->saveAnswer($request, 'update', $id);
-            return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai redaguotas!');
-        } else {
-            return redirect(route('login'));
-        }
+        $request->validate([
+            'question'=>'required|max:255',
+            'answers.*' => 'required|max:255',
+        ]);
+        $question->content = $request->question;
+        $question->save();
+        $this->saveAnswer($request, 'update', $id);
+        return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai redaguotas!');
     }
     public function destroy($id){
-        Question::find($id)->delete();
+        Question::findOrFail($id)->delete();
         return redirect()->back()->with('message','Klausimas buvo sėkmingai ištrintas!');
     }
 

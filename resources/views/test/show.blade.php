@@ -15,7 +15,7 @@
                 </div>
                 <div>
                     <a class="d-block" href="{{route('question.create', ['url' => $test->url])}}">Pridėti klausimą</a>
-                    <form action="{{route('test.destroy', ['id' => $test->id])}}" method="POST">
+                    <form action="{{route('test.destroy', ['url' => $test->url])}}" method="POST">
                         @method('delete')
                         @csrf
                         <button type="submit">Ištrinti testą</button>

@@ -1981,8 +1981,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       selected: 4,
       question: null,
-      answer: [],
-      correctAnswer: [],
+      answers: [],
+      correctAnswers: [],
       isDisabled: true
     };
   },
@@ -2012,39 +2012,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitValidation: function submitValidation() {
-      this.isDisabled = !(this.question && this.answer.filter(Boolean).length === this.selected);
+      this.isDisabled = !(this.question && this.answers.filter(Boolean).length === this.selected);
     },
     resetAnswers: function resetAnswers() {
-      this.answer.splice(this.selected + 1);
-      this.correctAnswer.splice(this.selected + 1);
+      this.answers.splice(this.selected + 1);
+      this.correctAnswers.splice(this.selected + 1);
       this.submitValidation();
     },
     showInputValues: function showInputValues() {
       var _this = this;
 
       var jsonInputs = JSON.parse(this.inputValues);
+      console.log(jsonInputs);
+      var length = Object.keys(jsonInputs).length;
+      console.log(jsonInputs);
 
-      if (Object.keys(jsonInputs).length !== 0) {
-        this.question = jsonInputs.question;
-        var max = 0;
-        Object.keys(jsonInputs).forEach(function (key) {
-          if (/^answer/.test(key)) {
-            var index = parseInt(key.slice(6));
-
-            if (max < index) {
-              max = index;
-            }
-
-            if (jsonInputs[key]) {
-              _this.answer[index] = jsonInputs[key];
-            }
-          } else if (/^correct_answer/.test(key)) {
-            var _index = parseInt(key.slice(14));
-
-            _this.correctAnswer[_index] = true;
-          }
+      if (length) {
+        Object.entries(jsonInputs.answers).forEach(function (element) {
+          _this.answers[element[0]] = element[1];
         });
-        this.selected = max;
+        this.question = jsonInputs.question;
+
+        if (jsonInputs.correct_answers) {
+          this.correctAnswers = jsonInputs.correct_answers;
+        }
+
+        this.selected = Object.keys(jsonInputs.answers).length;
       }
     }
   }
@@ -37754,24 +37747,24 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.answer[n],
-                expression: "answer[n]"
+                value: _vm.answers[n],
+                expression: "answers[n]"
               }
             ],
             staticClass: "form-control",
             class: {
-              "border-success": _vm.answer[n],
-              "border-danger": !_vm.answer[n]
+              "border-success": _vm.answers[n],
+              "border-danger": !_vm.answers[n]
             },
-            attrs: { type: "text", name: "answer" + n },
-            domProps: { value: _vm.answer[n] },
+            attrs: { type: "text", name: "answers[" + n + "]" },
+            domProps: { value: _vm.answers[n] },
             on: {
               keyup: _vm.submitValidation,
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.answer, n, $event.target.value)
+                _vm.$set(_vm.answers, n, $event.target.value)
               }
             }
           })
@@ -37808,10 +37801,10 @@ var render = function() {
                       staticClass: "custom-control-input",
                       attrs: {
                         type: "checkbox",
-                        name: "correct_answer" + n,
+                        name: "correct_answers[" + n + "]",
                         id: "correct_answer" + n
                       },
-                      domProps: { checked: _vm.correctAnswer[n] }
+                      domProps: { checked: _vm.correctAnswers[n] }
                     }),
                     _vm._v(" "),
                     _c("label", {
