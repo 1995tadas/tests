@@ -41,6 +41,19 @@ class TestController extends Controller
         $test->save();
         return redirect(route('test.show', ['url' => $test->url]));
     }
+    public function edit($url){
+        $test = Test::where('url',$url)->first();
+        return view('test.edit', ['test'=> $test]);
+    }
+    public function update(Request $request, $url){
+        $request->validate([
+            'title'=> 'required'
+        ]);
+        $test = Test::where('url', $url)->firstOrFail();
+        $test->title = ucfirst($request->title);
+        $test->save();
+        return redirect(route('test.show', ['url' => $test->url]));
+    }
     public function destroy($url){
         Test::where('url', $url)->delete();
         return redirect(route('test.index'))->with('message','Testas sėkmingai ištrintas!');

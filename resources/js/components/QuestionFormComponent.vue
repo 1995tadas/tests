@@ -1,7 +1,7 @@
 <template>
     <form method="POST" :action="questionAction">
         <input v-if ="testId" type="hidden" name="test_id" :value="testId">
-        <input v-if="method==='put'" type="hidden" name="_method" value="PUT">
+        <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
         <slot></slot>
         <div class="form-group form-row">
             <div class="col">

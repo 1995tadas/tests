@@ -24,8 +24,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'TestController@index')->name('test.index');
 Route::get('/test/create', 'TestController@create')->name('test.create');
-Route::get('/test/{url}', 'TestController@show')->name('test.show')->middleware('test.author');
 Route::post('/test', 'TestController@store')->name('test.store');
+Route::get('/test/{url}', 'TestController@show')->name('test.show')->middleware('test.author');
+Route::get('/test/edit/{url}','TestController@edit')->name('test.edit')->middleware('test.author');
+Route::put('/test/{url}','TestController@update')->name('test.update')->middleware('test.author');
 Route::delete('/test/{url}', 'TestController@destroy')->name('test.destroy')->middleware('test.author');
 
 Route::get('/question/{url}/create/', 'QuestionController@create')->name('question.create')->middleware('test.author');

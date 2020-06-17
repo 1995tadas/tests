@@ -4,9 +4,9 @@
     <div class="container">
         <div class="justify-content-center">
             <h1>{{$test->title}}</h1>
-            <repeater-component :errors = "{{json_encode($errors->all())}}" input-values = "{{json_encode(session()->getOldInput())}}" :test-id = {{$test->id}} question-action = {{route("question.store")}}>
+            <question-form-component :errors = "{{json_encode($errors->all())}}" input-values = "{{json_encode(session()->getOldInput())}}" :test-id = "{{$test->id}}" question-action = "{{route("question.store")}}">
                 {{ csrf_field() }}
-            </repeater-component>
+            </question-form-component>
         </div>
     </div>
 @endsection

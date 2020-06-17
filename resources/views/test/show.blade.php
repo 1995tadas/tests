@@ -20,6 +20,7 @@
                         @csrf
                         <button type="submit">Ištrinti testą</button>
                     </form>
+                    <a class="d-block" href="{{route('test.edit', ['url' => $test->url])}}">Keisti testo pavadinimą</a>
                 </div>
             </div>
                 <div class="border-top mb-5 my-3"></div>
