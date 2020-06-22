@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
+use App\Solution;
+use App\SolutionAnswer;
 use App\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +24,13 @@ class TestController extends Controller
         return view('test.index', ['tests' => $tests]);
     }
     public function show($url){
-        $test = Test::where('url', $url)->firstOrFail();
-        return view('test.show',['test' => $test]);
+        $test_guest = Test::where('url', $url)->firstOrFail();
+        $test_author = $test_guest->where('user_id', Auth::user()->id)->first();
+        if($test_author){
+            return view('test.show', ['test' => $test_author]);
+        } else if($test_guest) {
+            return redirect(route('solution.create', ['url' => $test_guest->url]));
+        }
     }
     public function create(){
         return view('test.create');

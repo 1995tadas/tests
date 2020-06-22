@@ -25,7 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', 'TestController@index')->name('test.index');
 Route::get('/test/create', 'TestController@create')->name('test.create');
 Route::post('/test', 'TestController@store')->name('test.store');
-Route::get('/test/{url}', 'TestController@show')->name('test.show')->middleware('test.author');
+Route::get('/test/{url}', 'TestController@show')->name('test.show');
 Route::get('/test/edit/{url}','TestController@edit')->name('test.edit')->middleware('test.author');
 Route::put('/test/{url}','TestController@update')->name('test.update')->middleware('test.author');
 Route::delete('/test/{url}', 'TestController@destroy')->name('test.destroy')->middleware('test.author');
@@ -35,4 +35,8 @@ Route::post('/question', 'QuestionController@store')->name('question.store')->mi
 Route::get('/question/{id}/edit/', 'QuestionController@edit')->name('question.edit')->middleware('question.author');;
 Route::put('/question/{id}', 'QuestionController@update')->name('question.update')->middleware('question.author');
 Route::delete('/question/{id}', 'QuestionController@destroy')->name('question.destroy')->middleware('question.author');
+
+Route::get('/solution/test/{url}/create', 'SolutionController@create')->name('solution.create');
+Route::post('/solution/test/{url}', 'SolutionController@store')->name('solution.store');
+Route::get('/solution/{id}', 'SolutionController@show')->name('solution.show');
 

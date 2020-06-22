@@ -37921,7 +37921,7 @@ var render = function() {
         { staticClass: "form-group" },
         [
           _c("label", { attrs: { for: "title" } }, [
-            _vm._v("Naujas testo pavadinimas")
+            _vm._v("Testo pavadinimas")
           ]),
           _vm._v(" "),
           _c("input", {

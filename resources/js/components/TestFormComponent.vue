@@ -3,7 +3,7 @@
     <slot></slot>
     <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
     <div class="form-group">
-        <label for="title">Naujas testo pavadinimas</label>
+        <label for="title">Testo pavadinimas</label>
         <input class="form-control" :class="{'border-success':title,'border-danger':!title}" type="text" id="title" name="title" v-model="title">
         <small v-for = "error in parsedErrors" class="text-danger" v-text="error"></small>
     </div>
