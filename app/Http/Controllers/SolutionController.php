@@ -11,12 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class SolutionController extends Controller
 {
     public function create($url){
-        $test = Test::where('url', $url)->first();
-        return view('solution.create', ['test' => $test]);
+        $test = Test::where('url', $url)->firstOrFail();
+        $solution = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id)->exists();
+        return view('solution.create', ['test' => $solution ? null : $test]);
     }
     public function show($id){
-        $solution = Solution::find($id);
-        $test = Test::find($solution->test_id);
+        $solution = Solution::findOrFail($id);
+        $test = Test::findOrFail($solution->test_id);
         return view('solution.show', ['test' => $test, 'solution' => $solution]);
     }
     public function store(Request $request, $url){
@@ -37,7 +38,7 @@ class SolutionController extends Controller
                     }
                 }
             }
-            return redirect(route('solution.show', ['id'=>$solution->id]));
+            return redirect(route('solution.show', ['id' => $solution->id]));
         }
     }
 }

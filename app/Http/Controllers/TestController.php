@@ -20,12 +20,12 @@ class TestController extends Controller
     }
 
     public function index(){
-        $tests = Test::where('user_id', Auth::user()->id)->get();
+        $tests = Test::where('user_id', Auth::user()->id)->paginate(10);
         return view('test.index', ['tests' => $tests]);
     }
     public function show($url){
         $test_guest = Test::where('url', $url)->firstOrFail();
-        $test_author = $test_guest->where('user_id', Auth::user()->id)->first();
+        $test_author = Test::where('url', $url)->where('user_id', Auth::user()->id)->first();
         if($test_author){
             return view('test.show', ['test' => $test_author]);
         } else if($test_guest) {

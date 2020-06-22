@@ -11,7 +11,7 @@
                 <div class="alert alert-danger">
                     {{ session()->get('error') }}
                 </div>
-            @enderror
+            @endif
             <div class="d-flex justify-content-between">
                 <h3>Mano sukurti testai</h3>
                 <a href="{{route('test.create')}}">Naujas testas</a>
@@ -28,6 +28,7 @@
                     </li>
                 @endforelse
             </ul>
+        {{ $tests->links() }}
         </div>
     </div>
 @endsection
