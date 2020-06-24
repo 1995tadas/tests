@@ -19,7 +19,11 @@
             <ul class="list-group">
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{{route('test.show', ['url'=> $test->url ])}}">{{$test->title}}</a>
+                        <div>
+                            <a href="{{route('test.show', ['url'=> $test->url ])}}">{{$test->title}}</a>
+                            <i class="fas fa-link" title="Kopijuoti nuoroda"></i>
+                            <div>{{route('test.show', ['url'=> $test->url ])}}</div>
+                        </div>
                         <span class="badge badge-primary badge-pill">{{$test->questions->count()}} klausimai</span>
                     </li>
                 @empty

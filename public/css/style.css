@@ -1,0 +1,18 @@
+:root {
+    --icons-size: 25px;
+}
+.icons {
+    font-size:var(--icons-size);
+    background-color: #DDE5DB;
+    display: inline;
+    padding: 10px;
+}
+.icons button {
+    font-size:var(--icons-size);
+}
+.panel {
+    background-color: #FFDFD3;
+    padding: 10px 30px;
+    margin-bottom: 30px;
+}
+

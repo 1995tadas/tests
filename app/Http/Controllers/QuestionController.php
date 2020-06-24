@@ -70,7 +70,7 @@ class QuestionController extends Controller
                $answer = new Answer();
                $answer->question_id = $question_id;
            } else if($createOrUpdate === 'update') {
-               $answer = Answer::where('number', $index)->first();
+               $answer = Answer::where('number', $index)->where('question_id', $question_id)->first();
            }
            $answer->content = $value;
            $correct = false;

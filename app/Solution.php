@@ -9,4 +9,10 @@ class Solution extends Model
     public function solutionAnswers(){
         return $this->hasMany(SolutionAnswer::class);
     }
+    public function test(){
+        return $this->belongsTo(Test::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

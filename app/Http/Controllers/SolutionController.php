@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Question;
 use App\Solution;
 use App\SolutionAnswer;
 use App\Test;
@@ -19,6 +20,11 @@ class SolutionController extends Controller
         $solution = Solution::findOrFail($id);
         $test = Test::findOrFail($solution->test_id);
         return view('solution.show', ['test' => $test, 'solution' => $solution]);
+    }
+    public function index($id){
+        $solutions = Solution::where('test_id', $id)->get();
+        return view('solution.index', ['solutions' => $solutions]);
+
     }
     public function store(Request $request, $url){
         $test = Test::where('url',$url)->firstOrFail();
@@ -41,4 +47,36 @@ class SolutionController extends Controller
             return redirect(route('solution.show', ['id' => $solution->id]));
         }
     }
+
+//    public function results($test_id){
+//        $questions = Question::where('test_id', $test_id)->get();
+//        $solutions = Solution::where('test_id', $test_id)->get();
+//        $array = [];
+//        foreach ($questions as $question){
+//            foreach ($solutions as $solution){
+//                $correct = 0;
+//                $incorrect = 0;
+//                foreach ($solution->solutionAnswers as $solutionAnswer){
+//                    if($question->id === $solutionAnswer->question_id){
+//                        foreach($question->answers as $answer){
+//                            if($answer->number === $solutionAnswer->answer_number){
+//                               if($answer->correct){
+//                                   $correct++;
+//                               } else {
+//                                   $incorrect++;
+//                               }
+//                               break;
+//                            }
+//                            if($answer->correct){
+//                                $incorrect++;
+//                            }
+//                        }
+//                    }
+//                }
+//                $array[$solution->id] = ['correct' => $correct, 'incorrect' => $incorrect];
+//            }
+//        }
+//        $solutions = Solution::whereIn('id', array_keys($array))->get();
+//        return view('solution.results', ['solutions' => $solutions, 'results'=> $array]);
+//    }
 }
