@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="justify-content-center">
+    <div class="list-container">
+        <div class="list-wrapper">
                 @php
                 $final = 0;
                 @endphp
@@ -20,15 +20,15 @@
                                     @if($question->id === $solution_answer->question_id)
                                         @if($answer->number === $solution_answer->answer_number && $answer->correct)
                                             {{'list-group-item-success'}}
-                                            <?php
+                                            @php
                                                 $guess++;
-                                            ?>
+                                            @endphp
                                             @break
                                         @elseif($answer->number === $solution_answer->answer_number && !$answer->correct )
                                             {{'list-group-item-danger'}}
-                                            <?php
+                                            @php
                                                 $pass = false;
-                                            ?>
+                                            @endphp
                                             @break
                                         @endif
                                     @endif
@@ -36,7 +36,7 @@
                             ">
                                 {{$answer->content}}
                                 @if($answer->correct)
-                                    <?php $check++ ?>
+                                    @php $check++ @endphp
                                     <i class="fas fa-check"></i>
                                 @endif
                             </li>

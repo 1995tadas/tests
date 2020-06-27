@@ -1943,6 +1943,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1955,6 +1963,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     questionAction: {
+      type: String,
+      required: true
+    },
+    formTitle: {
       type: String,
       required: true
     },
@@ -1990,9 +2002,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var jsonInputs = JSON.parse(this.inputValues);
-      console.log(jsonInputs);
       var length = Object.keys(jsonInputs).length;
-      console.log(jsonInputs);
 
       if (length) {
         Object.entries(jsonInputs.answers).forEach(function (element) {
@@ -2235,6 +2245,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2249,6 +2265,10 @@ __webpack_require__.r(__webpack_exports__);
     method: {
       type: String,
       "default": 'post'
+    },
+    formTitle: {
+      type: String,
+      required: true
     },
     title: {
       type: String,
@@ -38453,198 +38473,225 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    { attrs: { method: "POST", action: _vm.questionAction } },
-    [
-      _vm.testId
-        ? _c("input", {
-            attrs: { type: "hidden", name: "test_id" },
-            domProps: { value: _vm.testId }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.method === "put"
-        ? _c("input", {
-            attrs: { type: "hidden", name: "_method", value: "PUT" }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm._t("default"),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group form-row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("label", { attrs: { for: "question" } }, [_vm._v("Klausimas")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.question,
-                expression: "question"
-              }
-            ],
-            staticClass: "form-control",
-            class: {
-              "border-success": _vm.question,
-              "border-danger": !_vm.question
-            },
-            attrs: { type: "text", id: "question", name: "question" },
-            domProps: { value: _vm.question },
-            on: {
-              keyup: _vm.submitValidation,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.question = $event.target.value
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("label", { attrs: { for: "answers" } }, [
-            _vm._v("Atsakymų kiekis")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selected,
-                  expression: "selected"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "answers" },
-              on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.selected = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  _vm.resetAnswers
-                ]
-              }
-            },
-            _vm._l(8, function(n) {
-              return n > 1
-                ? _c("option", {
-                    domProps: { value: n, textContent: _vm._s(n) }
-                  })
-                : _vm._e()
-            }),
-            0
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._l(_vm.selected, function(n) {
-        return _c("div", { staticClass: "form-group" }, [
-          _c("label", {
-            attrs: { for: "answer" + n },
-            domProps: { textContent: _vm._s("Atsakymas NR." + n) }
+  return _c("div", { staticClass: "form-container" }, [
+    _c("div", { staticClass: "form-wrapper" }, [
+      _c(
+        "form",
+        { attrs: { method: "POST", action: _vm.questionAction } },
+        [
+          _c("span", {
+            staticClass: "form-title",
+            domProps: { textContent: _vm._s(_vm.formTitle) }
           }),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.answers[n],
-                expression: "answers[n]"
-              }
-            ],
-            staticClass: "form-control",
-            class: {
-              "border-success": _vm.answers[n],
-              "border-danger": !_vm.answers[n]
-            },
-            attrs: { type: "text", name: "answers[" + n + "]" },
-            domProps: { value: _vm.answers[n] },
-            on: {
-              keyup: _vm.submitValidation,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _vm.testId
+            ? _c("input", {
+                attrs: { type: "hidden", name: "test_id" },
+                domProps: { value: _vm.testId }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.method === "put"
+            ? _c("input", {
+                attrs: { type: "hidden", name: "_method", value: "PUT" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._t("default"),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group form-row" }, [
+            _c("div", { staticClass: "col" }, [
+              _c("label", { attrs: { for: "question" } }, [
+                _vm._v("Klausimas")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.question,
+                    expression: "question"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "border-success": _vm.question,
+                  "border-danger": !_vm.question
+                },
+                attrs: {
+                  type: "text",
+                  id: "question",
+                  name: "question",
+                  required: "",
+                  autofocus: ""
+                },
+                domProps: { value: _vm.question },
+                on: {
+                  keyup: _vm.submitValidation,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.question = $event.target.value
+                  }
                 }
-                _vm.$set(_vm.answers, n, $event.target.value)
-              }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-3" }, [
+              _c("label", { attrs: { for: "answers" } }, [
+                _vm._v("Ats. kiekis")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selected,
+                      expression: "selected"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "answers" },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.selected = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      _vm.resetAnswers
+                    ]
+                  }
+                },
+                _vm._l(8, function(n) {
+                  return n > 1
+                    ? _c("option", {
+                        domProps: { value: n, textContent: _vm._s(n) }
+                      })
+                    : _vm._e()
+                }),
+                0
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.selected, function(n) {
+            return _c("div", { staticClass: "form-group" }, [
+              _c("label", {
+                attrs: { for: "answer" + n },
+                domProps: { textContent: _vm._s("Atsakymas NR." + n) }
+              }),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.answers[n],
+                    expression: "answers[n]"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "border-success": _vm.answers[n],
+                  "border-danger": !_vm.answers[n]
+                },
+                attrs: {
+                  type: "text",
+                  name: "answers[" + n + "]",
+                  required: ""
+                },
+                domProps: { value: _vm.answers[n] },
+                on: {
+                  keyup: _vm.submitValidation,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.answers, n, $event.target.value)
+                  }
+                }
+              })
+            ])
+          }),
+          _vm._v(" "),
+          _vm.errors.length
+            ? _c(
+                "div",
+                { staticClass: "form-group" },
+                _vm._l(_vm.errors, function(error) {
+                  return _c("div", {
+                    staticClass: "text-danger",
+                    domProps: { textContent: _vm._s(error) }
+                  })
+                }),
+                0
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.selected
+            ? _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _c("h6", [_vm._v("Pasirinkite visus teisingus atsakymus")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.selected, function(n) {
+                    return _c(
+                      "div",
+                      {
+                        staticClass: "d-inline custom-control custom-checkbox"
+                      },
+                      [
+                        _c("input", {
+                          staticClass: "custom-control-input",
+                          attrs: {
+                            type: "checkbox",
+                            name: "correct_answers[" + n + "]",
+                            id: "correct_answer" + n
+                          },
+                          domProps: { checked: _vm.correctAnswers[n] }
+                        }),
+                        _vm._v(" "),
+                        _c("label", {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "correct_answer" + n },
+                          domProps: { textContent: _vm._s("NR." + n) }
+                        })
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-success",
+            attrs: {
+              disabled: _vm.isDisabled,
+              type: "submit",
+              value: "Išsaugoti"
             }
           })
-        ])
-      }),
-      _vm._v(" "),
-      _vm.errors.length
-        ? _c(
-            "div",
-            { staticClass: "form-group" },
-            _vm._l(_vm.errors, function(error) {
-              return _c("div", {
-                staticClass: "text-danger",
-                domProps: { textContent: _vm._s(error) }
-              })
-            }),
-            0
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.selected
-        ? _c(
-            "div",
-            { staticClass: "form-group" },
-            [
-              _c("h6", [_vm._v("Pasirinkite visus teisingus atsakymus")]),
-              _vm._v(" "),
-              _vm._l(_vm.selected, function(n) {
-                return _c(
-                  "div",
-                  { staticClass: "custom-control custom-checkbox" },
-                  [
-                    _c("input", {
-                      staticClass: "custom-control-input",
-                      attrs: {
-                        type: "checkbox",
-                        name: "correct_answers[" + n + "]",
-                        id: "correct_answer" + n
-                      },
-                      domProps: { checked: _vm.correctAnswers[n] }
-                    }),
-                    _vm._v(" "),
-                    _c("label", {
-                      staticClass: "custom-control-label",
-                      attrs: { for: "correct_answer" + n },
-                      domProps: { textContent: _vm._s("NR." + n) }
-                    })
-                  ]
-                )
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "btn btn-primary",
-        attrs: { disabled: _vm.isDisabled, type: "submit", value: "Išsaugoti" }
-      })
-    ],
-    2
-  )
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -38801,68 +38848,91 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    { attrs: { method: "post", action: _vm.testAction } },
-    [
-      _vm._t("default"),
-      _vm._v(" "),
-      _vm.method === "put"
-        ? _c("input", {
-            attrs: { type: "hidden", name: "_method", value: "PUT" }
-          })
-        : _vm._e(),
-      _vm._v(" "),
+  return _c("div", { staticClass: "form-container" }, [
+    _c("div", { staticClass: "form-wrapper" }, [
       _c(
-        "div",
-        { staticClass: "form-group" },
+        "form",
+        { attrs: { method: "post", action: _vm.testAction } },
         [
-          _c("label", { attrs: { for: "title" } }, [
-            _vm._v("Testo pavadinimas")
-          ]),
+          _vm._t("default"),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.title,
-                expression: "title"
-              }
-            ],
-            staticClass: "form-control",
-            class: { "border-success": _vm.title, "border-danger": !_vm.title },
-            attrs: { type: "text", id: "title", name: "title" },
-            domProps: { value: _vm.title },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.title = $event.target.value
-              }
-            }
+          _c("span", {
+            staticClass: "form-title",
+            domProps: { textContent: _vm._s(_vm.formTitle) }
           }),
           _vm._v(" "),
-          _vm._l(_vm.parsedErrors, function(error) {
-            return _c("small", {
-              staticClass: "text-danger",
-              domProps: { textContent: _vm._s(error) }
+          _vm.method === "put"
+            ? _c("input", {
+                attrs: { type: "hidden", name: "_method", value: "PUT" }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", { attrs: { for: "title" } }, [
+                _vm._v("Testo pavadinimas")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.title,
+                    expression: "title"
+                  }
+                ],
+                staticClass: "form-control",
+                class: {
+                  "border-success": _vm.title,
+                  "border-danger": !_vm.title
+                },
+                attrs: {
+                  type: "text",
+                  id: "title",
+                  name: "title",
+                  maxlength: "60",
+                  autofocus: "",
+                  required: ""
+                },
+                domProps: { value: _vm.title },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.title = $event.target.value
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm._l(_vm.parsedErrors, function(error) {
+                return _c("small", {
+                  staticClass: "text-danger",
+                  domProps: { textContent: _vm._s(error) }
+                })
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("input", {
+              staticClass: "btn btn-success",
+              attrs: {
+                disabled: !_vm.title,
+                type: "submit",
+                value: "Išsaugoti"
+              }
             })
-          })
+          ])
         ],
         2
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("input", {
-          staticClass: "btn btn-primary",
-          attrs: { disabled: !_vm.title, type: "submit", value: "Išsaugoti" }
-        })
-      ])
-    ],
-    2
-  )
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="justify-content-center">
+    <div class="list-container">
+        <div class="list-wrapper">
             @if(!$solutions->isEmpty())
-                <table>
+                <table class="solution-table">
                     <tr>
                         <th>Vartotojas</th>
                         <th>Sprendimo data</th>

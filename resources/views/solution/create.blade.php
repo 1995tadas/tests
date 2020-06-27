@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="justify-content-center">
+    <div class="list-container">
+        <div class="list-wrapper">
             @if($test)
                 <div class="d-flex justify-content-between">
                     <div>

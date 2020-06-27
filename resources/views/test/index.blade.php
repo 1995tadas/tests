@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="justify-content-center">
+    <div class="list-container">
+        <div class="list-wrapper">
             @if(session()->has('message'))
                 <div class="alert alert-success">
                     {{ session()->get('message') }}
@@ -12,15 +12,12 @@
                     {{ session()->get('error') }}
                 </div>
             @endif
-            <div class="d-flex justify-content-between">
-                <h3>Mano sukurti testai</h3>
-                <a href="{{route('test.create')}}">Naujas testas</a>
-            </div>
+            <h3>Mano sukurti testai</h3>
             <ul class="list-group">
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <a href="{{route('test.show', ['url'=> $test->url ])}}">{{$test->title}}</a>
+                            <a href="{{route('test.show', ['url'=> $test->url ])}}">{{Str::limit($test->title,30,'...')}}</a>
                             <i class="fas fa-link" title="Kopijuoti nuoroda"></i>
                             <div>{{route('test.show', ['url'=> $test->url ])}}</div>
                         </div>
@@ -32,7 +29,7 @@
                     </li>
                 @endforelse
             </ul>
-        {{ $tests->links() }}
+            {{ $tests->links() }}
         </div>
     </div>
 @endsection
