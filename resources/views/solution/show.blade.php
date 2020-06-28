@@ -51,7 +51,10 @@
                         }
                     @endphp
                 @endforeach
-            <div>Galutinis rezultatas:{{$final.'/'.$test->questions->count()}}</div>
+            <h1 class="text-center">
+                <div>Galutinis rezultatas:</div>
+                <div>{{$final.'/'.$test->questions->count()}}</div>
+            </h1>
         </div>
     </div>
 @endsection

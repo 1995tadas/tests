@@ -17,11 +17,11 @@
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <a href="{{route('test.show', ['url'=> $test->url ])}}">{{Str::limit($test->title,30,'...')}}</a>
-                            <i class="fas fa-link" title="Kopijuoti nuoroda"></i>
-                            <div>{{route('test.show', ['url'=> $test->url ])}}</div>
+                            <a href="{{route('test.show', ['url'=> $test->url ])}}" title="Atidaryti testą">{{Str::limit($test->title,30,'...')}}</a>
+                            <copy-to-clipboard-component test-show="{{route('test.show', ['url'=> $test->url ])}}">
+                            </copy-to-clipboard-component>
                         </div>
-                        <span class="badge badge-primary badge-pill">{{$test->questions->count()}} klausimai</span>
+                        <span class="badge badge-success badge-pill">{{questionName($test->questions->count())}}</span>
                     </li>
                 @empty
                     <li class="list-group-item text-center">
@@ -29,7 +29,9 @@
                     </li>
                 @endforelse
             </ul>
-            {{ $tests->links() }}
+            <div>
+                {{ $tests->links() }}
+            </div>
         </div>
     </div>
 @endsection

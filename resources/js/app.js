@@ -21,6 +21,7 @@ window.Vue = require('vue');
 Vue.component('question-form-component', require('./components/QuestionFormComponent.vue').default);
 Vue.component('test-form-component', require('./components/TestFormComponent.vue').default);
 Vue.component('side-menu-component', require('./components/SideMenuComponent.vue').default);
+Vue.component('copy-to-clipboard-component', require('./components/CopyToClipboardComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

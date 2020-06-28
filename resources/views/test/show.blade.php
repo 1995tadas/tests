@@ -9,33 +9,40 @@
                 </div>
             @endif
             <div class="d-flex justify-content-between">
-                <div>
+                <div class="test-title">
                     <h5>{{$test->title}}</h5>
                     <h6>{{$test->created_at}}</h6>
-                    <h6><a href="{{route('solution.index', [$test->id])}}">Sprendimai</a></h6>
                 </div>
-                <div class="icons">
-                    <a href="{{route('question.create', ['url' => $test->url])}}">
-                        <i class="fas fa-plus" title="Pridėti klausimą"></i>
-                    </a>
-                    <a href="{{route('test.edit', ['url' => $test->url])}}"><i class="fas fa-file-signature" title="Keisti testo pavadinimą"></i></a>
-                    <form class="d-inline" action="{{route('test.destroy', ['url' => $test->url])}}" method="POST">
-                        @method('delete')
-                        @csrf
-                        <button class="btn btn-link p-0 m-0 d-inline align-baseline" type="submit"><i class="fas fa-trash" title="Ištrinti testą"></i></button>
-                    </form>
+                <div class="icons-container">
+                    <div class="icons">
+                        <a href="{{route('question.create', ['url' => $test->url])}}">
+                            <i class="fas fa-plus" title="Pridėti klausimą"></i>
+                        </a>
+                        <a href="{{route('test.edit', ['url' => $test->url])}}"><i class="fas fa-file-signature" title="Keisti testo pavadinimą"></i></a>
+                        <form class="d-inline" action="{{route('test.destroy', ['url' => $test->url])}}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <button class="btn btn-link p-0 m-0 d-inline align-baseline" type="submit"><i class="fas fa-trash" title="Ištrinti testą"></i></button>
+                        </form>
+                        <copy-to-clipboard-component test-show="{{route('test.show', ['url'=> $test->url ])}}">
+                        </copy-to-clipboard-component>
+                        <a href="{{route('solution.index', [$test->id])}}"><i class="fas fa-poll" title="Sprendimai"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="border-top mb-5 my-3"></div>
             @forelse($test->questions->all() as $question)
-                <div class="panel">
-                    <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
+                <div class="list-single">
+                    <div class="list-asset d-flex justify-content-between">
+                        <h4>{{$question->content}}</h4>
+                        <div>{{($loop->index + 1).'/'.$test->questions->count()}}</div>
+                    </div>
                     <ul class="list-group my-2">
                         @foreach($question->answers->all() as $answer)
                             <li class="list-group-item {{$answer->correct ? 'list-group-item-success':''}}">{{$answer->content}}</li>
                         @endforeach
                     </ul>
-                    <div class="icons">
+                    <div class="icons list-asset">
                         <form class="d-inline" action="{{route('question.destroy', ['id' => $question->id])}}" method="post">
                             @method('delete')
                             @csrf

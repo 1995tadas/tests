@@ -85,8 +85,8 @@
     .custom-menu{
         display: inline-block;
         position: absolute;
-        top: 10px;
-        margin-left: 200px;
+        top: 5px;
+        margin-left: 150px;
         z-index: 999;
         @include transition(.3s);
         .btn{
@@ -180,7 +180,6 @@
         },
         methods:{
             logout() {
-
                 if(confirm("Ar tikrai norite atsijungti?")){
                     axios.post(this.logOut)
                         .then(window.location.href = this.logIn)
