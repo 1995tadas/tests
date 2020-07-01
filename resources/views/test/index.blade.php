@@ -29,9 +29,7 @@
                     </li>
                 @endforelse
             </ul>
-            <div>
                 {{ $tests->links() }}
-            </div>
         </div>
     </div>
 @endsection

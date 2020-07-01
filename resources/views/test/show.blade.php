@@ -9,7 +9,7 @@
                 </div>
             @endif
             <div class="d-flex justify-content-between">
-                <div class="test-title">
+                <div class="list-title">
                     <h5>{{$test->title}}</h5>
                     <h6>{{$test->created_at}}</h6>
                 </div>
@@ -26,7 +26,7 @@
                         </form>
                         <copy-to-clipboard-component test-show="{{route('test.show', ['url'=> $test->url ])}}">
                         </copy-to-clipboard-component>
-                        <a href="{{route('solution.index', [$test->id])}}"><i class="fas fa-poll" title="Sprendimai"></i></a>
+                        <a href="{{route('solution.index', [$test->url])}}"><i class="fas fa-poll" title="Sprendimai"></i></a>
                     </div>
                 </div>
             </div>

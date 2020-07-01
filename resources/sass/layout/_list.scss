@@ -1,0 +1,52 @@
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
+:root {
+    --icons-size: 25px;
+}
+.list-container {
+    background-color: #DBF3DD;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    .list-wrapper {
+        padding: 20px;
+        width: 70%;
+        background: #fff;
+        border-radius: 5px;
+        @include media-breakpoint-down(md){
+            min-width: 100%;
+        }
+        h4 {
+            margin: 0;
+        }
+        .list-title {
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .icons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .icons {
+            font-size:var(--icons-size);
+            background-color: #DDE5DB;
+            display: inline;
+            padding: 0 10px;
+            border-radius: 10px;
+            button {
+                font-size:var(--icons-size);
+            }
+        }
+        .list-single {
+            background-color: #d3d3d3;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            .list-asset {
+                margin: 0 20px;
+            }
+        }
+    }
+}

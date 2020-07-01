@@ -1,7 +1,7 @@
 <template>
     <div class="form-container">
         <div class="form-wrapper">
-            <form method="post" :action="testAction">
+            <form class="form" method="post" :action="testAction">
                 <slot></slot>
                 <span class="form-title" v-text="formTitle"></span>
                 <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">

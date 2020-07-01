@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" scoped>
     @import 'resources/sass/_variables.scss';
     @import 'node_modules/bootstrap/scss/bootstrap.scss';
 
@@ -16,18 +16,23 @@
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-        &.active{
-            margin-left: -200px;
-        }
+        z-index: 999;
         h1{
             margin-bottom: 20px;
             font-weight: 700;
             font-size: 20px;
-            .logo{
+            background: $primary;
+            padding: 10px 10px 10px 30px;
+            display: block;
+            a {
                 color: $white;
-                display: block;
-                padding: 10px 30px;
-                background: $primary;
+            }
+            .close-icon {
+                margin-left: 20px;
+                font-size: 1.8rem;
+                &:hover{
+                    color: red;
+                }
             }
         }
         ul.components{
@@ -66,28 +71,14 @@
             }
         }
         @include media-breakpoint-down(md){
-            margin-left: -200px;
-            &.active {
-                margin-left: 0;
-            }
-            .custom-menu {
-                margin-left: 20px !important;
-            }
-        }
-    }
-    #sidebarCollapse{
-        span{
-            @include media-breakpoint-down(md){
-                display: none;
-            }
+           // margin-left: -200px;
         }
     }
     .custom-menu{
         display: inline-block;
         position: absolute;
         top: 5px;
-        margin-left: 150px;
-        z-index: 999;
+        margin-left: 20px;
         @include transition(.3s);
         .btn{
             &.btn-primary{
@@ -105,31 +96,22 @@
                 }
             }
         }
-        @include media-breakpoint-down(md){
-            margin-left: 20px !important;
-        }
-    }
-    .custom-menu-hide{
-        margin-left: 20px !important;
     }
     .hide{
         margin-left: -200px;
-        &.active {
-            margin-left: 0;
-        }
     }
 
 </style>
 <template>
     <div>
-        <div class="custom-menu" :class="{'custom-menu-hide':hidden}">
-            <button type="button" id="sidebarCollapse" class="btn btn-primary" @click="hidden = !hidden">
+        <div class="custom-menu" :class="{'custom-menu-hide':!hidden}">
+            <button type="button" class="btn btn-primary" @click="hidden = !hidden">
                 <i class="fa fa-bars"></i>
                 <span class="sr-only">Toggle Menu</span>
             </button>
         </div>
         <nav :class="{'hide': hidden}" id="sidebar">
-            <h1><a :href="home" class="logo">Pagrindinis</a></h1>
+            <h1 class="logo"><a :href="home">Pagrindinis</a> <a class="close-icon" href="#" @click.prevent="hidden = !hidden"><i class="fa fa-times"></i></a></h1>
             <ul class="list-unstyled components mb-5">
                 <li v-if="!user" :class="{active:url === 'login'}">
                     <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>

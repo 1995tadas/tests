@@ -6,3 +6,18 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Layouts
+
+    // Solution Table
+    @import 'layout/solution_table';
+
+    // Form
+    @import 'layout/form';
+
+    // List
+    @import 'layout/list';
+
+    // Landing page
+    @import 'layout/landing';
+

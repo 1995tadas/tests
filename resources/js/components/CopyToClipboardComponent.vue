@@ -1,4 +1,4 @@
-<style>
+<style scoped>
     i:hover {
         color: #649d66;
         transform: scale(1.2);

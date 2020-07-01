@@ -1,0 +1,25 @@
+
+$table-primary: #36304a;
+
+.solution-table {
+    width: 100%;
+    td {
+        padding: 20px;
+    }
+    th {
+        @extend td;
+        background-color: $table-primary;
+        color: white;
+    }
+    tr {
+        &:hover {
+            background-color: #87bf17 !important;
+        }
+        &:nth-child(even):not(:first-child){
+            border-bottom: 5px solid $table-primary;
+        }
+        &:nth-child(odd):not(:first-child){
+            background-color: #DBF3DD;
+        }
+    }
+}

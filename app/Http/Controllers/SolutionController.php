@@ -45,9 +45,10 @@ class SolutionController extends Controller
         }
     }
 
-    public function index($id)
+    public function index($url)
     {
-        $solutions = Solution::where('test_id', $id)->get();
+        $test = Test::where('url', $url)->firstOrFail();
+        $solutions = Solution::where('test_id', $test->id)->get();
         return view('solution.index', ['solutions' => $solutions]);
     }
 

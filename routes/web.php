@@ -38,5 +38,5 @@ Route::delete('/question/{id}', 'QuestionController@destroy')->name('question.de
 Route::get('/solution/test/{url}/create', 'SolutionController@create')->name('solution.create')->middleware('not.test.author');
 Route::post('/solution/test/{url}', 'SolutionController@store')->name('solution.store')->middleware('not.test.author');
 Route::get('/solution/{id}', 'SolutionController@show')->name('solution.show')->middleware('solution.auth');
-Route::get('/{id}/solution', 'SolutionController@index')->name('solution.index')->middleware('solution.auth');
+Route::get('/{url}/solution', 'SolutionController@index')->name('solution.index')->middleware('test.author');
 
