@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ Request::secure() ? secure_asset('js/app.js'): asset('js/app.js')}}" defer></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/3c45c07865.js" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
@@ -18,8 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Nova+Round&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ Request::secure() ? secure_asset('css/style.css'): asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ Request::secure() ? secure_asset('css/app.css'): asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper d-flex align-items-stretch" id="app">
