@@ -1,3 +1,71 @@
+<template>
+    <div>
+        <div class="custom-menu" :class="{'custom-menu-hide':!hidden}">
+            <button type="button" class="btn btn-primary" @click="hidden = !hidden">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <nav :class="{'hide': hidden}" id="sidebar">
+            <h1 class="logo"><a :href="home">Pagrindinis</a> <a class="close-icon" href="#" @click.prevent="hidden = !hidden"><i class="fa fa-times"></i></a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li v-if="!user" :class="{active:url === 'login'}">
+                    <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
+                </li>
+                <li v-if="!user" :class="{active:url === 'register'}">
+                    <a :href="register"><span class="fa fa-user-plus mr-3"></span>Registracija</a>
+                </li>
+                <li v-if="user" :class="{active:url === 'test/create'}">
+                    <a :href="this.testCreate"><span class="fa fa-plus mr-3"></span>Naujas testas</a>
+                </li>
+                <li v-if="user" :class="{active:url === 'test'}">
+                    <a :href="this.testIndex"><span class="fa fa-book mr-3"></span>Testai</a>
+                </li>
+                <li v-if="user">
+                    <a href="#" @click.prevent="logout" ><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
+                </li>
+                <li>
+                    <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio"><span class="fa fa-info-circle mr-3"></span>Apie autorių</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</template>
+<script>
+    export default {
+        props:{
+            testIndex: String,
+            testCreate: String,
+            home: String,
+            url: String,
+            user: {
+                type:Boolean,
+                default:false
+            },
+            register: String,
+            logIn: String,
+            logOut: String
+        },
+        created() {
+          if(this.url === '/'){
+              this.hidden = true;
+          }
+        },
+        data() {
+            return {
+                hidden: false
+            }
+        },
+        methods:{
+            logout() {
+                if(confirm("Ar tikrai norite atsijungti?")){
+                    axios.post(this.logOut)
+                        .then(window.location.href = this.logIn)
+                }
+            }
+        }
+    }
+</script>
 <style lang="scss" scoped>
     @import 'resources/sass/_variables.scss';
     @import 'node_modules/bootstrap/scss/bootstrap.scss';
@@ -71,7 +139,7 @@
             }
         }
         @include media-breakpoint-down(md){
-           // margin-left: -200px;
+            // margin-left: -200px;
         }
     }
     .custom-menu{
@@ -102,71 +170,3 @@
     }
 
 </style>
-<template>
-    <div>
-        <div class="custom-menu" :class="{'custom-menu-hide':!hidden}">
-            <button type="button" class="btn btn-primary" @click="hidden = !hidden">
-                <i class="fa fa-bars"></i>
-                <span class="sr-only">Toggle Menu</span>
-            </button>
-        </div>
-        <nav :class="{'hide': hidden}" id="sidebar">
-            <h1 class="logo"><a :href="home">Pagrindinis</a> <a class="close-icon" href="#" @click.prevent="hidden = !hidden"><i class="fa fa-times"></i></a></h1>
-            <ul class="list-unstyled components mb-5">
-                <li v-if="!user" :class="{active:url === 'login'}">
-                    <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
-                </li>
-                <li v-if="!user" :class="{active:url === 'register'}">
-                    <a :href="register"><span class="fa fa-user-plus mr-3"></span>Registracija</a>
-                </li>
-                <li v-if="user" :class="{active:url === 'test/create'}">
-                    <a :href="this.testCreate"><span class="fa fa-plus mr-3"></span>Naujas testas</a>
-                </li>
-                <li v-if="user" :class="{active:url === 'test'}">
-                    <a :href="this.testIndex"><span class="fa fa-book mr-3"></span>Testai</a>
-                </li>
-                <li v-if="user">
-                    <a href="#" @click.prevent="logout" ><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
-                </li>
-                <li>
-                    <a href="https://github.com/1995tadas" title="Github"><span class="fa fa-info-circle mr-3"></span>Apie autorių</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</template>
-<script>
-    export default {
-        props:{
-            testIndex: String,
-            testCreate: String,
-            home: String,
-            url: String,
-            user: {
-                type:Boolean,
-                default:false
-            },
-            register: String,
-            logIn: String,
-            logOut: String
-        },
-        created() {
-          if(this.url === '/'){
-              this.hidden = true;
-          }
-        },
-        data() {
-            return {
-                hidden: false
-            }
-        },
-        methods:{
-            logout() {
-                if(confirm("Ar tikrai norite atsijungti?")){
-                    axios.post(this.logOut)
-                        .then(window.location.href = this.logIn)
-                }
-            }
-        }
-    }
-</script>

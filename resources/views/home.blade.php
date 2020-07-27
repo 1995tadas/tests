@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="landing-title">
-        <h1>Testas</h1>
+        <div class="title">
+            <h1>Testas</h1>
+            <landing-component></landing-component>
+        </div>
     </div>
 @endsection

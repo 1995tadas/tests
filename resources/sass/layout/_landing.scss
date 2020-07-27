@@ -1,5 +1,5 @@
 .landing-title {
-    background: url("https://i.pinimg.com/originals/76/44/02/764402435a946f947ed02f2b5bc5b17d.jpg");
+    background-color: #214f7e;
     min-height: 100vh;
     width: 100%;
     display: flex;
@@ -7,13 +7,14 @@
     align-items: center;
     justify-content: center;
     opacity: 1;
-    h1 {
-        font-size: 10rem;
-        width: 50vw;
-        padding: 20px;
+    .title {
         text-align: center;
-        background-color: #f6d743;
-        color: black;
-        mix-blend-mode: exclusion;
+        h1 {
+            font-size: 10rem;
+            padding: 20px;
+            background-color: #f6d743;
+            color: black;
+            mix-blend-mode: exclusion;
+        }
     }
 }
