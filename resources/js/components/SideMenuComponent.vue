@@ -3,7 +3,6 @@
         <div class="custom-menu" :class="{'custom-menu-hide':!hidden}">
             <button type="button" class="btn btn-primary" @click="hidden = !hidden">
                 <i class="fa fa-bars"></i>
-                <span class="sr-only">Toggle Menu</span>
             </button>
         </div>
         <nav :class="{'hide': hidden}" id="sidebar">
@@ -154,7 +153,7 @@
                 border-color: transparent;
                 i{
                     color: black;
-                    font-size: 24px;
+                    font-size: 50px;
                 }
                 &:hover, &:focus{
                     background: transparent !important;

@@ -1,16 +1,22 @@
 <template>
-    <transition name="fade" mode="out-in">
-        <div :key=text[this.currentTextIndex]>{{text[this.currentTextIndex]}}</div>
-    </transition>
+    <div>
+        <transition name="appear">
+            <h1 v-show="loaded">Testas</h1>
+        </transition>
+        <transition name="fade" mode="out-in">
+            <div :key=text[this.currentTextIndex]>{{text[this.currentTextIndex]}}</div>
+        </transition>
+    </div>
 </template>
 <script>
     export default {
         data() {
             return {
-                text: ['Registruokitės', 'Susikurkite savo testą', 'Pridėkite klausimus', 'Dalinkitės su draugais',
+                text: ['Registruokitės ir junkitės', 'Susikurkite savo testą', 'Pridėkite klausimus', 'Dalinkitės su draugais',
                 'Peržiūrėkite sprendimus'
                 ],
                 currentTextIndex: 0,
+                loaded: false
             }
         },
         methods: {
@@ -22,20 +28,36 @@
                             this.currentTextIndex++;
                         }
                     },3000)
-            }
+            },
         },
         mounted() {
             this.changeText();
+            this.loaded = true;
         }
     }
 </script>
-<style scoped type="scss">
+<style scoped lang="scss">
     div {
-        font-size: 3em;
+        font-size: 1.7em;
         color: white;
+        h1 {
+            font-size: 10rem;
+            padding: 20px;
+            background-color: #f6d743;
+            color: black;
+            mix-blend-mode: exclusion;
+        }
     }
-    .fade-enter-active,.fade-leave-active {
+    .fade-enter-active,.fade-leave-active,.appear-enter-active {
         transition:opacity 1s ease-in-out, transform 1s ease-in-out;
+    }
+    .appear-enter {
+        opacity: 0;
+        transform: translateY(-100px)
+    }
+    .appear-enter-to {
+        opacity: 1;
+        transform: translateY(0px)
     }
     .fade-enter, .fade-leave-to {
         opacity: 0;
