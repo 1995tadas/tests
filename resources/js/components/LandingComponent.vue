@@ -4,7 +4,7 @@
             <h1 v-show="loaded">Testas</h1>
         </transition>
         <transition name="fade" mode="out-in">
-            <div :key=text[this.currentTextIndex]>{{text[this.currentTextIndex]}}</div>
+            <div class="explanations" :key=text[this.currentTextIndex]>{{text[this.currentTextIndex]}}</div>
         </transition>
     </div>
 </template>
@@ -37,15 +37,27 @@
     }
 </script>
 <style scoped lang="scss">
+    @import 'node_modules/bootstrap/scss/bootstrap.scss';
     div {
-        font-size: 1.7em;
-        color: white;
+
         h1 {
             font-size: 10rem;
             padding: 20px;
             background-color: #f6d743;
             color: black;
             mix-blend-mode: exclusion;
+            @include media-breakpoint-down(md){
+                font-size: 5rem;
+                width: 100vw;
+            }
+        }
+        .explanations {
+            margin-top: 40px;
+            font-size: 3em;
+            color: white;
+            @include media-breakpoint-down(md){
+                font-size: 1.3em;
+            }
         }
     }
     .fade-enter-active,.fade-leave-active,.appear-enter-active {

@@ -154,6 +154,9 @@
                 i{
                     color: black;
                     font-size: 50px;
+                    @include media-breakpoint-down(md){
+                        font-size: 30px;
+                    }
                 }
                 &:hover, &:focus{
                     background: transparent !important;
