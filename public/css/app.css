@@ -11009,6 +11009,12 @@ a.text-dark:focus {
   margin-bottom: 20px;
 }
 
+.form-container .form-wrapper .form .form-note {
+  font-size: 10px;
+  color: #ff92a5;
+  line-height: 4;
+}
+
 .form-container .form-wrapper .form .form-title {
   word-wrap: break-word;
   display: block;
@@ -22089,10 +22095,6 @@ a.text-dark:focus {
   display: inline;
   padding: 0 10px;
   border-radius: 10px;
-}
-
-.list-container .list-wrapper .icons button {
-  font-size: var(--icons-size);
 }
 
 .list-container .list-wrapper .list-single {

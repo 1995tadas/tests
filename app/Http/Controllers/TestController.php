@@ -67,7 +67,8 @@ class TestController extends Controller
     public function destroy($url)
     {
         Test::where('url', $url)->delete();
-        return redirect(route('test.index'))->with('message', 'Testas sėkmingai ištrintas!');
+        session()->flash('message', 'Testas sėkmingai ištrintas!');
+        return response('success', 204);
     }
 
     private function validation($request)

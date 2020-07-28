@@ -70,7 +70,6 @@
                 }
             },
             mobile() {
-                console.log($(window).width());
                 if ($(window).width() <= 992) {
                     this.hidden = true;
                 }

@@ -63,7 +63,8 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         Question::findOrFail($id)->delete();
-        return redirect()->back()->with('message', 'Klausimas buvo sėkmingai ištrintas!');
+        session()->flash('message', 'Klausimas buvo sėkmingai ištrintas!');
+        return response('success', 204);
     }
 
     public function storeOrUpdateAnswer($request, $storeOrUpdate, $question_id)

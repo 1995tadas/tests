@@ -26,7 +26,7 @@ Route::get('/test/create', 'TestController@create')->name('test.create');
 Route::post('/test', 'TestController@store')->name('test.store');
 Route::get('/test/{url}', 'TestController@show')->name('test.show');
 Route::middleware('test.author')->group(function () {
-    Route::get('/test/edit/{url}', 'TestController@edit')->name('test.edit');
+    Route::get('/test/{url}/edit', 'TestController@edit')->name('test.edit');
     Route::put('/test/{url}', 'TestController@update')->name('test.update');
     Route::delete('/test/{url}', 'TestController@destroy')->name('test.destroy');
 

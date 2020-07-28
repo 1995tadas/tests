@@ -3,6 +3,7 @@
         <div class="form-wrapper">
             <form class="form" method="POST" :action="questionAction">
                 <span class="form-title" v-text="formTitle"></span>
+                <span class="form-note">{{method === "post"? "Pridėkite": "Redaguokite"}} klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus</span>
                 <input v-if="testId" type="hidden" name="test_id" :value="testId">
                 <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
                 <slot></slot>
@@ -10,7 +11,8 @@
                     <div class="col">
                         <label for="question">Klausimas</label>
                         <input class="form-control" :class="{'border-success':question, 'border-danger':!question}"
-                               type="text" id="question" name="question" v-model="question" @keyup="submitValidation" required autofocus>
+                               type="text" id="question" name="question" v-model="question" @keyup="submitValidation"
+                               required autofocus>
                     </div>
                     <div class="col-md-3">
                         <label for="answers">Ats. kiekis</label>
@@ -22,7 +24,9 @@
                 <div class="form-group" v-for="n in selected">
                     <label :for="'answer' + n" v-text="'Atsakymas NR.' + n"></label>
                     <textarea v-model="answers[n]" :class="{'border-success':answers[n], 'border-danger':!answers[n]}"
-                              class="form-control" type="text" :name="'answers['+n+']'" @keyup="submitValidation" required maxlength="255"></textarea>
+                              class="form-control" type="text" :name="'answers['+n+']'" @keyup="submitValidation"
+                              required maxlength="255">
+                    </textarea>
                 </div>
                 <div v-if=errors.length class="form-group">
                     <div class="text-danger" v-for="error in errors" v-text="error"></div>

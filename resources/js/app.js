@@ -23,6 +23,7 @@ Vue.component('test-form-component', require('./components/TestFormComponent.vue
 Vue.component('side-menu-component', require('./components/SideMenuComponent.vue').default);
 Vue.component('copy-to-clipboard-component', require('./components/CopyToClipboardComponent.vue').default);
 Vue.component('landing-component', require('./components/LandingComponent.vue').default);
+Vue.component('delete-component', require('./components/DeleteComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
