@@ -9,7 +9,7 @@
                         <h5>{{$test->title}}</h5>
                         <h6>{{$test->created_at}}</h6>
                     </div>
-                    <div>
+                    <div class="author">
                         <h6>Autorius: {{$test->user->name}}</h6>
                         <h6>{{$test->user->email}}</h6>
                     </div>

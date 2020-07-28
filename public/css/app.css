@@ -10983,11 +10983,25 @@ a.text-dark:focus {
   padding: 15px;
 }
 
+@media (max-width: 767.98px) {
+  .form-container {
+    padding: 0;
+  }
+}
+
 .form-container .form-wrapper {
   padding: 20px;
   width: 540px;
-  background: #fff;
   border-radius: 10px;
+  background: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .form-container .form-wrapper {
+    width: 100%;
+    border-radius: 0;
+    min-height: 100vh;
+  }
 }
 
 .form-container .form-wrapper .form {
@@ -10996,8 +11010,9 @@ a.text-dark:focus {
 }
 
 .form-container .form-wrapper .form .form-title {
+  word-wrap: break-word;
   display: block;
-  font-size: 39px;
+  font-size: 20px;
   color: #333333;
   line-height: 1.2;
   text-align: center;
@@ -22022,6 +22037,7 @@ a.text-dark:focus {
 }
 
 .list-container {
+  word-break: break-word;
   background-color: #DBF3DD;
   width: 100%;
   min-height: 100vh;
@@ -22030,16 +22046,26 @@ a.text-dark:focus {
   padding: 15px;
 }
 
+@media (max-width: 767.98px) {
+  .list-container {
+    padding: 0;
+  }
+}
+
 .list-container .list-wrapper {
-  padding: 20px;
+  padding: 40px 20px 20px;
   width: 70%;
   background: #fff;
   border-radius: 5px;
 }
 
-@media (max-width: 991.98px) {
+.list-container .list-wrapper .author {
+  word-break: normal;
+}
+
+@media (max-width: 767.98px) {
   .list-container .list-wrapper {
-    min-width: 100%;
+    width: 100vw;
   }
 }
 
@@ -22048,14 +22074,13 @@ a.text-dark:focus {
 }
 
 .list-container .list-wrapper .list-title {
-  max-width: 70%;
-  word-wrap: break-word;
+  max-width: 80%;
 }
 
 .list-container .list-wrapper .icons-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .list-container .list-wrapper .icons {
@@ -22079,6 +22104,10 @@ a.text-dark:focus {
 
 .list-container .list-wrapper .list-single .list-asset {
   margin: 0 20px;
+}
+
+.list-container .list-wrapper .list-single .list-asset .counter {
+  white-space: nowrap;
 }
 
 .landing-title {

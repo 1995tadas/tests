@@ -3,31 +3,37 @@
     --icons-size: 25px;
 }
 .list-container {
+    word-break: break-word;
     background-color: #DBF3DD;
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     padding: 15px;
+    @include media-breakpoint-down(sm) {
+        padding: 0;
+    }
     .list-wrapper {
-        padding: 20px;
+        padding: 40px 20px 20px;
         width: 70%;
         background: #fff;
         border-radius: 5px;
-        @include media-breakpoint-down(md){
-            min-width: 100%;
+        .author {
+            word-break: normal;
+        }
+        @include media-breakpoint-down(sm){
+            width: 100vw;
         }
         h4 {
             margin: 0;
         }
         .list-title {
-            max-width: 70%;
-            word-wrap: break-word;
+            max-width: 80%;
         }
         .icons-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
         }
         .icons {
             font-size:var(--icons-size);
@@ -46,6 +52,9 @@
             border-radius: 20px;
             .list-asset {
                 margin: 0 20px;
+                .counter {
+                    white-space: nowrap
+                }
             }
         }
     }

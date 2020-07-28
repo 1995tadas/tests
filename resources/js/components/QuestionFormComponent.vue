@@ -22,7 +22,7 @@
                 <div class="form-group" v-for="n in selected">
                     <label :for="'answer' + n" v-text="'Atsakymas NR.' + n"></label>
                     <textarea v-model="answers[n]" :class="{'border-success':answers[n], 'border-danger':!answers[n]}"
-                              class="form-control" type="text" :name="'answers['+n+']'" @keyup="submitValidation" required></textarea>
+                              class="form-control" type="text" :name="'answers['+n+']'" @keyup="submitValidation" required maxlength="255"></textarea>
                 </div>
                 <div v-if=errors.length class="form-group">
                     <div class="text-danger" v-for="error in errors" v-text="error"></div>
