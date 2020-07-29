@@ -6,28 +6,32 @@
             </button>
         </div>
         <nav :class="{'hide': hidden}" id="sidebar">
-            <h1 class="logo">
+            <div class="logo">
                 <a :href="home">Pagrindinis</a>
                 <a class="close-icon" href="#" @click.prevent="hidden = !hidden">
                     <i class="fa fa-times"></i>
                 </a>
-            </h1>
-            <ul class="list-unstyled components mb-5">
-                <li v-if="!user" :class="{active:url === 'login'}">
-                    <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
-                </li>
-                <li v-if="!user" :class="{active:url === 'register'}">
-                    <a :href="register"><span class="fa fa-user-plus mr-3"></span>Registracija</a>
-                </li>
-                <li v-if="user" :class="{active:url === 'test/create'}">
-                    <a :href="this.testCreate"><span class="fa fa-plus mr-3"></span>Naujas testas</a>
-                </li>
-                <li v-if="user" :class="{active:url === 'test'}">
-                    <a :href="this.testIndex"><span class="fa fa-book mr-3"></span>Testai</a>
-                </li>
-                <li v-if="user">
-                    <a href="#" @click.prevent="logout"><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
-                </li>
+            </div>
+            <ul class="list-unstyled mb-5">
+                <template v-if="!user">
+                    <li :class="{active:url === 'login'}">
+                        <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
+                    </li>
+                    <li :class="{active:url === 'register'}">
+                        <a :href="register"><span class="fa fa-user-plus mr-3"></span>Registracija</a>
+                    </li>
+                </template>
+                <template v-else>
+                    <li :class="{active:url === 'test/create'}">
+                        <a :href="this.testCreate"><span class="fa fa-plus mr-3"></span>Naujas testas</a>
+                    </li>
+                    <li :class="{active:url === 'test'}">
+                        <a :href="this.testIndex"><span class="fa fa-book mr-3"></span>Testai</a>
+                    </li>
+                    <li>
+                        <a href="#" @click.prevent="logout"><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
+                    </li>
+                </template>
                 <li>
                     <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio"><span
                         class="fa fa-info-circle mr-3"></span>Apie autorių</a>
@@ -101,8 +105,8 @@
             min-width: 100vw;
             max-width: 100vw;
         }
-        h1 {
-            margin-bottom: 20px;
+        .logo {
+            margin: 0;
             font-weight: 700;
             font-size: 20px;
             background: $primary;
@@ -113,7 +117,6 @@
                 font-size: 40px;
             }
 
-
             a {
                 color: $white;
             }
@@ -122,17 +125,13 @@
                 margin-left: 20px;
                 font-size: 1.8rem;
                 @include media-breakpoint-down(sm) {
-                    font-size: 40px;
+                    font-size: 45px;
                 }
 
                 &:hover {
-                    color: red;
+                    color: $red;
                 }
             }
-        }
-
-        ul.components {
-            padding: 0;
         }
 
         ul {

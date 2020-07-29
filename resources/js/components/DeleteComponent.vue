@@ -1,6 +1,6 @@
 <template>
     <a href="#" @click.prevent="deleteItem">
-        <i class="fas fa-trash" title="Ištrinti klausimą"></i>
+        <i class="fas fa-trash" title="Ištrinti"></i>
     </a>
 </template>
 <script>

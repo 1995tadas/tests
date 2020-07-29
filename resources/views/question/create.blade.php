@@ -3,8 +3,11 @@
 @section('content')
     <question-form-component form-title="{{$test->title}}" :errors="{{json_encode($errors->all())}}"
                              input-values="{{json_encode(session()->getOldInput())}}"
-                             :test-id="{{$test->id}}"
-                             question-action="{{route("question.store")}}">
+                             test-id="{{$test->id}}"
+                             test-route="{{route('test.show',['url' => $test->url])}}"
+                             question-action="{{route("question.store")}}"
+                             question-count="{{questionName($test->questions->count())}}"
+                             message="{{session()->has('message')?session()->get('message'): null}}">
         {{ csrf_field() }}
     </question-form-component>
 @endsection

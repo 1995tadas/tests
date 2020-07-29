@@ -1,3 +1,4 @@
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 .form-container {
     background-color: #DBF3DD;
     width: 100%;
@@ -28,14 +29,21 @@
                 color: #ff92a5;
                 line-height: 4;
             }
-            .form-title {
+            @mixin question_text {
                 word-wrap: break-word;
                 display: block;
                 font-size: 20px;
-                color: #333333;
                 line-height: 1.2;
                 text-align: center;
                 margin: 20px 0;
+            }
+            .form-title {
+                @include question_text;
+                color: $indigo;
+            }
+            .question-count {
+                @include question_text;
+                color: #2e4b4e;
             }
             .form-input {
                 font-size: 18px;

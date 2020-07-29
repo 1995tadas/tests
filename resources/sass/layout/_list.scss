@@ -1,7 +1,9 @@
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
+
 :root {
     --icons-size: 25px;
 }
+
 .list-container {
     word-break: break-word;
     background-color: #DBF3DD;
@@ -13,44 +15,89 @@
     @include media-breakpoint-down(sm) {
         padding: 0;
     }
+
     .list-wrapper {
         padding: 40px 20px 20px;
         width: 70%;
         background: #fff;
         border-radius: 5px;
+
         .author {
             word-break: normal;
         }
-        @include media-breakpoint-down(sm){
+
+        @include media-breakpoint-down(sm) {
             width: 100vw;
         }
+
         h4 {
             margin: 0;
         }
+
         .list-title {
-            max-width: 80%;
+            text-align: center;
         }
+
         .icons-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
         }
+
         .icons {
-            font-size:var(--icons-size);
+            font-size: var(--icons-size);
             background-color: #DDE5DB;
             display: inline;
             padding: 0 10px;
             border-radius: 10px;
         }
+
         .list-single {
             background-color: #d3d3d3;
-            padding: 10px 0;
             margin-bottom: 30px;
-            border-radius: 20px;
+            padding: 10px;
+            border-radius: 5px;
+
             .list-asset {
-                margin: 0 20px;
+                margin: 0 60px;
+                display: flex;
+                justify-content: space-between;
+                @include media-breakpoint-down(md) {
+                    margin: 0 20px;
+                }
+
+                h4 {
+                    font-size: 1.5em;
+                }
+
                 .counter {
-                    white-space: nowrap
+                    white-space: nowrap;
+                    font-size: 2em;
+                }
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                text-align: center;
+
+                li {
+                    color: $white;
+                    font-size: 1.5em;
+                    display: inline-block;
+                    width: 40%;
+                    padding: 10px;
+                    margin-top: 20px;
+                    background-color: $indigo;
+
+                    &:nth-child(even) {
+                        margin-left: 10px;
+                    }
+                }
+
+                .correct {
+                    background-color: $green;
                 }
             }
         }

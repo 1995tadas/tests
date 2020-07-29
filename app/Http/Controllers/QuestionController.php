@@ -30,7 +30,7 @@ class QuestionController extends Controller
         $question->test_id = $request->test_id;
         $question->save();
         $this->storeOrUpdateAnswer($request, 'create', $question->id);
-        return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai išsaugotas!');
+        return redirect(route('question.create', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai išsaugotas!');
     }
 
     public function edit($id)

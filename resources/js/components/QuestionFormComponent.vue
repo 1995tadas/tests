@@ -1,8 +1,12 @@
 <template>
     <div class="form-container">
         <div class="form-wrapper">
+            <div v-if="message" class="alert alert-success">
+                {{ message }}
+            </div>
             <form class="form" method="POST" :action="questionAction">
-                <span class="form-title" v-text="formTitle"></span>
+                <a class="form-title" :href="testRoute"><span v-text="formTitle"></span></a>
+                <span class="question-count" v-if="questionCount" v-text="'(' +questionCount+')'"></span>
                 <span class="form-note">{{method === "post"? "Pridėkite": "Redaguokite"}} klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus</span>
                 <input v-if="testId" type="hidden" name="test_id" :value="testId">
                 <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
@@ -65,9 +69,8 @@
                 type: String,
                 required: true
             },
-            testId: {
-                type: Number
-            },
+            testId: Number,
+            testRoute: String,
             errors: {
                 type: Array
             },
@@ -78,7 +81,9 @@
             method: {
                 type: String,
                 default: 'post'
-            }
+            },
+            message: String,
+            questionCount: String
         },
         created() {
             this.showInputValues();

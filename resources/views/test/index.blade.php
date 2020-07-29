@@ -24,7 +24,7 @@
                         <span class="badge badge-success badge-pill">{{questionName($test->questions->count())}}</span>
                     </li>
                 @empty
-                    <li class="list-group-item text-center">
+                    <li class="none">
                         <div>Jūs nesate sukure jokių testų</div>
                     </li>
                 @endforelse
