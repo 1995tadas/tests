@@ -1,0 +1,34 @@
+
+.user-wrapper {
+    h1 {
+        text-align: center;
+        font-size: 3em;
+    }
+
+    .stat {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        list-style: none;
+        padding: 0 10px;
+        height: 90%;
+
+        li {
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            border: 5px solid black;
+            display: flex;
+            justify-content: space-between;
+            line-height: 2;
+            padding: 0 10px;
+
+            span {
+                font-size: 1.5em;
+            }
+
+            @include media-breakpoint-down(sm) {
+                font-size: 0.8em;
+            }
+        }
+    }
+}

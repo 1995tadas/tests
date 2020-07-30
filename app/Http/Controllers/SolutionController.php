@@ -52,6 +52,12 @@ class SolutionController extends Controller
         return view('solution.index', ['solutions' => $solutions]);
     }
 
+    public function indexUser()
+    {
+        $solutions = Solution::where('user_id', Auth::user()->id)->get();
+        return view('solution.index', ['solutions' => $solutions]);
+    }
+
     public function show($id)
     {
         $solution = Solution::findOrFail($id);

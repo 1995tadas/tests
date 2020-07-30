@@ -13,20 +13,27 @@
                 </a>
             </div>
             <ul class="list-unstyled mb-5">
-                <template v-if="!user">
+                <template v-if="!userEmail">
                     <li :class="{active:url === 'login'}">
-                        <a :href="logIn"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
+                        <a :href="logInRoute"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
                     </li>
                     <li :class="{active:url === 'register'}">
-                        <a :href="register"><span class="fa fa-user-plus mr-3"></span>Registracija</a>
+                        <a :href="registerRoute"><span class="fas fa-user-plus mr-3"></span>Registracija</a>
                     </li>
                 </template>
                 <template v-else>
+                    <li :class="{active:url === 'user'}">
+                        <a :href="this.userRoute"><span class="fas fa-user mr-3"></span>{{modifiedUserEmail}}</a>
+                    </li>
                     <li :class="{active:url === 'test/create'}">
-                        <a :href="this.testCreate"><span class="fa fa-plus mr-3"></span>Naujas testas</a>
+                        <a :href="this.testCreateRoute"><span class="fas fa-plus mr-3"></span>Naujas testas</a>
                     </li>
                     <li :class="{active:url === 'test'}">
-                        <a :href="this.testIndex"><span class="fa fa-book mr-3"></span>Testai</a>
+                        <a :href="this.testIndexRoute"><span class="fas fa-book mr-3"></span>Testai</a>
+                    </li>
+                    <li :class="{active:url === 'solution'}">
+                        <a :href="this.solutionUserRoute"><span
+                            class="fas fa-clipboard-check mr-3"></span>Sprendimai</a>
                     </li>
                     <li>
                         <a href="#" @click.prevent="logout"><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
@@ -34,7 +41,7 @@
                 </template>
                 <li>
                     <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio"><span
-                        class="fa fa-info-circle mr-3"></span>Apie autorių</a>
+                        class="fas fa-info-circle mr-3"></span>Apie autorių</a>
                 </li>
             </ul>
         </nav>
@@ -43,19 +50,23 @@
 <script>
     export default {
         props: {
-            testIndex: String,
-            testCreate: String,
+            testIndexRoute: String,
+            testCreateRoute: String,
             home: String,
             url: String,
-            user: {
-                type: Boolean,
+            userEmail: {
+                type: String,
                 default: false
             },
-            register: String,
-            logIn: String,
-            logOut: String
+            userRoute: String,
+            solutionUserRoute: String,
+            registerRoute: String,
+            logInRoute: String,
+            logOutRoute: String
         },
         created() {
+            window.addEventListener("resize", this.shortenString);
+            this.shortenString();
             if (this.url === '/') {
                 this.hidden = true;
             }
@@ -63,22 +74,27 @@
         },
         data() {
             return {
-                hidden: false
+                hidden: false,
+                modifiedUserEmail: this.userEmail
             }
         },
         methods: {
             logout() {
-                if (confirm("Ar tikrai norite atsijungti?")) {
-                    axios.post(this.logOut)
-                        .then(window.location.href = this.logIn)
-                }
+                axios.post(this.logOutRoute)
+                    .then(window.location.href = this.logInRoute)
             },
             mobile() {
                 if ($(window).width() <= 992) {
                     this.hidden = true;
                 }
+            },
+            shortenString() {
+                if (window.innerWidth >= 768) {
+                    this.modifiedUserEmail = this.userEmail.substring(0, 10) + '...';
+                } else {
+                    this.modifiedUserEmail = this.userEmail;
+                }
             }
-
         }
     }
 </script>
@@ -90,10 +106,11 @@
     $primary: #649d66;
 
     #sidebar {
-        max-height: 100vh;
-        min-height: 100vh;
+        max-height: 100%;
+        min-height: 100%;
         min-width: 200px;
         max-width: 200px;
+        box-sizing: border-box;
         background: #1b1b2f;
         color: #fff;
         transition: all 0.3s;
@@ -105,6 +122,7 @@
             min-width: 100vw;
             max-width: 100vw;
         }
+
         .logo {
             margin: 0;
             font-weight: 700;
@@ -112,6 +130,7 @@
             background: $primary;
             padding: 10px 10px 10px 30px;
             display: block;
+            border-bottom: 1px solid black;
             @include media-breakpoint-down(sm) {
                 text-align: center;
                 font-size: 40px;
@@ -155,6 +174,7 @@
                         text-align: center;
                         font-size: 30px;
                     }
+
                     &:hover {
                         color: $white;
                         background: $primary;
@@ -191,6 +211,7 @@
             top: 5px;
             left: 10px;
         }
+
         .btn {
             &.btn-primary {
                 background: transparent;

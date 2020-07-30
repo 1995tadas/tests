@@ -22,18 +22,26 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="wrapper d-flex align-items-stretch" id="app">
-        <side-menu-component test-index = "{{route('test.index')}}" test-create="{{route('test.create')}}" home = "{{url('/')}}"
-                             url = "{{request()->path()}}" log-in = "{{route('login')}}"
-                            @guest
-                                register = "{{route('register')}}"
-                            @else
-                                log-out = "{{route('logout')}}"
-                                :user = true
-                            @endguest>{{ csrf_field() }}</side-menu-component>
-        <main class="flex-grow-1">
-            @yield('content')
-        </main>
-    </div>
+<div class="wrapper d-flex align-items-stretch" id="app">
+    <side-menu-component
+        test-index-route="{{route('test.index')}}"
+        test-create-route="{{route('test.create')}}"
+        home="{{url('/')}}"
+        url="{{request()->path()}}"
+        log-in-route="{{route('login')}}"
+        @guest
+        register-route="{{route('register')}}"
+        @else
+        solution-user-route="{{route('solution.indexUser')}}"
+        user-route="{{route('user.show')}}"
+        log-out-route="{{route('logout')}}"
+        user-email= {{Auth()->user()->email}}
+        @endguest>
+        {{ csrf_field() }}
+    </side-menu-component>
+    <main class="flex-grow-1">
+        @yield('content')
+    </main>
+</div>
 </body>
 </html>

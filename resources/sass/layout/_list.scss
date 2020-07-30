@@ -5,21 +5,13 @@
 }
 
 .list-container {
+    @include custom-container;
     word-break: break-word;
-    background-color: #DBF3DD;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 15px;
-    @include media-breakpoint-down(sm) {
-        padding: 0;
-    }
 
     .list-wrapper {
         padding: 40px 20px 20px;
         width: 70%;
-        background: #fff;
+        background: $white;
         border-radius: 5px;
 
         .author {
