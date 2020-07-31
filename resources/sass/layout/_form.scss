@@ -16,25 +16,11 @@
         .form {
             width: 100%;
             margin-bottom: 20px;
-            .form-note {
-                font-size: 10px;
-                color: #ff92a5;
-                line-height: 4;
-            }
-            @mixin question_text {
-                word-wrap: break-word;
-                display: block;
-                font-size: 20px;
-                line-height: 1.2;
-                text-align: center;
-                margin: 20px 0;
-            }
             .form-title {
-                @include question_text;
-                color: $indigo;
+                @include title_text;
             }
             .question-count {
-                @include question_text;
+                @include title_text;
                 color: #2e4b4e;
             }
             .form-input {

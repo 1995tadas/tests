@@ -14,6 +14,22 @@ return [
     */
 
     'failed' => 'Šie kredencialai neatitinka mūsų duomenų.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'throttle' => 'Per daug prisijungimo bandymų. Prašome bandyti po :seconds sekundžių.',
+    'logInFrom' => 'Log in form',
+    'email' => 'Email',
+    'password' => 'Password',
+    'remember' => 'Remember me',
+    'logIn' => 'Log in',
+    'forgot' => 'Forgot',
+    'passwordForgot' => 'password',
+    'repeatPassword' => 'Repeat password',
+    'noAccount' => 'Don\'t Have an Account',
+    'register' => 'Register',
+    'signUpForm' => 'Sign up form',
+    'name' => 'Name',
+    'signUp' => 'Sign up',
+    'account' => 'Have an Account',
+    'logInLink' => 'Log in',
+    'resetPassword' => 'Reset Password',
+    'sentPasswordLink' => 'Send Password Reset Link'
 ];

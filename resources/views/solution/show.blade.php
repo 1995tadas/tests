@@ -3,9 +3,15 @@
 @section('content')
     <div class="list-container">
         <div class="list-wrapper">
+            <h1 class="solution-title">{{$test->title}}</h1>
                 @php
-                $final = 0;
+                    $final = 0;
                 @endphp
+                <div class="note flex-notes">
+                    <span><i style="color:#000" class="fas fa-check"></i> = teisingas atsakymas</span>
+                    <span><span class="incorrect-example"></span> - atsakyta neteisingai</span>
+                    <span><span class="correct-example"></span> - atsakyta teisingai</span>
+                </div>
                 @foreach($test->questions as $question)
                     <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
                     <ul class="list-group my-2">
@@ -51,10 +57,10 @@
                         }
                     @endphp
                 @endforeach
-            <h1 class="text-center">
+            <div class="text-center">
                 <div>Galutinis rezultatas:</div>
                 <div>{{$final.'/'.$test->questions->count()}}</div>
-            </h1>
+            </div>
         </div>
     </div>
 @endsection

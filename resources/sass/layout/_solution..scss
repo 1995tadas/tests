@@ -32,3 +32,23 @@ $table-primary: #36304a;
         }
     }
 }
+
+.solution-title {
+    @include title_text();
+}
+
+@mixin square-example() {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+}
+
+.correct-example {
+    @include square-example();
+    background-color: #c7eed8;
+}
+
+.incorrect-example {
+    @include square-example();
+    background-color: #f7c6c5;
+}

@@ -1,6 +1,7 @@
 
 .user-wrapper {
-    h1 {
+    .user-title {
+        @include title_text();
         text-align: center;
         font-size: 3em;
     }

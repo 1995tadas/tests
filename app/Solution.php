@@ -11,18 +11,13 @@ class Solution extends Model
         return $this->hasMany(SolutionAnswer::class);
     }
 
-    public function test()
-    {
-        return $this->belongsTo(Test::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function sender()
+    public function test()
     {
-        return $this->belongsToMany(User::class, Test::class, 'id', 'user_id');
+        return $this->belongsTo(Test::class)->with('user');
     }
 }

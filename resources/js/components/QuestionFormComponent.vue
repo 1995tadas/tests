@@ -5,9 +5,9 @@
                 {{ message }}
             </div>
             <form class="form" method="POST" :action="questionAction">
-                <a class="form-title" :href="testRoute"><span v-text="formTitle"></span></a>
+                <a class="form-title link-title" :href="testRoute"><span v-text="formTitle"></span></a>
                 <span class="question-count" v-if="questionCount" v-text="'(' +questionCount+')'"></span>
-                <span class="form-note">{{method === "post"? "Pridėkite": "Redaguokite"}} klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus</span>
+                <span class="note">{{method === "post"? "Pridėkite": "Redaguokite"}} klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus</span>
                 <input v-if="testId" type="hidden" name="test_id" :value="testId">
                 <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
                 <slot></slot>

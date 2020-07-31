@@ -55,7 +55,8 @@ class SolutionController extends Controller
     public function indexUser()
     {
         $solutions = Solution::where('user_id', Auth::user()->id)->get();
-        return view('solution.index', ['solutions' => $solutions]);
+        $sender = $solutions->first()->user_id === Auth::user()->id;
+        return view('solution.index', ['solutions' => $solutions], ['sender' => $sender]);
     }
 
     public function show($id)

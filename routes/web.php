@@ -26,7 +26,7 @@ Route::get('/test/create', 'TestController@create')->name('test.create');
 Route::post('/test', 'TestController@store')->name('test.store');
 Route::get('/test/{url}', 'TestController@show')->name('test.show');
 
-Route::get('user','UserController@show')->name('user.show');
+Route::get('user', 'UserController@show')->name('user.show');
 
 Route::middleware('test.author')->group(function () {
     Route::get('/test/{url}/edit', 'TestController@edit')->name('test.edit');
@@ -46,6 +46,7 @@ Route::middleware('not.test.author')->group(function () {
     Route::post('/solution/test/{url}', 'SolutionController@store')->name('solution.store');
 });
 Route::get('/solution/{id}', 'SolutionController@show')->name('solution.show')->middleware('solution.auth');
-Route::get('/solution', 'SolutionController@indexUser')->name('solution.indexUser');//midd
+Route::get('/solution', 'SolutionController@indexUser')->name('solution.indexUser');
 Route::get('/{url}/solution', 'SolutionController@index')->name('solution.index')->middleware('test.author');
 
+Route::get('language/{locale?}', 'LanguageController@setLanguage')->name('language.setLanguage');

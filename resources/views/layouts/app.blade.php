@@ -23,7 +23,12 @@
 </head>
 <body>
 <div class="wrapper d-flex align-items-stretch" id="app">
+    <change-language-component
+        language-route="{{route('language.setLanguage')}}"
+        current-language ="{{\Illuminate\Support\Facades\App::getLocale()}}"
+    ></change-language-component>
     <side-menu-component
+        lang-Json = "{{json_encode(trans('sidemenu'))}}"
         test-index-route="{{route('test.index')}}"
         test-create-route="{{route('test.create')}}"
         home="{{url('/')}}"
@@ -35,7 +40,7 @@
         solution-user-route="{{route('solution.indexUser')}}"
         user-route="{{route('user.show')}}"
         log-out-route="{{route('logout')}}"
-        user-email= {{Auth()->user()->email}}
+        user-email= {{Auth()->check()?Auth()->user()->email:null}}
         @endguest>
         {{ csrf_field() }}
     </side-menu-component>

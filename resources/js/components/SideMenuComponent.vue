@@ -7,7 +7,7 @@
         </div>
         <nav :class="{'hide': hidden}" id="sidebar">
             <div class="logo">
-                <a :href="home">Pagrindinis</a>
+                <a :href="home">{{lang.landing}}</a>
                 <a class="close-icon" href="#" @click.prevent="hidden = !hidden">
                     <i class="fa fa-times"></i>
                 </a>
@@ -15,10 +15,10 @@
             <ul class="list-unstyled mb-5">
                 <template v-if="!userEmail">
                     <li :class="{active:url === 'login'}">
-                        <a :href="logInRoute"><span class="fa fa-sign-in mr-3"></span>Prisijungti</a>
+                        <a :href="logInRoute"><span class="fa fa-sign-in mr-3"></span>{{lang.logIn}}</a>
                     </li>
                     <li :class="{active:url === 'register'}">
-                        <a :href="registerRoute"><span class="fas fa-user-plus mr-3"></span>Registracija</a>
+                        <a :href="registerRoute"><span class="fas fa-user-plus mr-3"></span>{{lang.signIn}}</a>
                     </li>
                 </template>
                 <template v-else>
@@ -26,22 +26,24 @@
                         <a :href="this.userRoute"><span class="fas fa-user mr-3"></span>{{modifiedUserEmail}}</a>
                     </li>
                     <li :class="{active:url === 'test/create'}">
-                        <a :href="this.testCreateRoute"><span class="fas fa-plus mr-3"></span>Naujas testas</a>
+                        <a :href="this.testCreateRoute"><span class="fas fa-plus mr-3"></span>{{lang.newTest}}</a>
                     </li>
                     <li :class="{active:url === 'test'}">
-                        <a :href="this.testIndexRoute"><span class="fas fa-book mr-3"></span>Testai</a>
+                        <a :href="this.testIndexRoute"><span class="fas fa-book mr-3"></span>{{lang.tests}}</a>
                     </li>
                     <li :class="{active:url === 'solution'}">
-                        <a :href="this.solutionUserRoute"><span
-                            class="fas fa-clipboard-check mr-3"></span>Sprendimai</a>
+                        <a :href="this.solutionUserRoute">
+                            <span class="fas fa-clipboard-check mr-3"></span>
+                            {{lang.solutions}}
+                        </a>
                     </li>
                     <li>
-                        <a href="#" @click.prevent="logout"><span class="fa fa-sign-out mr-3"></span>Atsijungti</a>
+                        <a href="#" @click.prevent="logout"><span class="fa fa-sign-out mr-3"></span>{{lang.logOut}}</a>
                     </li>
                 </template>
                 <li>
                     <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio"><span
-                        class="fas fa-info-circle mr-3"></span>Apie autorių</a>
+                        class="fas fa-info-circle mr-3"></span>{{lang.author}}</a>
                 </li>
             </ul>
         </nav>
@@ -50,41 +52,43 @@
 <script>
     export default {
         props: {
+            langJson: String,
             testIndexRoute: String,
             testCreateRoute: String,
             home: String,
             url: String,
-            userEmail: {
-                type: String,
-                default: false
-            },
+            userEmail: String,
             userRoute: String,
             solutionUserRoute: String,
             registerRoute: String,
             logInRoute: String,
             logOutRoute: String
         },
-        created() {
-            window.addEventListener("resize", this.shortenString);
-            this.shortenString();
-            if (this.url === '/') {
-                this.hidden = true;
-            }
-            this.mobile();
-        },
         data() {
             return {
                 hidden: false,
-                modifiedUserEmail: this.userEmail
+                modifiedUserEmail: this.userEmail,
+                lang: JSON.parse(this.langJson)
             }
+        },
+        created() {
+            window.addEventListener("resize", this.shortenString);
+            this.shortenString();
+            this.homeHide();
+            this.mobileHide();
         },
         methods: {
             logout() {
                 axios.post(this.logOutRoute)
                     .then(window.location.href = this.logInRoute)
             },
-            mobile() {
+            mobileHide() {
                 if ($(window).width() <= 992) {
+                    this.hidden = true;
+                }
+            },
+            homeHide() {
+                if (this.url === '/') {
                     this.hidden = true;
                 }
             },

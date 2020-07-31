@@ -13,7 +13,7 @@
 // Layouts
 
     // Solution Table
-    @import 'layout/solution_table';
+    @import 'layout/solution.';
 
     // Form
     @import 'layout/form';
@@ -29,5 +29,20 @@
 
 .none {
     text-align: center;
+}
+.flex-notes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: wrap;
+}
+.link-title {
+    color: $indigo;
+}
+.note {
+    font-size: 10px;
+    color: #ff92a5;
+    line-height: 4;
 }
 

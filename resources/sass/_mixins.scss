@@ -9,3 +9,12 @@
         padding: 0;
     }
 }
+
+@mixin title_text {
+    word-wrap: break-word;
+    display: block;
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+    margin: 20px 0;
+}

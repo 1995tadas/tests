@@ -12,7 +12,7 @@
                     {{ session()->get('error') }}
                 </div>
             @endif
-            <h3>Mano sukurti testai</h3>
+            <h1 class="list-title">Mano sukurti testai</h1>
             <ul class="list-group">
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
