@@ -55,7 +55,7 @@ class SolutionController extends Controller
     public function indexUser()
     {
         $solutions = Solution::where('user_id', Auth::user()->id)->get();
-        if($solutions){
+        if(!$solutions->isEmpty()){
             $sender = $solutions->first()->user_id === Auth::user()->id;
         } else {
             $sender = false;

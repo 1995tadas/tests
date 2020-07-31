@@ -2282,6 +2282,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     langJson: String,
@@ -2304,8 +2305,11 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    window.addEventListener("resize", this.shortenString);
-    this.shortenString();
+    if (this.userEmail) {
+      window.addEventListener("resize", this.shortenString);
+      this.shortenString();
+    }
+
     this.homeHide();
     this.mobileHide();
   },
