@@ -33260,7 +33260,6 @@ a.text-dark:focus {
   flex-direction: column;
   list-style: none;
   padding: 0 10px;
-  height: 90%;
 }
 
 .user-wrapper .stat li {
@@ -33271,6 +33270,10 @@ a.text-dark:focus {
   justify-content: space-between;
   line-height: 2;
   padding: 0 10px;
+}
+
+.user-wrapper .stat li:first-child {
+  border: none;
 }
 
 .user-wrapper .stat li span {

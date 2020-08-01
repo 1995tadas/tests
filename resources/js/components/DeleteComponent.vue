@@ -1,28 +1,39 @@
 <template>
     <a href="#" @click.prevent="deleteItem">
-        <i class="fas fa-trash" title="Ištrinti"></i>
+        <i class="fas fa-trash" :title="lang.delete"></i>
     </a>
 </template>
 <script>
-    export default {
-        props: {
-            route: String,
-            redirectRoute: String
+export default {
+    props: {
+        langJson: {
+            type: String,
+            required: true
         },
-        created() {
-            console.log(this.route);
+        route: {
+            type: String,
+            required: true
         },
-        methods: {
-            deleteItem() {
-                if (confirm('Ar tikrai norite ištrinti?')) {
-                    axios.post(this.route, {_method: 'delete'}).then(() => {
-                        window.location.replace(this.redirectRoute)
-                    })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                }
+        redirectRoute: {
+            type: String,
+            required: true
+        }
+    },
+    data() {
+        return {
+            lang: JSON.parse(this.langJson)
+        }
+    },
+    methods: {
+        deleteItem() {
+            if (confirm(this.lang.deleteConfirmation+'?')) {
+                axios.post(this.route, {_method: 'delete'}).then(() => {
+                    window.location.replace(this.redirectRoute)
+                }).catch(function (error) {
+                    console.log(error);
+                });
             }
         }
     }
+}
 </script>

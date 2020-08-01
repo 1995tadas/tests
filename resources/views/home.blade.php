@@ -3,7 +3,9 @@
 @section('content')
     <div class="landing-title">
         <div class="title">
-            <landing-component></landing-component>
+            <landing-component
+                lang-json="{{json_encode(trans('landing'))}}">
+            </landing-component>
         </div>
     </div>
 @endsection

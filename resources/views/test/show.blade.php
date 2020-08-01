@@ -15,13 +15,23 @@
                 <h6>{{$test->created_at}}</h6>
                 <div class="icons">
                     <a href="{{route('question.create', ['url' => $test->url])}}">
-                        <i class="fas fa-plus" title="Pridėti klausimą"></i>
+                        <i class="fas fa-plus" title="{{__('tests.addQuestion')}}"></i>
                     </a>
-                    <a href="{{route('test.edit', ['url' => $test->url])}}"><i class="fas fa-file-signature" title="Keisti testo pavadinimą"></i></a>
-                    <copy-to-clipboard-component test-show="{{route('test.show', ['url'=> $test->url ])}}">
+                    <a href="{{route('test.edit', ['url' => $test->url])}}">
+                        <i class="fas fa-file-signature" title="{{__('tests.renameTest')}}"></i>
+                    </a>
+                    <copy-to-clipboard-component
+                        lang-json="{{json_encode(trans('tests'))}}"
+                        test-show="{{route('test.show', ['url'=> $test->url ])}}">
                     </copy-to-clipboard-component>
-                    <a href="{{route('solution.index', [$test->url])}}"><i class="fas fa-poll" title="Sprendimai"></i></a>
-                    <delete-component route="{{route('test.destroy', ['url' => $test->url])}}" redirect-route="{{route('test.index')}}"></delete-component>
+                    <a href="{{route('solution.index', [$test->url])}}">
+                        <i class="fas fa-poll" title="{{__('tests.solutions')}}"></i>
+                    </a>
+                    <delete-component
+                        lang-json = "{{json_encode(trans('tests'))}}"
+                        route="{{route('test.destroy', ['url' => $test->url])}}"
+                        redirect-route="{{route('test.index')}}">
+                    </delete-component>
                 </div>
             </div>
             <div class="border-top mb-5 my-3"></div>
@@ -37,12 +47,18 @@
                         @endforeach
                     </ul>
                     <div class="icons">
-                        <a href="{{route('question.edit', ['id'=>$question->id])}}"><i class="fas fa-pen-nib" title="Redaguoti klausimą"></i></a>
-                        <delete-component route="{{route('question.destroy', ['id' => $question->id])}}" redirect-route="{{route('test.show', ['url' => $test->url])}}"></delete-component>
+                        <a href="{{route('question.edit', ['id'=>$question->id])}}">
+                            <i class="fas fa-pen-nib" title="{{__('tests.editQuestion')}}"></i>
+                        </a>
+                        <delete-component
+                            lang-json = "{{json_encode(trans('tests'))}}"
+                            route="{{route('question.destroy', ['id' => $question->id])}}"
+                            redirect-route="{{route('test.show', ['url' => $test->url])}}">
+                        </delete-component>
                     </div>
                 </div>
             @empty
-                <div class="none">Šis testas dar neturi jokių klausimų :(</div>
+                <div class="none">{{__('tests.noQuestions')}} :(</div>
             @endforelse
         </div>
     </div>

@@ -28,7 +28,7 @@
         current-language ="{{\Illuminate\Support\Facades\App::getLocale()}}"
     ></change-language-component>
     <side-menu-component
-        lang-Json = "{{json_encode(trans('sidemenu'))}}"
+        lang-json = "{{json_encode(trans('sidemenu'))}}"
         test-index-route="{{route('test.index')}}"
         test-create-route="{{route('test.create')}}"
         home="{{url('/')}}"
