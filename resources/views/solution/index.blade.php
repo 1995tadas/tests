@@ -3,19 +3,19 @@
 @section('content')
     <div class="list-container">
         <div class="list-wrapper">
-            <h1 class="solution-title">Sprendimai</h1>
+            <h1 class="solution-title">{{__('solutions.solutions')}}</h1>
             @if(!$solutions->isEmpty())
                 <div class="solution-overflow">
                     <table class="solution-table">
                         <tr>
                             @if(isset($sender) && $sender)
-                                <th>Siuntėjas</th>
+                                <th>{{__('solutions.sender')}}</th>
                             @else
-                                <th>Gavėjas</th>
+                                <th>{{__('solutions.receiver')}}</th>
                             @endif
-                            <th>Pavadinimas</th>
-                            <th>Sprendimo data</th>
-                            <th>Nuoroda</th>
+                            <th>{{__('solutions.title')}}</th>
+                            <th>{{__('solutions.date')}}</th>
+                            <th>{{__('solutions.link')}}</th>
                         </tr>
                         @foreach($solutions as $solution)
                             <tr>
@@ -24,11 +24,12 @@
                                 @else
                                     <td>{{$solution->user->email}}</td>
                                 @endif
-                                <td>{{$solution->test->title}}</td>
+
+                                <td>{{Str::limit($solution->test->title, 20 , '...')}}</td>
                                 <td>{{$solution->created_at}}</td>
                                 <td>
                                     <a href="{{route('solution.show', ['id' => $solution->id])}}">
-                                        Peržiūrėti
+                                        {{__('solutions.view')}}
                                     </a>
                                 </td>
                             </tr>
@@ -36,7 +37,7 @@
                     </table>
                 </div>
             @else
-                <div class="text-center">Šis testas dar neturi jokių sprendimų</div>
+                <div class="text-center">{{__('solutions.noSolutions')}}</div>
             @endif
         </div>
     </div>

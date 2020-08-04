@@ -67,7 +67,7 @@ class TestController extends Controller
     public function destroy($url)
     {
         Test::where('url', $url)->delete();
-        session()->flash('message', 'Testas sėkmingai ištrintas!');
+        session()->flash('message', __('messages.test').' '.__('messages.deleted').'!');
         return response('success', 204);
     }
 

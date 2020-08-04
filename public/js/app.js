@@ -2167,9 +2167,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      lang: JSON.parse(this.langJson),
       selected: 4,
       question: null,
       answers: [],
@@ -2178,6 +2180,10 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
+    langJson: {
+      type: String,
+      required: true
+    },
     questionAction: {
       type: String,
       required: true
@@ -39025,8 +39031,11 @@ var render = function() {
           _vm._v(" "),
           _c("span", { staticClass: "note" }, [
             _vm._v(
-              _vm._s(_vm.method === "post" ? "Pridėkite" : "Redaguokite") +
-                " klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus"
+              _vm._s(
+                _vm.lang.questionNoteVerb[_vm.method === "post" ? 0 : 1] +
+                  " " +
+                  _vm.lang.questionNote
+              ) + "\n            "
             )
           ]),
           _vm._v(" "),
@@ -39048,7 +39057,7 @@ var render = function() {
           _c("div", { staticClass: "form-group form-row" }, [
             _c("div", { staticClass: "col" }, [
               _c("label", { attrs: { for: "question" } }, [
-                _vm._v("Klausimas")
+                _vm._v(_vm._s(_vm.lang.question))
               ]),
               _vm._v(" "),
               _c("input", {
@@ -39087,7 +39096,7 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-3" }, [
               _c("label", { attrs: { for: "answers" } }, [
-                _vm._v("Ats. kiekis")
+                _vm._v(_vm._s(_vm.lang.answersNum))
               ]),
               _vm._v(" "),
               _c(
@@ -39138,7 +39147,7 @@ var render = function() {
             return _c("div", { staticClass: "form-group" }, [
               _c("label", {
                 attrs: { for: "answer" + n },
-                domProps: { textContent: _vm._s("Atsakymas NR." + n) }
+                domProps: { textContent: _vm._s(_vm.lang.answer + " NR." + n) }
               }),
               _vm._v(" "),
               _c("textarea", {
@@ -39194,7 +39203,7 @@ var render = function() {
                 "div",
                 { staticClass: "form-group" },
                 [
-                  _c("h6", [_vm._v("Pasirinkite visus teisingus atsakymus")]),
+                  _c("h6", [_vm._v(_vm._s(_vm.lang.correctAnswers))]),
                   _vm._v(" "),
                   _vm._l(_vm.selected, function(n) {
                     return _c(
@@ -39228,11 +39237,8 @@ var render = function() {
           _vm._v(" "),
           _c("input", {
             staticClass: "btn btn-success",
-            attrs: {
-              disabled: _vm.isDisabled,
-              type: "submit",
-              value: "Išsaugoti"
-            }
+            attrs: { disabled: _vm.isDisabled, type: "submit" },
+            domProps: { value: _vm.lang.questionSave }
           })
         ],
         2

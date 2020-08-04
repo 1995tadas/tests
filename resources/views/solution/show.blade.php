@@ -8,9 +8,9 @@
                     $final = 0;
                 @endphp
                 <div class="note flex-notes">
-                    <span><i style="color:#000" class="fas fa-check"></i> = teisingas atsakymas</span>
-                    <span><span class="incorrect-example"></span> - atsakyta neteisingai</span>
-                    <span><span class="correct-example"></span> - atsakyta teisingai</span>
+                    <span><i style="color:#000" class="fas fa-check"></i> = {{__('solutions.correctAnswersNote')}}</span>
+                    <span><span class="incorrect-example"></span> - {{__('solutions.incorrectNote')}}</span>
+                    <span><span class="correct-example"></span> - {{__('solutions.correctNote')}}</span>
                 </div>
                 @foreach($test->questions as $question)
                     <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
@@ -51,14 +51,14 @@
                     @php
                         if($pass && $guess === $check){
                             $final++;
-                            echo 'TEISINGAI';
+                            echo __('solutions.right');
                         } else {
-                            echo 'NETEISINGAI';
+                            echo __('solutions.wrong');
                         }
                     @endphp
                 @endforeach
             <div class="text-center">
-                <div>Galutinis rezultatas:</div>
+                <div>{{__('solutions.final')}}:</div>
                 <div>{{$final.'/'.$test->questions->count()}}</div>
             </div>
         </div>

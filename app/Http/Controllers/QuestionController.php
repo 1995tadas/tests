@@ -30,7 +30,7 @@ class QuestionController extends Controller
         $question->test_id = $request->test_id;
         $question->save();
         $this->storeOrUpdateAnswer($request, 'create', $question->id);
-        return redirect(route('question.create', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai išsaugotas!');
+        return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question').' '.__('messages.saved').'!');
     }
 
     public function edit($id)
@@ -57,13 +57,13 @@ class QuestionController extends Controller
         $question->content = $request->question;
         $question->save();
         $this->storeOrUpdateAnswer($request, 'update', $id);
-        return redirect(route('test.show', ['url' => $test->url]))->with('message', 'Klausimas buvo sėkmingai redaguotas!');
+        return redirect(route('test.show', ['url' => $test->url]))->with('message', __('messages.question').' '.__('messages.edited').'!');
     }
 
     public function destroy($id)
     {
         Question::findOrFail($id)->delete();
-        session()->flash('message', 'Klausimas buvo sėkmingai ištrintas!');
+        session()->flash('message', __('messages.question').' '.__('messages.deleted').'!');
         return response('success', 204);
     }
 

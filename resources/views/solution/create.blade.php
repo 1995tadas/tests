@@ -10,32 +10,33 @@
                         <h6>{{$test->created_at}}</h6>
                     </div>
                     <div class="author">
-                        <h6>Autorius: {{$test->user->name}}</h6>
+                        <h6>{{__('solutions.author') . ':' . $test->user->name}}</h6>
                         <h6>{{$test->user->email}}</h6>
                     </div>
                 </div>
                 <div class="border-top mb-5 my-3"></div>
                 @if($test->questions->all())
                     <form action="{{route('solution.store', [$test->url])}}" method="post">
-                    @csrf
-                    @foreach($test->questions->all() as $question)
-                        <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
-                        <ul class="list-group my-2">
-                            @foreach($question->answers->all() as $answer)
-                                <li class="list-group-item">
-                                    <input type="checkbox" id="answer" name="{{$question->id.'-answer['.$answer->number.']'}}">
-                                    <label class="form-check-label" for="answer">{{$answer->content}}</label>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endforeach
-                    <button type="input" class="btn btn-primary">Baigti</button>
+                        @csrf
+                        @foreach($test->questions->all() as $question)
+                            <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
+                            <ul class="list-group my-2">
+                                @foreach($question->answers->all() as $answer)
+                                    <li class="list-group-item">
+                                        <input type="checkbox" id="answer"
+                                               name="{{$question->id.'-answer['.$answer->number.']'}}">
+                                        <label class="form-check-label" for="answer">{{$answer->content}}</label>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endforeach
+                        <button type="input" class="btn btn-primary">{{__('solutions.finish')}}</button>
                     </form>
                 @else
-                    <div class="text-center">Šis testas neturi jokių klausimų :(</div>
+                    <div class="text-center">{{__('solutions.emptyTest')}} :(</div>
                 @endif
             @else
-                <div class="text-center">Jūms neleidžiama daugiau laikyti šio testo :(</div>
+                <div class="text-center">{{__('solutions.notAllowed')}} :(</div>
             @endif
         </div>
     </div>
