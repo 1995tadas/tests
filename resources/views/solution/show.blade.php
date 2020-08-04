@@ -13,7 +13,7 @@
                     <span><span class="correct-example"></span> - {{__('solutions.correctNote')}}</span>
                 </div>
                 @foreach($test->questions as $question)
-                    <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
+                    <h4 class="text-center">{{$loop->index + 1 .'. '. $question->content}}</h4>
                     <ul class="list-group my-2">
                         @php
                             $guess = 0;

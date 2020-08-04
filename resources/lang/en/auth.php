@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'Šie kredencialai neatitinka mūsų duomenų.',
-    'throttle' => 'Per daug prisijungimo bandymų. Prašome bandyti po :seconds sekundžių.',
+    'failed' => 'These credentials do not match our records.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'logInFrom' => 'Log in form',
     'email' => 'Email',
     'password' => 'Password',
