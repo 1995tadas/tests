@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Setting;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -73,7 +74,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function registered($user)
+    protected function registered(Request $request, $user)
     {
         $setting = new Setting();
         $setting->user_id = $user->id;
