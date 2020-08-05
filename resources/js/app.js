@@ -24,7 +24,8 @@ Vue.component('side-menu-component', require('./components/SideMenuComponent.vue
 Vue.component('copy-to-clipboard-component', require('./components/CopyToClipboardComponent.vue').default);
 Vue.component('landing-component', require('./components/LandingComponent.vue').default);
 Vue.component('delete-component', require('./components/DeleteComponent.vue').default);
-Vue.component('change-language-component', require('./components/ChangeLanguageComponent.vue').default);
+Vue.component('change-language-guest-component', require('./components/ChangeLanguageGuestComponent.vue').default);
+Vue.component('change-language-user-component', require('./components/ChangeLanguageUserComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

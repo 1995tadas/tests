@@ -23,10 +23,12 @@
 </head>
 <body>
 <div class="wrapper d-flex align-items-stretch" id="app">
-    <change-language-component
-        language-route="{{route('language.setLanguage')}}"
-        current-language ="{{\Illuminate\Support\Facades\App::getLocale()}}"
-    ></change-language-component>
+    @guest
+        <change-language-guest-component
+            language-route="{{route('language.setLanguage')}}"
+            current-language ="{{\Illuminate\Support\Facades\App::getLocale()}}"
+        ></change-language-guest-component>
+    @endif
     <side-menu-component
         lang-json = "{{json_encode(trans('sidemenu'))}}"
         test-index-route="{{route('test.index')}}"

@@ -5,5 +5,6 @@ return [
     'userNote' => 'Statistikoje rodomi tik dabar egzistuojantys testai',
     'regDate'=> 'Registracijos data',
     'createdTests' => 'Sukurti testai',
-    'solvedTests' => 'Išspresti testai'
+    'solvedTests' => 'Išspresti testai',
+    'language' => 'Keisti kalba'
 ];

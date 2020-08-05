@@ -33280,6 +33280,11 @@ a.text-dark:focus {
   font-size: 1.5em;
 }
 
+.user-wrapper .stat li .active-language {
+  font-size: 1.8em;
+  line-height: 1;
+}
+
 @media (max-width: 767.98px) {
   .user-wrapper .stat li {
     font-size: 0.8em;

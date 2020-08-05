@@ -5,5 +5,6 @@ return [
     'userNote' => 'Only existing tests are shown in the statistics',
     'regDate'=> 'Registration date',
     'createdTests' => 'Created tests',
-    'solvedTests' => 'Solved tests'
+    'solvedTests' => 'Solved tests',
+    'language' => 'Change language'
 ];
