@@ -2437,7 +2437,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logout: function logout() {
-      axios.post(this.logOutRoute).then(window.location.href = this.logInRoute);
+      var _this = this;
+
+      axios.post(this.logOutRoute).then(function (response) {
+        if (response.status === 302 || 401) {
+          window.location.href = _this.logInRoute;
+        }
+      });
     },
     mobileHide: function mobileHide() {
       if ($(window).width() <= 992) {

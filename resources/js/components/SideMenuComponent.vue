@@ -72,15 +72,15 @@
 export default {
     props: {
         langJson: {
-            type:String,
-            required:true
+            type: String,
+            required: true
         },
         home: {
-            type:String,
+            type: String,
             required: true
         },
         url: {
-            type:String,
+            type: String,
             required: true
         },
         testIndexRoute: String,
@@ -109,7 +109,11 @@ export default {
     methods: {
         logout() {
             axios.post(this.logOutRoute)
-                .then(window.location.href = this.logInRoute)
+                .then(response => {
+                    if (response.status === 302 || 401) {
+                        window.location.href = this.logInRoute
+                    }
+                })
         },
         mobileHide() {
             if ($(window).width() <= 992) {

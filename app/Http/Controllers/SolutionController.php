@@ -48,13 +48,13 @@ class SolutionController extends Controller
     public function index($url)
     {
         $test = Test::where('url', $url)->firstOrFail();
-        $solutions = Solution::where('test_id', $test->id)->paginate(10);
+        $solutions = Solution::where('test_id', $test->id)->latest()->paginate(5);
         return view('solution.index', ['solutions' => $solutions]);
     }
 
     public function indexUser()
     {
-        $solutions = Solution::where('user_id', Auth::user()->id)->get();
+        $solutions = Solution::where('user_id', Auth::user()->id)->latest()->paginate(5);
         if(!$solutions->isEmpty()){
             $sender = $solutions->first()->user_id === Auth::user()->id;
         } else {
