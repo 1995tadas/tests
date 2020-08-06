@@ -12,24 +12,39 @@
                     <i class="fa fa-times"></i>
                 </a>
             </div>
-            <ul class="list-unstyled mb-5">
+            <ul class="list-unstyled">
                 <template v-if="!userEmail">
                     <li :class="{active:url === 'login'}">
-                        <a :href="logInRoute"><span class="fa fa-sign-in mr-3"></span>{{ lang.logIn }}</a>
+                        <a :href="logInRoute">
+                            <span class="fa fa-sign-in mr-3"></span>
+                            {{ lang.logIn }}
+                        </a>
                     </li>
                     <li :class="{active:url === 'register'}">
-                        <a :href="registerRoute"><span class="fas fa-user-plus mr-3"></span>{{ lang.signIn }}</a>
+                        <a :href="registerRoute">
+                            <span class="fas fa-user-plus mr-3"></span>
+                            {{ lang.signIn }}
+                        </a>
                     </li>
                 </template>
                 <template v-else>
                     <li :class="{active:url === 'user'}">
-                        <a :href="this.userRoute"><span class="fas fa-user mr-3"></span>{{ modifiedUserEmail }}</a>
+                        <a :href="this.userRoute">
+                            <span class="fas fa-user mr-3"></span>
+                            {{ modifiedUserEmail }}
+                        </a>
                     </li>
                     <li :class="{active:url === 'test/create'}">
-                        <a :href="this.testCreateRoute"><span class="fas fa-plus mr-3"></span>{{ lang.newTest }}</a>
+                        <a :href="this.testCreateRoute">
+                            <span class="fas fa-plus mr-3"></span>
+                            {{ lang.newTest }}
+                        </a>
                     </li>
                     <li :class="{active:url === 'test'}">
-                        <a :href="this.testIndexRoute"><span class="fas fa-book mr-3"></span>{{ lang.tests }}</a>
+                        <a :href="this.testIndexRoute">
+                            <span class="fas fa-book mr-3"></span>
+                            {{ lang.tests }}
+                        </a>
                     </li>
                     <li :class="{active:url === 'solution'}">
                         <a :href="this.solutionUserRoute">
@@ -38,13 +53,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" @click.prevent="logout"><span
-                            class="fa fa-sign-out mr-3"></span>{{ lang.logOut }}</a>
+                        <a href="#" @click.prevent="logout">
+                            <span class="fa fa-sign-out mr-3"></span>
+                            {{ lang.logOut }}
+                        </a>
                     </li>
                 </template>
                 <li>
-                    <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio"><span
-                        class="fas fa-info-circle mr-3"></span>{{ lang.author }}</a>
+                    <a href="http://tadas-portfolio.herokuapp.com" target="_blank" title="Portfolio">
+                        <span class="fas fa-info-circle mr-3"></span>{{ lang.author }}
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -53,11 +71,20 @@
 <script>
 export default {
     props: {
-        langJson: String,
+        langJson: {
+            type:String,
+            required:true
+        },
+        home: {
+            type:String,
+            required: true
+        },
+        url: {
+            type:String,
+            required: true
+        },
         testIndexRoute: String,
         testCreateRoute: String,
-        home: String,
-        url: String,
         userEmail: String,
         userRoute: String,
         solutionUserRoute: String,
@@ -74,7 +101,6 @@ export default {
     },
     created() {
         if (this.userEmail) {
-            window.addEventListener("resize", this.shortenString);
             this.shortenString();
         }
         this.homeHide();
@@ -96,6 +122,7 @@ export default {
             }
         },
         shortenString() {
+            window.addEventListener("resize", this.shortenString);
             if (window.innerWidth >= 768) {
                 this.modifiedUserEmail = this.userEmail.substring(0, 10) + '...';
             } else {
@@ -109,7 +136,6 @@ export default {
 @import 'resources/sass/_variables.scss';
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 
-$font-primary: 'Poppins', Arial, sans-serif;
 $primary: #649d66;
 
 #sidebar {
@@ -121,6 +147,8 @@ $primary: #649d66;
     background: #1b1b2f;
     color: #fff;
     transition: all 0.3s;
+    white-space: nowrap;
+    overflow: hidden;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -161,16 +189,10 @@ $primary: #649d66;
     }
 
     ul {
+        margin: 0;
+
         li {
             font-size: 16px;
-
-            > ul {
-                margin-left: 10px;
-
-                li {
-                    font-size: 14px;
-                }
-            }
 
             a {
                 padding: 15px 30px;
@@ -202,10 +224,6 @@ $primary: #649d66;
             }
         }
     }
-
-    @include media-breakpoint-down(md) {
-        // margin-left: -200px;
-    }
 }
 
 .custom-menu {
@@ -233,9 +251,9 @@ $primary: #649d66;
             }
 
             &:hover, &:focus {
-                background: transparent !important;
-                border-color: transparent !important;
-                outline: none !important;
+                background: transparent;
+                border-color: transparent;
+                outline: none;
                 box-shadow: none !important;
             }
         }

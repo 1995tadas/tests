@@ -11034,6 +11034,13 @@ a.text-dark:focus {
   background-color: #f7c6c5;
 }
 
+.answer-verdict {
+  margin: 20px 0;
+  border: 1px dotted black;
+  text-align: center;
+  font-size: 1.5em;
+}
+
 /*!
  * Bootstrap v4.5.0 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -33251,7 +33258,6 @@ a.text-dark:focus {
   text-align: center;
   margin: 20px 0;
   text-align: center;
-  font-size: 3em;
 }
 
 .user-wrapper .stat {
@@ -33264,8 +33270,8 @@ a.text-dark:focus {
 
 .user-wrapper .stat li {
   margin-bottom: 20px;
-  font-size: 1.2em;
-  border: 5px solid black;
+  font-size: 1em;
+  border: 3px solid black;
   display: flex;
   justify-content: space-between;
   line-height: 2;
@@ -33287,7 +33293,7 @@ a.text-dark:focus {
 
 @media (max-width: 767.98px) {
   .user-wrapper .stat li {
-    font-size: 0.8em;
+    font-size: 0.6em;
   }
 }
 

@@ -28,12 +28,12 @@
                 <button type="submit" class="form-button">{{__('auth.logIn')}}</button>
             </form>
             <ul class="login-more">
-                <li class="m-b-8">
-                    @if (Route::has('password.request'))
-                        <span>{{__('auth.forgot')}}</span>
-                        <a href="{{ route('password.request') }}">{{__('auth.passwordForgot')}}?</a>
-                    @endif
-                </li>
+{{--                <li class="m-b-8">--}}
+{{--                    @if (Route::has('password.request'))--}}
+{{--                        <span>{{__('auth.forgot')}}</span>--}}
+{{--                        <a href="{{ route('password.request') }}">{{__('auth.passwordForgot')}}?</a>--}}
+{{--                    @endif--}}
+{{--                </li>--}}
                 <li>
                     <span>{{__('auth.noAccount')}}?</span>
                     <a href="{{route('register')}}">{{__('auth.register')}}!</a>

@@ -20,7 +20,7 @@
                             $check = 0;
                             $pass = true;
                         @endphp
-                        @foreach($question->answers->all() as $answer)
+                        @foreach($question->answers as $answer)
                             <li class="list-group-item
                                  @foreach($solution->solutionAnswers as $solution_answer)
                                     @if($question->id === $solution_answer->question_id)
@@ -38,8 +38,7 @@
                                             @break
                                         @endif
                                     @endif
-                                @endforeach
-                            ">
+                                @endforeach">
                                 {{$answer->content}}
                                 @if($answer->correct)
                                     @php $check++ @endphp
@@ -48,14 +47,14 @@
                             </li>
                         @endforeach
                     </ul>
-                    @php
-                        if($pass && $guess === $check){
-                            $final++;
-                            echo __('solutions.right');
-                        } else {
-                            echo __('solutions.wrong');
-                        }
-                    @endphp
+                    <div class="answer-verdict">
+                        @if($pass && $guess === $check)
+                            @php $final++; @endphp
+                            {{__('solutions.right')}}
+                        @else
+                           {{__('solutions.wrong')}}
+                        @endif
+                    </div>
                 @endforeach
             <div class="text-center">
                 <div>{{__('solutions.final')}}:</div>

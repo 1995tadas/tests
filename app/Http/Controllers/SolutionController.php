@@ -48,7 +48,7 @@ class SolutionController extends Controller
     public function index($url)
     {
         $test = Test::where('url', $url)->firstOrFail();
-        $solutions = Solution::where('test_id', $test->id)->get();
+        $solutions = Solution::where('test_id', $test->id)->paginate(10);
         return view('solution.index', ['solutions' => $solutions]);
     }
 

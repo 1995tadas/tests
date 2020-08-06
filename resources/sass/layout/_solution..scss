@@ -52,3 +52,10 @@ $table-primary: #36304a;
     @include square-example();
     background-color: #f7c6c5;
 }
+
+.answer-verdict {
+    margin: 20px 0;
+    border: 1px dotted black;
+    text-align: center;
+    font-size: 1.5em;
+}

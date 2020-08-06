@@ -36,6 +36,7 @@
                         @endforeach
                     </table>
                 </div>
+                {{ $solutions->links() }}
             @else
                 <div class="text-center">{{__('solutions.noSolutions')}}</div>
             @endif

@@ -3,7 +3,6 @@
     .user-title {
         @include title_text();
         text-align: center;
-        font-size: 3em;
     }
 
     .stat {
@@ -15,8 +14,8 @@
 
         li {
             margin-bottom: 20px;
-            font-size: 1.2em;
-            border: 5px solid black;
+            font-size: 1em;
+            border: 3px solid black;
             display: flex;
             justify-content: space-between;
             line-height: 2;
@@ -35,7 +34,7 @@
                 line-height: 1;
             }
             @include media-breakpoint-down(sm) {
-                font-size: 0.8em;
+                font-size: 0.6em;
             }
         }
     }

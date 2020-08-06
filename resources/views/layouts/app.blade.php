@@ -26,24 +26,24 @@
     @guest
         <change-language-guest-component
             language-route="{{route('language.setLanguage')}}"
-            current-language ="{{\Illuminate\Support\Facades\App::getLocale()}}"
+            current-language="{{\Illuminate\Support\Facades\App::getLocale()}}"
         ></change-language-guest-component>
     @endif
     <side-menu-component
-        lang-json = "{{json_encode(trans('sidemenu'))}}"
-        test-index-route="{{route('test.index')}}"
-        test-create-route="{{route('test.create')}}"
+        lang-json="{{json_encode(trans('sidemenu'))}}"
         home="{{url('/')}}"
         url="{{request()->path()}}"
         log-in-route="{{route('login')}}"
-        @guest
-        register-route="{{route('register')}}"
-        @else
+        @auth
+        test-index-route="{{route('test.index')}}"
+        test-create-route="{{route('test.create')}}"
         solution-user-route="{{route('solution.indexUser')}}"
         user-route="{{route('user.show')}}"
         log-out-route="{{route('logout')}}"
-        user-email= {{Auth()->check()?Auth()->user()->email:null}}
-        @endguest>
+        user-email="{{Auth()->check()?Auth()->user()->email:null}}"
+        @else
+        register-route="{{route('register')}}"
+        @endauth>
         {{ csrf_field() }}
     </side-menu-component>
     <main class="flex-grow-1">
