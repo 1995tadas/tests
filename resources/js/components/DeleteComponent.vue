@@ -10,7 +10,7 @@ export default {
             type: String,
             required: true
         },
-        route: {
+        destroyRoute: {
             type: String,
             required: true
         },
@@ -27,7 +27,7 @@ export default {
     methods: {
         deleteItem() {
             if (confirm(this.lang.deleteConfirmation+'?')) {
-                axios.post(this.route, {_method: 'delete'}).then(() => {
+                axios.post(this.destroyRoute, {_method: 'delete'}).then(() => {
                     window.location.replace(this.redirectRoute)
                 }).catch(function (error) {
                     console.log(error);

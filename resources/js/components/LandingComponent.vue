@@ -5,7 +5,7 @@
         </transition>
         <transition name="fade" mode="out-in">
             <div class="explanations" :key=lang.explanations[this.explanationsIndex]>
-                {{lang.explanations[this.explanationsIndex]}}
+                {{ lang.explanations[this.explanationsIndex] }}
             </div>
         </transition>
     </div>
@@ -13,7 +13,10 @@
 <script>
 export default {
     props: {
-        langJson: String
+        langJson: {
+            type: String,
+            required: true
+        }
     },
     data() {
         return {
@@ -49,6 +52,7 @@ h1 {
     color: black;
     mix-blend-mode: exclusion;
     width: 60vw;
+
     @include media-breakpoint-down(md) {
         font-size: 5rem;
         width: 100vw;
@@ -59,6 +63,7 @@ h1 {
     margin-top: 40px;
     font-size: 3em;
     color: white;
+
     @include media-breakpoint-down(md) {
         font-size: 1.3em;
     }

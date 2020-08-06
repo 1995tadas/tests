@@ -22,14 +22,14 @@
                     </a>
                     <copy-to-clipboard-component
                         lang-json="{{json_encode(trans('tests'))}}"
-                        test-show="{{route('test.show', ['url'=> $test->url ])}}">
+                        test-show-route="{{route('test.show', ['url'=> $test->url ])}}">
                     </copy-to-clipboard-component>
                     <a href="{{route('solution.index', [$test->url])}}">
                         <i class="fas fa-poll" title="{{__('tests.solutions')}}"></i>
                     </a>
                     <delete-component
                         lang-json = "{{json_encode(trans('tests'))}}"
-                        route="{{route('test.destroy', ['url' => $test->url])}}"
+                        destroy-route="{{route('test.destroy', ['url' => $test->url])}}"
                         redirect-route="{{route('test.index')}}">
                     </delete-component>
                 </div>
@@ -52,7 +52,7 @@
                         </a>
                         <delete-component
                             lang-json = "{{json_encode(trans('tests'))}}"
-                            route="{{route('question.destroy', ['id' => $question->id])}}"
+                            destroy-route="{{route('question.destroy', ['id' => $question->id])}}"
                             redirect-route="{{route('test.show', ['url' => $test->url])}}">
                         </delete-component>
                     </div>

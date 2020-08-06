@@ -6,8 +6,14 @@
 <script>
 export default {
     props: {
-        langJson: String,
-        testShow: String
+        langJson: {
+            type: String,
+            required: true
+        },
+        testShowRoute: {
+            type: String,
+            required: true
+        }
     },
     data() {
         return {
@@ -21,7 +27,7 @@ export default {
         copy() {
             let dummy = document.createElement("input");
             document.body.appendChild(dummy);
-            dummy.value = this.testShow;
+            dummy.value = this.testShowRoute;
             dummy.select();
             document.execCommand('copy');
             document.body.removeChild(dummy);

@@ -1,7 +1,7 @@
 <template>
     <div>
         <a :href.prevent="singleLanguage !== language ? '#': null"
-           @click="changeLanguage" v-for="singleLanguage in allLanguages"
+           v-on="singleLanguage !== language ? {click: changeLanguage}:{}" v-for="singleLanguage in allLanguages"
            :class="{'active-language':singleLanguage === language}">
             {{ singleLanguage }}
         </a>
@@ -17,8 +17,14 @@ export default {
         }
     },
     props: {
-        language: String,
-        languageRoute: String,
+        language: {
+            type: String,
+            required: true
+        },
+        languageRoute: {
+            type: String,
+            required: true
+        }
     },
     methods: {
         changeLanguage() {
@@ -38,8 +44,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-
-</style>

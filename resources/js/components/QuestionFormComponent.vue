@@ -76,10 +76,11 @@ export default {
             required: true
         },
         testId: Number,
-        testRoute: String,
-        errors: {
-            type: Array
+        testRoute: {
+            type: String,
+            required: true
         },
+        errors: Array,
         inputValues: {
             type: String,
             required: true

@@ -13,8 +13,15 @@ export default {
         }
     },
     props: {
-        languageRoute: String,
-        currentLanguage: String
+        languageRoute: {
+            type: String,
+            required: true
+        }
+        ,
+        currentLanguage: {
+            type: String,
+            required: true
+        }
     },
     created() {
         this.language = this.currentLanguage;
@@ -41,12 +48,10 @@ export default {
 </script>
 
 <style scoped>
-
 .flag {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
 }
-
 </style>

@@ -22,7 +22,7 @@
                             </a>
                             <copy-to-clipboard-component
                                 lang-json="{{json_encode(trans('tests'))}}"
-                                test-show="{{route('test.show', ['url'=> $test->url ])}}">
+                                test-show-route="{{route('test.show', ['url'=> $test->url ])}}">
                             </copy-to-clipboard-component>
                         </div>
                         <span class="badge badge-success badge-pill">{{questionName($test->questions->count())}}</span>

@@ -8,7 +8,7 @@ return [
     'questionNoteVerb' => [
         'Add', 'Edit'
         ],
-    'questionNote' => 'klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti ne tikslus',
+    'questionNote' => 'klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti netikslus',
     'question' => 'Klausimas',
     'answersNum' => 'Ats.skaičius',
     'answer' => 'Atsakymas',

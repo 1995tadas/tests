@@ -45,9 +45,7 @@ export default {
             type: String,
             default: ''
         },
-        errors: {
-            type: String
-        }
+        errors:String
     },
     mounted() {
         this.changeTitle();
