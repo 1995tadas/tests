@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use App\Solution;
 use App\SolutionAnswer;
 use App\Test;
@@ -18,8 +19,12 @@ class SolutionController extends Controller
     public function create($url)
     {
         $test = Test::where('url', $url)->firstOrFail();
-        $solution = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id)->exists();
-        return view('solution.create', ['test' => $solution ? null : $test]);
+        $solution_count = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id)->count();
+        $attempts = Setting::where('user_id', $test->user_id)->firstOrFail()->test_attempt_number;
+        return view('solution.create', ['test' => $solution_count >= $attempts ? null : $test
+                , 'solution_count' => $attempts > 1 ? $solution_count + 1 : null
+                , 'attempts' => $attempts > 1 ? $attempts : null]
+        );
     }
 
     public function store(Request $request, $url)
@@ -54,13 +59,22 @@ class SolutionController extends Controller
 
     public function indexUser()
     {
-        $solutions = Solution::where('user_id', Auth::user()->id)->latest()->paginate(5);
-        if(!$solutions->isEmpty()){
-            $sender = $solutions->first()->user_id === Auth::user()->id;
+        $solutions = Solution::where('user_id', Auth::user()->id);
+        $attempts = [];
+        foreach ($solutions->get() as $solution) {
+            if (!array_key_exists($solution->test_id, $attempts)) {
+                $attempts[$solution->test_id] = [$solution->created_at];
+            } else {
+                array_push($attempts[$solution->test_id], $solution->created_at);
+            }
+        }
+        $solutionsItems = $solutions->latest()->paginate(5);
+        if (!$solutionsItems->isEmpty()) {
+            $sender = $solutionsItems->first()->user_id === Auth::user()->id;
         } else {
             $sender = false;
         }
-        return view('solution.index', ['solutions' => $solutions], ['sender' => $sender]);
+        return view('solution.index', ['solutions' => $solutionsItems], compact('attempts', 'sender'));
     }
 
     public function show($id)

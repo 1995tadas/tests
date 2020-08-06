@@ -6,5 +6,9 @@ return [
     'regDate'=> 'Registracijos data',
     'createdTests' => 'Sukurti testai',
     'solvedTests' => 'Išspresti testai',
-    'language' => 'Keisti kalba'
+    'language' => 'Keisti kalba',
+    'testAttempts' => 'Sprendimų skaičius',
+    'savedSuccess' => 'Sėkmingai išsaugota',
+    'savedFailed' => 'Nepavyko išsaugoti',
+    'save' => 'Išsaugoti'
 ];

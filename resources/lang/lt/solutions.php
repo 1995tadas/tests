@@ -19,5 +19,6 @@ return [
     'correctNote' => 'atsakyta teisingai',
     'right' => 'Teisingai',
     'wrong' => 'Neteisingai',
-    'final' => 'Galutinis rezultatas'
+    'final' => 'Galutinis rezultatas',
+    'attempt' => 'bandymas'
 ];

@@ -19,6 +19,15 @@
                         language-route= {{route('language.setLanguage')}}>
                     </change-language-user-component>
                 </li>
+                <li><span>{{__('user.testAttempts')}}:</span>
+                    <test-attempt-component
+                        lang-json="{{json_encode(trans('user'))}}"
+                        :test-attempts="{{$testAttempts}}"
+                        change-attempts-route="{{route('user.changeAttempts')}}"
+                        :user-id="{{Auth::user()->id}}"
+                    >
+                    </test-attempt-component>
+                </li>
             </ul>
         </div>
     </div>

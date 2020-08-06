@@ -6,5 +6,9 @@ return [
     'regDate'=> 'Registration date',
     'createdTests' => 'Created tests',
     'solvedTests' => 'Solved tests',
-    'language' => 'Change language'
+    'language' => 'Change language',
+    'testAttempts' => 'Solutions attempts',
+    'savedSuccess' => 'Saved successfully',
+    'savedFailed' => 'Failed to saved',
+    'save' => 'Save'
 ];

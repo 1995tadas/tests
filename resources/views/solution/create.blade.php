@@ -15,7 +15,10 @@
                     </div>
                 </div>
                 <div class="border-top mb-5 my-3"></div>
-                @if($test->questions->all())
+                @if(!$test->questions->isEmpty())
+                    @if($solution_count)
+                        <h5>{{$solution_count.'/'.$attempts .' '. __('solutions.attempt')}} </h5>
+                    @endif
                     <form action="{{route('solution.store', [$test->url])}}" method="post">
                         @csrf
                         @foreach($test->questions->all() as $question)

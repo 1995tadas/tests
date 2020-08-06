@@ -17,6 +17,7 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
             $table->char('language',2);
+            $table->integer('test_attempt_number')->default(1);
             $table->timestamps();
 
             $table->foreign('user_id')

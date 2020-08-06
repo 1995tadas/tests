@@ -50,3 +50,4 @@ Route::get('/solution', 'SolutionController@indexUser')->name('solution.indexUse
 Route::get('/{url}/solution', 'SolutionController@index')->name('solution.index')->middleware('test.author');
 
 Route::get('language/{locale?}', 'LanguageController@setLanguage')->name('language.setLanguage');
+Route::put('user/attempts', 'UserController@changeAttempts')->name('user.changeAttempts');

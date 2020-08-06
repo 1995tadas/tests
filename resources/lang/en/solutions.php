@@ -19,5 +19,6 @@ return [
     'correctNote' => 'answer was correct',
     'right' => 'Right',
     'wrong' => 'Wrong',
-    'final' => 'Final result'
+    'final' => 'Final result',
+    'attempt' => 'attempt'
 ];

@@ -14,6 +14,9 @@
                                 <th>{{__('solutions.receiver')}}</th>
                             @endif
                             <th>{{__('solutions.title')}}</th>
+                            @if(isset($sender) && $sender)
+                                <th>{{ucfirst(__('solutions.attempt'))}}</th>
+                            @endif
                             <th>{{__('solutions.date')}}</th>
                             <th>{{__('solutions.link')}}</th>
                         </tr>
@@ -26,6 +29,9 @@
                                 @endif
 
                                 <td>{{Str::limit($solution->test->title, 20 , '...')}}</td>
+                                @if(isset($sender) && $sender)
+                                    <td>{{array_search($solution->created_at, $attempts[$solution->test_id])+1}}</td>
+                                @endif
                                 <td>{{$solution->created_at}}</td>
                                 <td>
                                     <a href="{{route('solution.show', ['id' => $solution->id])}}">
