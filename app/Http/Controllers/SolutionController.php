@@ -7,6 +7,7 @@ use App\Solution;
 use App\SolutionAnswer;
 use App\Test;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class SolutionController extends Controller
@@ -76,7 +77,45 @@ class SolutionController extends Controller
     {
         $solution = Solution::findOrFail($id);
         $test = Test::findOrFail($solution->test_id);
-        return view('solution.show', ['test' => $test, 'solution' => $solution]);
+        $answerResults = [];
+        $final = 0;
+        foreach ($test->questions as $question) {
+            $answerResults[$question->id] = [];
+            $answerResults[$question->id]['answers'] = [];
+            $answerResults[$question->id]['correct'] = [];
+            $answerResults[$question->id]['result'] = [];
+            foreach ($question->answers as $answer) {
+                if ($answer->correct) {
+                    $answerResults[$question->id]['correct'][$answer->number] = $answer->correct;
+                }
+                foreach ($solution->solutionAnswers as $solution_answer) {
+                    if ($question->id === $solution_answer->question_id) {
+                        if ($answer->number === $solution_answer->answer_number && $answer->correct) {
+                            $answerResults[$question->id]['answers'][$answer->number] = true;
+                            break;
+                        } else if ($answer->number === $solution_answer->answer_number && !$answer->correct) {
+                            $answerResults[$question->id]['answers'][$answer->number] = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            $guessesCount = count($answerResults[$question->id]['correct']);
+            $correctCount = count(array_intersect($answerResults[$question->id]['answers'], $answerResults[$question->id]['correct']));
+            $answerResults[$question->id]['result'] = $guessesCount === $correctCount && $answerResults[$question->id]['answers'] <= $answerResults[$question->id]['correct'];
+            if ($answerResults[$question->id]['result']) {
+                $final++;
+            }
+        }
+        $resultCount = count($answerResults);
+        //pagination for array
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $resultsCollection = collect($answerResults);
+        $perPage = 2;
+        $currentPageResults = $resultsCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
+        $paginatedResults = new LengthAwarePaginator($currentPageResults, count($resultsCollection), $perPage);
+        $paginatedResults->setPath(\request()->url());
+        return view('solution.show', compact('test', 'final', 'resultCount', 'paginatedResults'));
     }
 
     private function solutionAttemptCount($solutions)

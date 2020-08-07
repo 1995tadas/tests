@@ -10,6 +10,10 @@ class Test extends Model
     {
         return $this->hasMany(Question::class);
     }
+    public function questionById($id)
+    {
+        return Question::find($id);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
