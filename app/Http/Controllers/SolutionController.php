@@ -53,21 +53,16 @@ class SolutionController extends Controller
     public function index($url)
     {
         $test = Test::where('url', $url)->firstOrFail();
-        $solutions = Solution::where('test_id', $test->id)->latest()->paginate(5);
-        return view('solution.index', ['solutions' => $solutions]);
+        $solutions = Solution::where('test_id', $test->id);
+        $attempts = $this->solutionAttemptCount($solutions->get());
+        $solutionsItems = $solutions->latest()->paginate(5);
+        return view('solution.index', ['solutions' => $solutionsItems], compact('attempts'));
     }
 
     public function indexUser()
     {
         $solutions = Solution::where('user_id', Auth::user()->id);
-        $attempts = [];
-        foreach ($solutions->get() as $solution) {
-            if (!array_key_exists($solution->test_id, $attempts)) {
-                $attempts[$solution->test_id] = [$solution->created_at];
-            } else {
-                array_push($attempts[$solution->test_id], $solution->created_at);
-            }
-        }
+        $attempts = $this->solutionAttemptCount($solutions->get());
         $solutionsItems = $solutions->latest()->paginate(5);
         if (!$solutionsItems->isEmpty()) {
             $sender = $solutionsItems->first()->user_id === Auth::user()->id;
@@ -82,5 +77,20 @@ class SolutionController extends Controller
         $solution = Solution::findOrFail($id);
         $test = Test::findOrFail($solution->test_id);
         return view('solution.show', ['test' => $test, 'solution' => $solution]);
+    }
+
+    private function solutionAttemptCount($solutions)
+    {
+        $attempts = [];
+        foreach ($solutions as $solution) {
+            if (!array_key_exists($solution->user_id, $attempts)) {
+                $attempts[$solution->user_id] = [];
+            }
+            if (!array_key_exists($solution->test_id, $attempts[$solution->user_id])) {
+                $attempts[$solution->user_id][$solution->test_id] = [];
+            }
+            array_push($attempts[$solution->user_id][$solution->test_id], $solution->created_at);
+        }
+        return $attempts;
     }
 }
