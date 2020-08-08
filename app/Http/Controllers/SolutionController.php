@@ -16,7 +16,7 @@ class SolutionController extends Controller
     {
         $test = Test::where('url', $url)->firstOrFail();
         $solution_count = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id)->count();
-        $attempts = Setting::where('user_id', $test->user_id)->firstOrFail()->test_attempt_number;
+        $attempts = Setting::where('user_id', $test->user_id)->firstOrFail()->test_attempts;
         return view('solution.create', ['test' => $solution_count >= $attempts ? null : $test
                 , 'solution_count' => $attempts > 1 ? $solution_count + 1 : null
                 , 'attempts' => $attempts > 1 ? $attempts : null]
