@@ -15,18 +15,27 @@
                 <li><span>{{__('user.solvedTests')}}: </span>{{$solutionCount}}</li>
                 <li><span>{{__('user.language')}}: </span>
                     <change-language-user-component
-                        language="{{$language}}"
+                        language="{{$settings->language}}"
                         language-route= {{route('language.setLanguage')}}>
                     </change-language-user-component>
                 </li>
                 <li><span>{{__('user.testAttempts')}}:</span>
-                    <test-attempt-component
+                    <settings-form-component
                         lang-json="{{json_encode(trans('user'))}}"
-                        :test-attempts="{{$testAttempts}}"
-                        change-attempts-route="{{route('user.changeAttempts')}}"
-                        :user-id="{{Auth::user()->id}}"
+                        :range="[1,10]"
+                        :default-number="{{$settings->test_attempts}}"
+                        store-route="{{route('setting.store',['parameter' => 'test_attempts'])}}"
                     >
-                    </test-attempt-component>
+                    </settings-form-component>
+                </li>
+                <li><span>{{__('user.defaultQuestions')}}: </span>
+                    <settings-form-component
+                        lang-json="{{json_encode(trans('user'))}}"
+                        :range="[2,8]"
+                        :default-number="{{$settings->default_questions}}"
+                        store-route="{{route('setting.store',['parameter' => 'default_questions'])}}"
+                    >
+                    </settings-form-component>
                 </li>
             </ul>
         </div>

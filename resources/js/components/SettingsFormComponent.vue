@@ -3,8 +3,9 @@
         <span v-if="saved" class="success">{{ lang.savedSuccess }}</span>
         <span v-else-if="error" class="fail">{{ lang.savedFailed }}</span>
         <div v-else class="attempt-form">
-            <input @keydown.enter="saveAttempts" type="number" min="1" max="10" placeholder="1-10"
-                   v-model="testAttempts">
+            <input @keydown.enter="saveAttempts" type="number" :min="this.range[0]" :max="this.range[1]"
+                   :placeholder="this.range[0]+'-'+this.range[1]"
+                   v-model="defaultNumber">
             <button @click="saveAttempts">{{ lang.save }}</button>
         </div>
     </div>
@@ -16,22 +17,22 @@ export default {
             type: String,
             required: true
         },
-        testAttempts: {
+        range: {
+            type: Array,
+            required: true
+        },
+        defaultNumber: {
             type: Number,
             required: true
         },
-        changeAttemptsRoute: {
+        storeRoute: {
             type: String,
             required: true
         },
-        userId: {
-            type: Number,
-            required: true
-        }
     },
     data() {
         return {
-            newTestAttempts: this.testAttempts,
+            newTestAttempts: this.defaultNumber,
             lang: JSON.parse(this.langJson),
             saved: false,
             error: false
@@ -39,11 +40,10 @@ export default {
     },
     methods: {
         saveAttempts() {
-            if (this.testAttempts <= 10 && this.testAttempts >= 1) {
-                axios.post(this.changeAttemptsRoute, {
+            if (this.defaultNumber >= this.range[0] && this.defaultNumber <= this.range[1]) {
+                axios.post(this.storeRoute, {
                     _method: 'put',
-                    user_id: this.userId,
-                    test_attempt_number: this.testAttempts
+                    new_number: this.defaultNumber
                 }).then(() => {
                         this.saved = true;
                     }

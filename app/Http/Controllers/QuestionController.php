@@ -4,21 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\Question;
+use App\Setting;
 use App\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function create($url)
     {
-        $test = Test::where('url', $url)->where('user_id', Auth::user()->id)->firstOrFail();
-        return view('question.create', ['test' => $test]);
+        $user = Auth::user();
+        $test = Test::where('url', $url)->where('user_id', $user->id)->firstOrFail();
+        $setting = Setting::where('user_id', $user->id)->firstOrFail('default_questions');
+        return view('question.create', compact('test', 'setting'));
     }
 
     public function store(Request $request)
@@ -30,7 +28,7 @@ class QuestionController extends Controller
         $question->test_id = $request->test_id;
         $question->save();
         $this->storeOrUpdateAnswer($request, 'create', $question->id);
-        return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question').' '.__('messages.saved').'!');
+        return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.saved') . '!');
     }
 
     public function edit($id)
@@ -57,13 +55,13 @@ class QuestionController extends Controller
         $question->content = $request->question;
         $question->save();
         $this->storeOrUpdateAnswer($request, 'update', $id);
-        return redirect(route('test.show', ['url' => $test->url]))->with('message', __('messages.question').' '.__('messages.edited').'!');
+        return redirect(route('test.show', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.edited') . '!');
     }
 
     public function destroy($id)
     {
         Question::findOrFail($id)->delete();
-        session()->flash('message', __('messages.question').' '.__('messages.deleted').'!');
+        session()->flash('message', __('messages.question') . ' ' . __('messages.deleted') . '!');
         return response('success', 204);
     }
 

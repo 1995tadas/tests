@@ -55,7 +55,7 @@ export default {
     data() {
         return {
             lang: JSON.parse(this.langJson),
-            selected: 4,
+            selected: this.questionsNumber ? this.questionsNumber : 4,
             question: null,
             answers: [],
             correctAnswers: [],
@@ -67,6 +67,7 @@ export default {
             type: String,
             required: true
         },
+        questionsNumber: Number,
         questionAction: {
             type: String,
             required: true

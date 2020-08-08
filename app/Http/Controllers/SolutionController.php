@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SolutionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function create($url)
     {
         $test = Test::where('url', $url)->firstOrFail();
@@ -62,11 +57,12 @@ class SolutionController extends Controller
 
     public function indexUser()
     {
-        $solutions = Solution::where('user_id', Auth::user()->id);
+        $user = Auth::user();
+        $solutions = Solution::where('user_id', $user->id);
         $attempts = $this->solutionAttemptCount($solutions->get());
         $solutionsItems = $solutions->latest()->paginate(5);
         if (!$solutionsItems->isEmpty()) {
-            $sender = $solutionsItems->first()->user_id === Auth::user()->id;
+            $sender = $solutions->first()->user_id === $user->id;
         } else {
             $sender = false;
         }

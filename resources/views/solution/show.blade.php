@@ -16,11 +16,11 @@
                         @foreach($test->questionById($questionId)->answers as $answer)
                             <li class="list-group-item
                             @if(isset($singleResult['answers'][$answer->number]))
-                                @if($singleResult['answers'][$answer->number] === true)
-                                    {{'list-group-item-success'}}
-                                @elseif($singleResult['answers'][$answer->number] === false)
-                                    {{'list-group-item-danger'}}
-                                @endif
+                            @if($singleResult['answers'][$answer->number] === true)
+                            {{'list-group-item-success'}}
+                            @elseif($singleResult['answers'][$answer->number] === false)
+                            {{'list-group-item-danger'}}
+                            @endif
                             @endif">
                                 {{$answer->content}}
                                 @if(isset($singleResult['correct'][$answer->number]))
@@ -38,12 +38,12 @@
                     </div>
                 @endif
             @endforeach
-            <div>
-                {{ $paginatedResults->links() }}
-            </div>
             <div class="text-center">
                 <div>{{__('solutions.final')}}:</div>
                 <div>{{$final.'/'.$resultCount}}</div>
+            </div>
+            <div>
+                {{ $paginatedResults->links() }}
             </div>
         </div>
     </div>

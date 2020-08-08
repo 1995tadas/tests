@@ -9,11 +9,6 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class TestController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $tests = Test::where('user_id', Auth::user()->id)->paginate(10);
@@ -29,11 +24,6 @@ class TestController extends Controller
         } else if ($test_guest) {
             return redirect(route('solution.create', ['url' => $test_guest->url]));
         }
-    }
-
-    public function create()
-    {
-        return view('test.create');
     }
 
     public function store(Request $request)
