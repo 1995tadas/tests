@@ -16,7 +16,7 @@
                     <div class="col">
                         <label for="question">{{ lang.question }}</label>
                         <input class="form-control" :class="{'border-success':question, 'border-danger':!question}"
-                               type="text" id="question" name="question" v-model="question" @keyup="submitValidation"
+                               type="text" id="question" name="content" v-model="question" @keyup="submitValidation"
                                required autofocus>
                     </div>
                     <div class="col-md-3">
@@ -113,7 +113,7 @@ export default {
                 Object.entries(jsonInputs.answers).forEach((element) => {
                     this.answers[element[0]] = element[1];
                 });
-                this.question = jsonInputs.question;
+                this.question = jsonInputs.content;
                 if (jsonInputs.correct_answers) {
                     this.correctAnswers = jsonInputs.correct_answers;
                 }

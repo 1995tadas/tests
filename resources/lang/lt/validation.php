@@ -151,7 +151,7 @@ return [
         'email' => 'El-pašto',
         'name' => 'Vardo',
         'title' => 'Pavadinimo',
-        'question' => 'Klausimo',
+        'content' => 'Klausimo',
         'answers.*' => 'Atsakymo'
     ],
 

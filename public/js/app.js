@@ -2305,7 +2305,7 @@ __webpack_require__.r(__webpack_exports__);
         Object.entries(jsonInputs.answers).forEach(function (element) {
           _this.answers[element[0]] = element[1];
         });
-        this.question = jsonInputs.question;
+        this.question = jsonInputs.content;
 
         if (jsonInputs.correct_answers) {
           this.correctAnswers = jsonInputs.correct_answers;
@@ -39342,7 +39342,7 @@ var render = function() {
                 attrs: {
                   type: "text",
                   id: "question",
-                  name: "question",
+                  name: "content",
                   required: "",
                   autofocus: ""
                 },

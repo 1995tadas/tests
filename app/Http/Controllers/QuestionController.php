@@ -23,10 +23,10 @@ class QuestionController extends Controller
     {
         $test = Test::findOrFail($request->test_id);
         $request->validate($this->rules());
-        $question = new Question();
-        $question->content = $request->question;
-        $question->test_id = $request->test_id;
-        $question->save();
+        $question = Question::create([
+            'content' => $request->content,
+            'test_id' => $request->test_id
+        ]);
         $this->storeOrUpdateAnswer($request, 'store', $question->id);
         return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.saved') . '!');
     }
@@ -51,9 +51,8 @@ class QuestionController extends Controller
     {
         $question = Question::findOrFail($id);
         $test = Test::findOrFail($question->test_id);
-        $this->validation($request);
-        $question->content = $request->question;
-        $question->save();
+        $request->validate($this->rules());
+        $question->update(['content' => $request->content]);
         $this->storeOrUpdateAnswer($request, 'update', $id);
         return redirect(route('test.show', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.edited') . '!');
     }
@@ -100,7 +99,7 @@ class QuestionController extends Controller
     private function rules()
     {
         return [
-            'question' => 'bail|required|max:255',
+            'content' => 'bail|required|max:255',
             'answers.*' => 'bail|required|max:255',
         ];
     }
