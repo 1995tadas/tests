@@ -22,12 +22,12 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $test = Test::findOrFail($request->test_id);
-        $this->validation($request);
+        $request->validate($this->rules());
         $question = new Question();
         $question->content = $request->question;
         $question->test_id = $request->test_id;
         $question->save();
-        $this->storeOrUpdateAnswer($request, 'create', $question->id);
+        $this->storeOrUpdateAnswer($request, 'store', $question->id);
         return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.saved') . '!');
     }
 
@@ -69,7 +69,7 @@ class QuestionController extends Controller
     {
         $max = Answer::where('question_id', $question_id)->max('number');
         foreach ($request->answers as $index => $value) {
-            if ($storeOrUpdate === 'create' || $max < $index) {
+            if ($storeOrUpdate === 'store' || $max < $index) {
                 $answer = new Answer();
                 $answer->question_id = $question_id;
             } else if ($storeOrUpdate === 'update') {
@@ -85,7 +85,7 @@ class QuestionController extends Controller
                 }
             }
             $answer->correct = $correct;
-            if ($storeOrUpdate === 'create' || $max < $index) {
+            if ($storeOrUpdate === 'store' || $max < $index) {
                 $answer->number = $index;
             } else if ($storeOrUpdate === 'update') {
                 $current_max = count($request->answers);
@@ -97,11 +97,11 @@ class QuestionController extends Controller
         }
     }
 
-    private function validation($request)
+    private function rules()
     {
-        return $request->validate([
+        return [
             'question' => 'bail|required|max:255',
             'answers.*' => 'bail|required|max:255',
-        ]);
+        ];
     }
 }

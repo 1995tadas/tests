@@ -12,59 +12,57 @@ class TestController extends Controller
     public function index()
     {
         $tests = Test::where('user_id', Auth::user()->id)->paginate(10);
-        return view('test.index', ['tests' => $tests]);
+        return view('test.index', compact('tests'));
     }
 
     public function show($url)
     {
-        $test_guest = Test::where('url', $url)->firstOrFail();
-        $test_author = Test::where('url', $url)->where('user_id', Auth::user()->id)->first();
-        if ($test_author) {
+        $test = Test::where('url', $url);
+        if ($test_author = $test->where('user_id', Auth::user()->id)->first()) {
             return view('test.show', ['test' => $test_author]);
-        } else if ($test_guest) {
+        } else if ($test_guest = $test->firstOrFail()) {
             return redirect(route('solution.create', ['url' => $test_guest->url]));
         }
     }
 
     public function store(Request $request)
     {
-        $this->validation($request);
+        $request->validate($this->rules());
         $test_id = Test::latest('id')->first();
         !$test_id ? $test_id = 1 : $test_id = ($test_id->id) + 1;
-        $test = new Test();
-        $test->title = ucfirst($request->title);
-        $test->url = Hashids::encode($test_id);
-        $test->user_id = Auth::user()->id;
-        $test->save();
+        $test = Test::create([
+            'title' => ucfirst($request->title),
+            'url' => Hashids::encode($test_id),
+            'user_id' => Auth::user()->id
+        ]);
         return redirect(route('test.show', ['url' => $test->url]));
     }
 
     public function edit($url)
     {
-        $test = Test::where('url', $url)->first();
-        return view('test.edit', ['test' => $test]);
+        $test = Test::where('url', $url)->firstOrFail();
+        return view('test.edit', compact('test'));
     }
 
     public function update(Request $request, $url)
     {
-        $this->validation($request);
+        $request->validate($this->rules());
         $test = Test::where('url', $url)->firstOrFail();
-        $test->title = ucfirst($request->title);
-        $test->save();
+        $test->update($request->all());
         return redirect(route('test.show', ['url' => $test->url]));
     }
 
     public function destroy($url)
     {
         Test::where('url', $url)->delete();
-        session()->flash('message', __('messages.test').' '.__('messages.deleted').'!');
+        session()->flash('message', __('messages.test') . ' ' . __('messages.deleted') . '!');
         return response('success', 204);
     }
 
-    private function validation($request)
+    private function rules()
     {
-        return $request->validate([
+        return [
             'title' => 'bail|required|max:60'
-        ]);
+        ];
     }
 }

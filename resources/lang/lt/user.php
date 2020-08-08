@@ -8,7 +8,7 @@ return [
     'solvedTests' => 'Išspresti testai',
     'language' => 'Keisti kalba',
     'testAttempts' => 'Sprendimų skaičius',
-    'defaultQuestions' => "Numatytas Klausimų skaičius",
+    'defaultQuestions' => "Numatytas klausimų skaičius",
     'savedSuccess' => 'Sėkmingai išsaugota',
     'savedFailed' => 'Nepavyko išsaugoti',
     'save' => 'Išsaugoti'

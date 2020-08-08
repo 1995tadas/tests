@@ -12,8 +12,7 @@ class SettingController extends Controller
     {
         $request->validate($this->rules($parameter));
         $setting = Setting::where('user_id', Auth::user()->id)->first();
-        $setting->$parameter = $request->new_number;
-        $setting->save();
+        $setting->update([$parameter => $request->new_number]);
     }
 
     private function rules($parameter = null)
@@ -25,6 +24,8 @@ class SettingController extends Controller
             $rules['new_number'] .= '|between:1,10';
         } else if ($parameter === 'default_questions') {
             $rules['new_number'] .= '|between:2,8';
+        } else {
+            return false;
         }
 
         return $rules;

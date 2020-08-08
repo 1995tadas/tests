@@ -12,8 +12,7 @@ class LanguageController extends Controller
     {
         if (Auth::check()) {
             $setting = Setting::where('user_id', Auth::user()->id)->first();
-            $setting->language = $language;
-            $setting->save();
+            $setting->update(['language' => $language]);
         }
         Session::put('language', $language);
     }
