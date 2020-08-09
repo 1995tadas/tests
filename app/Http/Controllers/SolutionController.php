@@ -42,7 +42,7 @@ class SolutionController extends Controller
                     }
                 }
             }
-            return redirect(route('solution.show', ['id' => $solution->id]));
+            return redirect(route('solutions.show', ['id' => $solution->id]));
         }
     }
 

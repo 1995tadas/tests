@@ -30,7 +30,7 @@
                                 <td>{{array_search($solution->created_at, $attempts[$solution->user_id][$solution->test_id])+1}}</td>
                                 <td>{{$solution->created_at}}</td>
                                 <td>
-                                    <a href="{{route('solution.show', ['id' => $solution->id])}}">
+                                    <a href="{{route('solutions.show', ['id' => $solution->id])}}">
                                         {{__('solutions.view')}}
                                     </a>
                                 </td>

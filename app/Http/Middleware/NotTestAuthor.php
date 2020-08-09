@@ -22,7 +22,7 @@ class NotTestAuthor
         if ($test->user_id !== Auth::user()->id) {
             return $next($request);
         } else {
-            return redirect(route('test.index'))->with('error', 'Autoriui neleidžiame spręsti šio testo!');
+            return redirect(route('tests.index'))->with('error', 'Autoriui neleidžiame spręsti šio testo!');
         }
     }
 }

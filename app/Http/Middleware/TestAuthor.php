@@ -23,7 +23,7 @@ class TestAuthor
             ->first()) {
             return $next($request);
         } else {
-            return redirect(route('test.index'))->with('error','Tu nesi šio testo  autorius!');
+            return redirect(route('tests.index'))->with('error','Tu nesi šio testo  autorius!');
         }
     }
 }

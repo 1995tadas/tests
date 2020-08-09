@@ -17,12 +17,12 @@
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
-                            <a href="{{route('test.show', ['url'=> $test->url ])}}" title="{{__('tests.openTest')}}">
+                            <a href="{{route('tests.show', ['url'=> $test->url ])}}" title="{{__('tests.openTest')}}">
                                 {{Str::limit($test->title,30,'...')}}
                             </a>
                             <copy-to-clipboard-component
                                 lang-json="{{json_encode(trans('tests'))}}"
-                                test-show-route="{{route('test.show', ['url'=> $test->url ])}}">
+                                test-show-route="{{route('tests.show', ['url'=> $test->url ])}}">
                             </copy-to-clipboard-component>
                         </div>
                         <span class="badge badge-success badge-pill">{{questionName($test->questions->count())}}</span>

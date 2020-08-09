@@ -20,44 +20,45 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
-    Route::get('/tests', 'TestController@index')->name('test.index');
-    Route::get('/tests/create', function () {
+Route::middleware('auth')->prefix('tests')->name('tests.')->group(function () {
+    Route::get('', 'TestController@index')->name('index');
+    Route::get('create', function () {
         return view('test.create');
-    })->name('test.create');
-    Route::post('/tests', 'TestController@store')->name('test.store');
-    Route::get('/tests/{url}', 'TestController@show')->name('test.show');
+    })->name('create');
+    Route::post('', 'TestController@store')->name('store');
+    Route::get('{url}', 'TestController@show')->name('show');
 });
 
-
-Route::middleware(['test.author', 'auth'])->group(function () {
-    Route::get('/tests/{url}/edit', 'TestController@edit')->name('test.edit');
-    Route::put('/tests/{url}', 'TestController@update')->name('test.update');
-    Route::delete('/tests/{url}', 'TestController@destroy')->name('test.destroy');
-
-    Route::get('/questions/{url}/create/', 'QuestionController@create')->name('question.create');
-    Route::post('/questions', 'QuestionController@store')->name('question.store');
+Route::middleware(['test.author', 'auth'])->prefix('tests')->name('tests.')->group(function () {
+    Route::get('{url}/edit', 'TestController@edit')->name('edit');
+    Route::put('{url}', 'TestController@update')->name('update');
+    Route::delete('{url}', 'TestController@destroy')->name('destroy');
 });
-Route::middleware(['question.author', 'auth'])->group(function () {
-    Route::get('/questions/{id}/edit/', 'QuestionController@edit')->name('question.edit');
-    Route::put('/questions/{id}', 'QuestionController@update')->name('question.update');
-    Route::delete('/questions/{id}', 'QuestionController@destroy')->name('question.destroy');
-});
-Route::middleware(['not.test.author', 'auth'])->group(function () {
-    Route::get('/solutions/{url}/create', 'SolutionController@create')->name('solution.create');
-    Route::post('/solutions/{url}', 'SolutionController@store')->name('solution.store');
+Route::middleware(['test.author', 'auth'])->prefix('questions')->name('questions.')->group(function () {
+    Route::get('{url}/create/', 'QuestionController@create')->name('create');
+    Route::post('', 'QuestionController@store')->name('store');
 });
 
+Route::middleware(['question.author', 'auth'])->prefix('questions')->name('questions.')->group(function () {
+    Route::get('{id}/edit/', 'QuestionController@edit')->name('edit');
+    Route::put('{id}', 'QuestionController@update')->name('update');
+    Route::delete('{id}', 'QuestionController@destroy')->name('destroy');
+});
+Route::middleware(['not.test.author', 'auth'])->prefix('solutions')->name('solutions.')->group(function () {
+    Route::get('{url}/create', 'SolutionController@create')->name('create');
+    Route::post('{url}', 'SolutionController@store')->name('store');
+});
+
+Route::middleware('auth')->name('solutions.')->group(function () {
+    Route::get('/solutions/{id}', 'SolutionController@show')->name('show')->middleware('solution.auth');
+    Route::get('/solutions', 'SolutionController@indexUser')->name('index_user'); //todo merge index methods
+    Route::get('/{url}/solutions', 'SolutionController@index')->name('index')->middleware('test.author');
+});
 Route::middleware('auth')->group(function () {
-    Route::get('/solutions/{id}', 'SolutionController@show')->name('solution.show')->middleware('solution.auth');
-    Route::get('/solutions', 'SolutionController@indexUser')->name('solution.indexUser');
-    Route::get('/{url}/solutions', 'SolutionController@index')->name('solution.index')->middleware('test.author');
-});
-Route::middleware('auth')->group(function () {
-    Route::put('settings/{parameter}', 'SettingController@store')->name('setting.store');
-    Route::get('users', 'UserController@show')->name('user.show');
+    Route::put('settings/{parameter}', 'SettingController@store')->name('settings.store');
+    Route::get('users', 'UserController@show')->name('users.show');
 });
 
-Route::get('languages/{locale?}', 'LanguageController@setLanguage')->name('language.setLanguage');
+Route::get('languages/{locale?}', 'LanguageController@setLanguage')->name('languages.set_language');
 
 

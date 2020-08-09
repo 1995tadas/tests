@@ -25,7 +25,7 @@
 <div class="wrapper d-flex align-items-stretch" id="app">
     @guest
         <change-language-guest-component
-            language-route="{{route('language.setLanguage')}}"
+            language-route="{{route('languages.set_language')}}"
             current-language="{{\Illuminate\Support\Facades\App::getLocale()}}"
         ></change-language-guest-component>
     @endif
@@ -35,10 +35,10 @@
         url="{{request()->path()}}"
         log-in-route="{{route('login')}}"
         @auth
-        test-index-route="{{route('test.index')}}"
-        test-create-route="{{route('test.create')}}"
-        solution-user-route="{{route('solution.indexUser')}}"
-        user-route="{{route('user.show')}}"
+        test-index-route="{{route('tests.index')}}"
+        test-create-route="{{route('tests.create')}}"
+        solution-user-route="{{route('solutions.index_user')}}"
+        user-route="{{route('users.show')}}"
         log-out-route="{{route('logout')}}"
         user-email="{{Auth()->check()?Auth()->user()->email:null}}"
         @else

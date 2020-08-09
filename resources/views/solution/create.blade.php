@@ -19,7 +19,7 @@
                     @if($solution_count)
                         <h5>{{$solution_count.'/'.$attempts .' '. __('solutions.attempt')}} </h5>
                     @endif
-                    <form action="{{route('solution.store', [$test->url])}}" method="post">
+                    <form action="{{route('solutions.store', [$test->url])}}" method="post">
                         @csrf
                         @foreach($test->questions->all() as $question)
                             <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>

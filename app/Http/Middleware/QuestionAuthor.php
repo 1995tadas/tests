@@ -21,7 +21,7 @@ class QuestionAuthor
         if(Test::where('user_id', Auth::user()->id)->find(Question::find($id)->test_id)){
             return $next($request);
         } else {
-            return redirect(route('test.index'))->with('error','Tu nesi šio klausimo autorius!');
+            return redirect(route('tests.index'))->with('error','Tu nesi šio klausimo autorius!');
         }
     }
 }

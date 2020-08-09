@@ -16,7 +16,7 @@
                 <li><span>{{__('user.language')}}: </span>
                     <change-language-user-component
                         language="{{$settings->language}}"
-                        language-route= {{route('language.setLanguage')}}>
+                        language-route= {{route('languages.set_language')}}>
                     </change-language-user-component>
                 </li>
                 <li><span>{{__('user.testAttempts')}}:</span>
@@ -24,7 +24,7 @@
                         lang-json="{{json_encode(trans('user'))}}"
                         :range="[1,10]"
                         :default-number="{{$settings->test_attempts}}"
-                        store-route="{{route('setting.store',['parameter' => 'test_attempts'])}}"
+                        store-route="{{route('settings.store',['parameter' => 'test_attempts'])}}"
                     >
                     </settings-form-component>
                 </li>
@@ -33,7 +33,7 @@
                         lang-json="{{json_encode(trans('user'))}}"
                         :range="[2,8]"
                         :default-number="{{$settings->default_questions}}"
-                        store-route="{{route('setting.store',['parameter' => 'default_questions'])}}"
+                        store-route="{{route('settings.store',['parameter' => 'default_questions'])}}"
                     >
                     </settings-form-component>
                 </li>

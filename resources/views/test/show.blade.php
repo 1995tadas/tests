@@ -14,23 +14,23 @@
             <div class="icons-container">
                 <h6>{{$test->created_at}}</h6>
                 <div class="icons">
-                    <a href="{{route('question.create', ['url' => $test->url])}}">
+                    <a href="{{route('questions.create', ['url' => $test->url])}}">
                         <i class="fas fa-plus" title="{{__('tests.addQuestion')}}"></i>
                     </a>
-                    <a href="{{route('test.edit', ['url' => $test->url])}}">
+                    <a href="{{route('tests.edit', ['url' => $test->url])}}">
                         <i class="fas fa-file-signature" title="{{__('tests.renameTest')}}"></i>
                     </a>
                     <copy-to-clipboard-component
                         lang-json="{{json_encode(trans('tests'))}}"
-                        test-show-route="{{route('test.show', ['url'=> $test->url ])}}">
+                        test-show-route="{{route('tests.show', ['url'=> $test->url ])}}">
                     </copy-to-clipboard-component>
-                    <a href="{{route('solution.index', [$test->url])}}">
+                    <a href="{{route('solutions.index', [$test->url])}}">
                         <i class="fas fa-poll" title="{{__('tests.solutions')}}"></i>
                     </a>
                     <delete-component
                         lang-json = "{{json_encode(trans('tests'))}}"
-                        destroy-route="{{route('test.destroy', ['url' => $test->url])}}"
-                        redirect-route="{{route('test.index')}}">
+                        destroy-route="{{route('tests.destroy', ['url' => $test->url])}}"
+                        redirect-route="{{route('tests.index')}}">
                     </delete-component>
                 </div>
             </div>
@@ -47,13 +47,13 @@
                         @endforeach
                     </ul>
                     <div class="icons">
-                        <a href="{{route('question.edit', ['id'=>$question->id])}}">
+                        <a href="{{route('questions.edit', ['id'=>$question->id])}}">
                             <i class="fas fa-pen-nib" title="{{__('tests.editQuestion')}}"></i>
                         </a>
                         <delete-component
                             lang-json = "{{json_encode(trans('tests'))}}"
-                            destroy-route="{{route('question.destroy', ['id' => $question->id])}}"
-                            redirect-route="{{route('test.show', ['url' => $test->url])}}">
+                            destroy-route="{{route('questions.destroy', ['id' => $question->id])}}"
+                            redirect-route="{{route('tests.show', ['url' => $test->url])}}">
                         </delete-component>
                     </div>
                 </div>

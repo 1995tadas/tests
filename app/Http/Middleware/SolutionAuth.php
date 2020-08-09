@@ -24,7 +24,7 @@ class SolutionAuth
         if (Test::find($solution->test_id)->user_id === $user_id || $solution->user_id === $user_id) {
             return $next($request);
         } else {
-            return redirect(route('test.index'))->with('error', 'Tau neleidžiama matyti šio sprendimo!');
+            return redirect(route('tests.index'))->with('error', 'Tau neleidžiama matyti šio sprendimo!');
         }
     }
 }

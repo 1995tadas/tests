@@ -21,7 +21,7 @@ class TestController extends Controller
         if ($test_author = $test->where('user_id', Auth::user()->id)->first()) {
             return view('test.show', ['test' => $test_author]);
         } else if ($test_guest = $test->firstOrFail()) {
-            return redirect(route('solution.create', ['url' => $test_guest->url]));
+            return redirect(route('solutions.create', ['url' => $test_guest->url]));
         }
     }
 
@@ -35,7 +35,7 @@ class TestController extends Controller
             'url' => Hashids::encode($test_id),
             'user_id' => Auth::user()->id
         ]);
-        return redirect(route('test.show', ['url' => $test->url]));
+        return redirect(route('tests.show', ['url' => $test->url]));
     }
 
     public function edit($url)
@@ -49,7 +49,7 @@ class TestController extends Controller
         $request->validate($this->rules());
         $test = Test::where('url', $url)->firstOrFail();
         $test->update($request->all());
-        return redirect(route('test.show', ['url' => $test->url]));
+        return redirect(route('tests.show', ['url' => $test->url]));
     }
 
     public function destroy($url)

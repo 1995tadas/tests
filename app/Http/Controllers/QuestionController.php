@@ -27,8 +27,14 @@ class QuestionController extends Controller
             'content' => $request->content,
             'test_id' => $request->test_id
         ]);
-        $this->storeOrUpdateAnswer($request, 'store', $question->id);
-        return redirect(route('question.create', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.saved') . '!');
+        if ($question) {
+            $answers = $this->formatAnswersForStorage($request, $question->id);
+        }
+        if (isset($answers)) {
+            Answer::insert($answers);
+            return redirect(route('questions.create', ['url' => $test->url]))
+                ->with('message', __('messages.question') . ' ' . __('messages.saved') . '!');
+        }
     }
 
     public function edit($id)
@@ -37,7 +43,7 @@ class QuestionController extends Controller
         $test = Test::find($question->test_id);
         $answers = $question->answers->toArray();
         $values = [];
-        $values['question'] = $question->content;
+        $values['content'] = $question->content;
         foreach ($answers as $key => $answer) {
             $values['answers'][$key + 1] = $answer['content'];
             if ($answer['correct'] === 1) {
@@ -50,11 +56,35 @@ class QuestionController extends Controller
     public function update(Request $request, $id)
     {
         $question = Question::findOrFail($id);
-        $test = Test::findOrFail($question->test_id);
         $request->validate($this->rules());
         $question->update(['content' => $request->content]);
-        $this->storeOrUpdateAnswer($request, 'update', $id);
-        return redirect(route('test.show', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.edited') . '!');
+
+        if ($question) {
+            $answers = $this->formatAnswersForStorage($request, $id);;
+        }
+        if (isset($answers)) {
+            Answer::where('question_id', $question->id)->where('number', '>', count($answers))->delete();
+            $numberOfAnswers = Answer::where('question_id', $question->id)->max('number');
+            foreach ($answers as $answer) {
+                if ($answer['number'] <= $numberOfAnswers) {
+                    Answer::where('number', $answer['number'])
+                        ->where('question_id', $answer['question_id'])
+                        ->update([
+                            'content' => $answer['content'],
+                            'correct' => $answer['correct']
+                        ]);
+                } else {
+                    Answer::create([
+                        'question_id' => $answer['question_id'],
+                        'number' => $answer['number'],
+                        'content' => $answer['content'],
+                        'correct' => $answer['correct']
+                    ]);
+                }
+            }
+            $test = Test::findOrFail($question->test_id);
+            return redirect(route('tests.show', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.edited') . '!');
+        }
     }
 
     public function destroy($id)
@@ -64,36 +94,26 @@ class QuestionController extends Controller
         return response('success', 204);
     }
 
-    public function storeOrUpdateAnswer($request, $storeOrUpdate, $question_id)
+    private function formatAnswersForStorage($request, $question_id)
     {
-        $max = Answer::where('question_id', $question_id)->max('number');
+        $answers = [];
         foreach ($request->answers as $index => $value) {
-            if ($storeOrUpdate === 'store' || $max < $index) {
-                $answer = new Answer();
-                $answer->question_id = $question_id;
-            } else if ($storeOrUpdate === 'update') {
-                $answer = Answer::where('number', $index)->where('question_id', $question_id)->first();
-            }
-            $answer->content = $value;
-            $correct = false;
+            $answer = [];
+            $answer['question_id'] = $question_id;
+            $answer['content'] = $value;
+            $answer['correct'] = false;
             if ($request->correct_answers) {
                 foreach ($request->correct_answers as $correct_index => $correct_answer) {
                     if ($index === $correct_index) {
-                        $correct = true;
+                        $answer['correct'] = true;
+                        break;
                     }
                 }
             }
-            $answer->correct = $correct;
-            if ($storeOrUpdate === 'store' || $max < $index) {
-                $answer->number = $index;
-            } else if ($storeOrUpdate === 'update') {
-                $current_max = count($request->answers);
-                if ($max > $current_max) {
-                    Answer::where('question_id', $question_id)->where('number', '>', $current_max)->delete();
-                }
-            }
-            $answer->save();
+            $answer['number'] = $index;
+            $answers[] = $answer;
         }
+        return $answers;
     }
 
     private function rules()
