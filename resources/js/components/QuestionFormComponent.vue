@@ -33,16 +33,19 @@
                               required maxlength="255">
                     </textarea>
                 </div>
-                <div v-if=errors.length class="form-group">
+                <div v-if="errors.length" class="form-group">
                     <div class="text-danger" v-for="error in errors" v-text="error"></div>
                 </div>
-                <div class="form-group" v-if="selected">
+                <div class="form-group " v-if="selected">
                     <h6>{{ lang.correctAnswers }}</h6>
-                    <div class="d-inline custom-control custom-checkbox" v-for="n in selected">
-                        <input type="checkbox" class="custom-control-input" :name="'correct_answers['+n+']'"
-                               :id="'correct_answer' + n" :checked="correctAnswers[n]">
-                        <label class="custom-control-label" :for="'correct_answer' + n" v-text="'NR.' + n"></label>
+                    <div class="custom-flex">
+                        <div class="custom-control custom-checkbox" v-for="n in selected">
+                            <input type="checkbox" class="custom-control-input" :name="'correct_answers['+n+']'"
+                                   :id="'correct_answer' + n" :checked="correctAnswers[n]">
+                            <label class="custom-control-label" :for="'correct_answer' + n" v-text="'NR.' + n"></label>
+                        </div>
                     </div>
+
                 </div>
                 <input :disabled="isDisabled" class="btn btn-success" type="submit" :value="lang.questionSave">
             </form>
@@ -103,7 +106,9 @@ export default {
         },
         resetAnswers: function () {
             this.answers.splice(this.selected + 1);
-            this.correctAnswers.splice(this.selected + 1);
+            if (this.correctAnswers) {
+                this.correctAnswers.splice(this.selected + 1);
+            }
             this.submitValidation();
         },
         showInputValues: function () {
@@ -123,3 +128,15 @@ export default {
     }
 }
 </script>
+<style scoped>
+.custom-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.form-group div {
+    min-width: 8em;
+    margin: 4px;
+}
+</style>
