@@ -46,27 +46,26 @@ class SolutionController extends Controller
         }
     }
 
-    public function index($url)
+    public function index($url = null)
     {
-        $test = Test::where('url', $url)->firstOrFail();
-        $solutions = Solution::where('test_id', $test->id);
+        if ($url) {
+            $test = Test::where('url', $url)->firstOrFail();
+            $solutions = Solution::where('test_id', $test->id);
+            $sender = false;
+        } else {
+            $user = Auth::user();
+            $solutions = Solution::where('user_id', $user->id);
+            $sender = true;
+        }
+
         $attempts = $this->solutionAttemptCount($solutions->get());
         $solutionsItems = $solutions->latest()->paginate(5);
-        return view('solution.index', ['solutions' => $solutionsItems], compact('attempts'));
+        return view('solution.index', ['solutions' => $solutionsItems], compact('attempts', 'sender'));
     }
 
     public function indexUser()
     {
-        $user = Auth::user();
-        $solutions = Solution::where('user_id', $user->id);
-        $attempts = $this->solutionAttemptCount($solutions->get());
-        $solutionsItems = $solutions->latest()->paginate(5);
-        if (!$solutionsItems->isEmpty()) {
-            $sender = $solutions->first()->user_id === $user->id;
-        } else {
-            $sender = false;
-        }
-        return view('solution.index', ['solutions' => $solutionsItems], compact('attempts', 'sender'));
+        return $this->index();
     }
 
     public function show($id)

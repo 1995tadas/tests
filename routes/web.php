@@ -51,7 +51,7 @@ Route::middleware(['not.test.author', 'auth'])->prefix('solutions')->name('solut
 
 Route::middleware('auth')->name('solutions.')->group(function () {
     Route::get('/solutions/{id}', 'SolutionController@show')->name('show')->middleware('solution.auth');
-    Route::get('/solutions', 'SolutionController@indexUser')->name('index_user'); //todo merge index methods
+    Route::get('/solutions', 'SolutionController@indexUser')->name('index_user');
     Route::get('/{url}/solutions', 'SolutionController@index')->name('index')->middleware('test.author');
 });
 Route::middleware('auth')->group(function () {
