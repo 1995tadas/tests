@@ -12,8 +12,8 @@ class SolutionAuth
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -24,7 +24,7 @@ class SolutionAuth
         if (Test::find($solution->test_id)->user_id === $user_id || $solution->user_id === $user_id) {
             return $next($request);
         } else {
-            return redirect(route('tests.index'))->with('error', 'Tau neleidžiama matyti šio sprendimo!');
+            return redirect(route('tests.index'))->with('error', __('middleware.NotAllowedSolution') . ' !');
         }
     }
 }

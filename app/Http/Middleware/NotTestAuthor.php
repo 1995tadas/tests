@@ -11,8 +11,8 @@ class NotTestAuthor
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -22,7 +22,7 @@ class NotTestAuthor
         if ($test->user_id !== Auth::user()->id) {
             return $next($request);
         } else {
-            return redirect(route('tests.index'))->with('error', 'Autoriui neleidžiame spręsti šio testo!');
+            return redirect(route('tests.index'))->with('error', __('middleware.NotTestGuestWarning') . ' !');
         }
     }
 }
