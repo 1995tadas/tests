@@ -134,9 +134,4 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
-.form-group div {
-    min-width: 8em;
-    margin: 4px;
-}
 </style>
