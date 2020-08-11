@@ -3,7 +3,7 @@
 return [
     'landing' => 'Pagrindinis',
     'logIn' => 'Prisijungti',
-    'signIn'=> 'Registruotis',
+    'signUp'=> 'Registruotis',
     'newTest'=> 'Naujas testas',
     'tests' => 'Testai',
     'solutions' => 'Sprendimai',

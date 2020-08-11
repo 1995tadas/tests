@@ -40,7 +40,7 @@
             @endforeach
             <div class="text-center">
                 <div>{{__('solutions.final')}}:</div>
-                <div>{{$final.'/'.$resultCount}}</div>
+                <div>{{$final.'/'.$paginatedResults->total()}}</div>
             </div>
             <div>
                 {{ $paginatedResults->links() }}

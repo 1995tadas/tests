@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @php
+        $langJson = json_encode(trans('user'));
+    @endphp
     <div class="list-container">
         <div class="list-wrapper user-wrapper">
             <h1 class="user-title">{{__('user.myAcc')}}</h1>
@@ -21,7 +24,7 @@
                 </li>
                 <li><span>{{__('user.testAttempts')}}:</span>
                     <settings-form-component
-                        lang-json="{{json_encode(trans('user'))}}"
+                        lang-json="{{$langJson}}"
                         :range="[1,10]"
                         :default-number="{{$settings->test_attempts}}"
                         store-route="{{route('settings.store',['parameter' => 'test_attempts'])}}"
@@ -30,7 +33,7 @@
                 </li>
                 <li><span>{{__('user.defaultQuestions')}}: </span>
                     <settings-form-component
-                        lang-json="{{json_encode(trans('user'))}}"
+                        lang-json="{{$langJson}}"
                         :range="[2,8]"
                         :default-number="{{$settings->default_questions}}"
                         store-route="{{route('settings.store',['parameter' => 'default_questions'])}}"

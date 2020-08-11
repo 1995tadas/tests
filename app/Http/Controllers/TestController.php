@@ -17,10 +17,10 @@ class TestController extends Controller
 
     public function show($url)
     {
-        $test = Test::where('url', $url);
-        if ($test_author = $test->where('user_id', Auth::user()->id)->first()) {
-            return view('test.show', ['test' => $test_author]);
-        } else if ($test_guest = $test->firstOrFail()) {
+        if ($test_author = Test::where('url', $url)->where('user_id', Auth::user()->id)->first()) {
+            $questions = $test_author->questions()->with('answers')->paginate(5);
+            return view('test.show', ['test' => $test_author, 'questions' => $questions]);
+        } else if ($test_guest = Test::where('url', $url)->firstOrFail()) {
             return redirect(route('solutions.create', ['url' => $test_guest->url]));
         }
     }

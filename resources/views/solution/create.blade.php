@@ -21,10 +21,10 @@
                     @endif
                     <form action="{{route('solutions.store', [$test->url])}}" method="post">
                         @csrf
-                        @foreach($test->questions->all() as $question)
+                        @foreach($test->questions as $question)
                             <h4 class="text-center">Nr.{{$loop->index + 1 .' '. $question->content}}</h4>
                             <ul class="list-group my-2">
-                                @foreach($question->answers->all() as $answer)
+                                @foreach($question->answers as $answer)
                                     <li class="list-group-item">
                                         <input type="checkbox" id="answer"
                                                name="{{$question->id.'-answer['.$answer->number.']'}}">

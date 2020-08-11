@@ -14,7 +14,7 @@ class SolutionController extends Controller
 {
     public function create($url)
     {
-        $test = Test::where('url', $url)->firstOrFail();
+        $test = Test::where('url', $url)->with('questions')->firstOrFail();
         $solution_count = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id)->count();
         $attempts = Setting::where('user_id', $test->user_id)->firstOrFail()->test_attempts;
         return view('solution.create', ['test' => $solution_count >= $attempts ? null : $test
@@ -102,7 +102,6 @@ class SolutionController extends Controller
                 $final++;
             }
         }
-        $resultCount = count($answerResults);
         //pagination for array
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $resultsCollection = collect($answerResults);
@@ -110,7 +109,7 @@ class SolutionController extends Controller
         $currentPageResults = $resultsCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
         $paginatedResults = new LengthAwarePaginator($currentPageResults, count($resultsCollection), $perPage);
         $paginatedResults->setPath(\request()->url());
-        return view('solution.show', compact('test', 'final', 'resultCount', 'paginatedResults'));
+        return view('solution.show', compact('test', 'final', 'paginatedResults'));
     }
 
     private function solutionAttemptCount($solutions)

@@ -7139,7 +7139,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.custom-flex[data-v-587ab910] {\n    display: flex;\n    justify-content: space-between;\n    flex-wrap: wrap;\n}\n", ""]);
+exports.push([module.i, "\n.custom-flex[data-v-587ab910] {\n    display: flex;\n    justify-content: space-evenly;\n    flex-wrap: wrap;\n}\n", ""]);
 
 // exports
 
@@ -39728,7 +39728,7 @@ var render = function() {
                     _c("span", { staticClass: "fas fa-user-plus mr-3" }),
                     _vm._v(
                       "\n                        " +
-                        _vm._s(_vm.lang.signIn) +
+                        _vm._s(_vm.lang.signUp) +
                         "\n                    "
                     )
                   ])

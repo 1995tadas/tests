@@ -40,7 +40,7 @@
         solution-user-route="{{route('solutions.index_user')}}"
         user-route="{{route('users.show')}}"
         log-out-route="{{route('logout')}}"
-        user-email="{{Auth()->check()?Auth()->user()->email:null}}"
+        user-email="{{Auth()->check()? Auth()->user()->email: null}}"
         @else
         register-route="{{route('register')}}"
         @endauth>

@@ -5,15 +5,20 @@
         <div class="list-wrapper">
             @if(session()->has('message'))
                 <div class="alert alert-success">
-                    {{ session()->get('message') }}
+                    {{ session('message') }}
                 </div>
             @elseif(session()->has('error'))
                 <div class="alert alert-danger">
-                    {{ session()->get('error') }}
+                    {{ session('error') }}
                 </div>
             @endif
             <h1 class="list-title">{{__('tests.allTests')}}</h1>
             <ul class="list-group">
+                @if(!$tests->isEmpty())
+                    @php
+                       $langJson = json_encode(trans('tests'));
+                    @endphp
+                @endif
                 @forelse($tests as $test)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <div>
@@ -21,7 +26,7 @@
                                 {{Str::limit($test->title,30,'...')}}
                             </a>
                             <copy-to-clipboard-component
-                                lang-json="{{json_encode(trans('tests'))}}"
+                                lang-json="{{$langJson}}"
                                 test-show-route="{{route('tests.show', ['url'=> $test->url ])}}">
                             </copy-to-clipboard-component>
                         </div>

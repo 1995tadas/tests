@@ -23,7 +23,7 @@
                     <li :class="{active:url === 'register'}">
                         <a :href="registerRoute">
                             <span class="fas fa-user-plus mr-3"></span>
-                            {{ lang.signIn }}
+                            {{ lang.signUp }}
                         </a>
                     </li>
                 </template>

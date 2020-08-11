@@ -3,7 +3,7 @@
 return [
     'landing' => 'Home',
     'logIn' => 'Log in',
-    'signIn'=> 'Sign in',
+    'signUp'=> 'Sign up',
     'newTest'=> 'New test',
     'tests' => 'Tests',
     'solutions' => 'Solutions',

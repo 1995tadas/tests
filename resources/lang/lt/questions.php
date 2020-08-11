@@ -6,7 +6,7 @@ return [
     'questionEndingPluralTeens' => 'ai',
     'questionEndingPlural' => 'ų',
     'questionNoteVerb' => [
-        'Add', 'Edit'
+        'Pridėkite', 'Redaguokite'
         ],
     'questionNote' => 'klausimus prieš dalinantis nuoroda, kitaip sprendimo rezutatai gali būti netikslus',
     'question' => 'Klausimas',

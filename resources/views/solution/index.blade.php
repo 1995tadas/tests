@@ -8,7 +8,7 @@
                 <div class="solution-overflow">
                     <table class="solution-table">
                         <tr>
-                            @if(isset($sender) && $sender)
+                            @if($sender)
                                 <th>{{__('solutions.sender')}}</th>
                             @else
                                 <th>{{__('solutions.receiver')}}</th>
@@ -20,7 +20,7 @@
                         </tr>
                         @foreach($solutions as $solution)
                             <tr>
-                                @if(isset($sender) && $sender)
+                                @if($sender)
                                     <td>{{$solution->test->user->email}}
                                 @else
                                     <td>{{$solution->user->email}}</td>
