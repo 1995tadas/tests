@@ -33237,9 +33237,9 @@ a.text-dark:focus {
   font-size: 1.5em;
   display: inline-block;
   width: 40%;
-  padding: 10px;
+  padding: 20px;
   margin-top: 20px;
-  background-color: #6574cd;
+  background-color: #4eb9de;
 }
 
 .list-container .list-wrapper .list-single ul li:nth-child(even) {
@@ -33247,7 +33247,8 @@ a.text-dark:focus {
 }
 
 .list-container .list-wrapper .list-single ul .correct {
-  background-color: #38c172;
+  border: 10px solid #38c172;
+  padding: 10px;
 }
 
 .user-wrapper .user-title {

@@ -85,11 +85,16 @@ class QuestionController extends Controller
             $test = Test::findOrFail($question->test_id);
             return redirect(route('tests.show', ['url' => $test->url]))->with('message', __('messages.question') . ' ' . __('messages.edited') . '!');
         }
+
+        return redirect(route('tests.index'));
     }
 
     public function destroy($id)
     {
-        Question::findOrFail($id)->delete();
+        $question = Question::findOrFail($id)->delete();
+        if (!$question) {
+            return response('error', 400);
+        }
         session()->flash('message', __('messages.question') . ' ' . __('messages.deleted') . '!');
         return response('success', 204);
     }

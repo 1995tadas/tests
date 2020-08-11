@@ -83,9 +83,9 @@
                     font-size: 1.5em;
                     display: inline-block;
                     width: 40%;
-                    padding: 10px;
+                    padding: 20px;
                     margin-top: 20px;
-                    background-color: $indigo;
+                    background-color: #4eb9de;
 
                     &:nth-child(even) {
                         margin-left: 10px;
@@ -93,7 +93,8 @@
                 }
 
                 .correct {
-                    background-color: $green;
+                    border: 10px solid $green;
+                    padding: 10px;
                 }
             }
         }
