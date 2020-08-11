@@ -24,7 +24,7 @@ return [
     'passwordForgot' => 'password',
     'repeatPassword' => 'Repeat password',
     'noAccount' => 'Don\'t Have an Account',
-    'register' => 'Register',
+    'signUpLink' => 'Register',
     'signUpForm' => 'Sign up form',
     'name' => 'Name',
     'signUp' => 'Sign up',

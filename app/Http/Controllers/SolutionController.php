@@ -109,6 +109,7 @@ class SolutionController extends Controller
         $currentPageResults = $resultsCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
         $paginatedResults = new LengthAwarePaginator($currentPageResults, count($resultsCollection), $perPage);
         $paginatedResults->setPath(\request()->url());
+
         return view('solution.show', compact('test', 'final', 'paginatedResults'));
     }
 

@@ -36,7 +36,7 @@
 {{--                </li>--}}
                 <li>
                     <span>{{__('auth.noAccount')}}?</span>
-                    <a href="{{route('register')}}">{{__('auth.register')}}!</a>
+                    <a href="{{route('register')}}">{{__('auth.signUpLink')}}!</a>
                 </li>
             </ul>
         </div>

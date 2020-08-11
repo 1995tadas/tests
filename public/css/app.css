@@ -33275,7 +33275,7 @@ a.text-dark:focus {
   border: 3px solid black;
   display: flex;
   justify-content: space-between;
-  line-height: 2;
+  line-height: 2.5;
   padding: 0 10px;
 }
 
@@ -33283,18 +33283,14 @@ a.text-dark:focus {
   border: none;
 }
 
-.user-wrapper .stat li span {
-  font-size: 1.5em;
-}
-
 .user-wrapper .stat li .active-language {
-  font-size: 1.8em;
+  font-size: 1.5em;
   line-height: 1;
 }
 
 @media (max-width: 767.98px) {
   .user-wrapper .stat li {
-    font-size: 0.6em;
+    font-size: 0.8em;
   }
 }
 

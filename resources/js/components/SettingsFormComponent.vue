@@ -74,6 +74,7 @@ export default {
 
 input {
     line-height: 0.5;
+    width: 40px;
 }
 
 button {
@@ -81,6 +82,6 @@ button {
     color: white;
     box-shadow: none;
     border: 0;
-    margin: 5px 0;
+    border-radius: 2px;
 }
 </style>

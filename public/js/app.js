@@ -7158,7 +7158,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.success[data-v-609504db] {\n    color: #1ede51;\n}\n.fail[data-v-609504db] {\n    color: #de1f24;\n}\n.attempt-form[data-v-609504db] {\n    white-space: nowrap;\n}\ninput[data-v-609504db] {\n    line-height: 0.5;\n}\nbutton[data-v-609504db] {\n    background-color: black;\n    color: white;\n    box-shadow: none;\n    border: 0;\n    margin: 5px 0;\n}\n", ""]);
+exports.push([module.i, "\n.success[data-v-609504db] {\n    color: #1ede51;\n}\n.fail[data-v-609504db] {\n    color: #de1f24;\n}\n.attempt-form[data-v-609504db] {\n    white-space: nowrap;\n}\ninput[data-v-609504db] {\n    line-height: 0.5;\n    width: 40px;\n}\nbutton[data-v-609504db] {\n    background-color: black;\n    color: white;\n    box-shadow: none;\n    border: 0;\n    border-radius: 2px;\n}\n", ""]);
 
 // exports
 
