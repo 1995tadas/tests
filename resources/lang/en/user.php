@@ -8,7 +8,7 @@ return [
     'solvedTests' => 'Solved tests',
     'language' => 'Change language',
     'testAttempts' => 'Solutions attempts',
-    'defaultQuestions' => "Default number of questions",
+    'defaultQuestions' => "Number of questions",
     'savedSuccess' => 'Saved successfully',
     'savedFailed' => 'Failed to saved',
     'save' => 'Save',

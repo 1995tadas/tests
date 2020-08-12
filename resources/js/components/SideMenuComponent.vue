@@ -235,6 +235,7 @@ $primary: #649d66;
     position: absolute;
     top: 15px;
     left: 20px;
+    z-index: 998;
     @include transition(.3s);
     @include media-breakpoint-down(sm) {
         top: 5px;

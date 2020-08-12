@@ -53,13 +53,13 @@ Route::middleware('auth')->name('solutions.')->group(function () {
     Route::get('/solutions/{id}', 'SolutionController@show')->name('show')->middleware('solution.auth');
     Route::get('/solutions', 'SolutionController@indexUser')->name('index_user');
     Route::get('/{url}/solutions', 'SolutionController@index')->name('index')->middleware('test.author');
+    Route::put('/{id}','SolutionController@showResults')->name('showResults')->middleware('solution.auth');
 });
+
 Route::middleware('auth')->group(function () {
     Route::put('settings/{parameter}', 'SettingController@store')->name('settings.store');
     Route::get('users', 'UserController@show')->name('users.show');
 });
 
 Route::get('languages/{locale?}', 'LanguageController@setLanguage')->name('languages.set_language');
-
-Route::put('solutions/{id}','SolutionController@showResults')->name('solutions.showResults')->middleware('solution.auth');
 

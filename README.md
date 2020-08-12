@@ -2,7 +2,7 @@
 
 DEMO: https://tadas-tests.herokuapp.com/
 
-Website for creating sharable tests
+### Website for creating sharable tests
 
 - [x] User authentication
 - [x] Custom request middleware
@@ -27,7 +27,7 @@ Clone the repository
     
 Switch to the repo folder
 
-    cd laravel-realworld-example-app
+    cd tests
 
 Install all the dependencies using composer
 
@@ -56,7 +56,7 @@ Install dependencies using Node
 
     npm install
     
-For webmix (sass, vue) compilation use 
+For laravel-mix (sass, vue) compilation use 
 
     npm run dev
     
