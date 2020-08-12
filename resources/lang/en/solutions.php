@@ -20,5 +20,8 @@ return [
     'right' => 'Right',
     'wrong' => 'Wrong',
     'final' => 'Final result',
-    'attempt' => 'attempt'
+    'attempt' => 'attempt',
+    'retry' => 'Try on more time',
+    'showResults' => 'Show results',
+    'showResultsNote' => 'then you will not be able to try again'
 ];

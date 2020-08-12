@@ -11,7 +11,7 @@ class TestController extends Controller
 {
     public function index()
     {
-        $tests = Test::where('user_id', Auth::user()->id)->paginate(10);
+        $tests = Test::where('user_id', Auth::user()->id)->latest()->paginate(10);
         return view('test.index', compact('tests'));
     }
 

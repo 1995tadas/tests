@@ -61,4 +61,5 @@ Route::middleware('auth')->group(function () {
 
 Route::get('languages/{locale?}', 'LanguageController@setLanguage')->name('languages.set_language');
 
+Route::put('solutions/{id}','SolutionController@showResults')->name('solutions.showResults')->middleware('solution.auth');
 

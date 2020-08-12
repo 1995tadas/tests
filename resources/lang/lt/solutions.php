@@ -20,5 +20,8 @@ return [
     'right' => 'Teisingai',
     'wrong' => 'Neteisingai',
     'final' => 'Galutinis rezultatas',
-    'attempt' => 'bandymas'
+    'attempt' => 'bandymas',
+    'retry' => 'Bandykite dar kartą',
+    'showResults' => 'Rodyti rezultatus',
+    'showResultsNote' => 'tada negalėsite bandyti dar kartą'
 ];

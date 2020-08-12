@@ -17,6 +17,7 @@ class CreateSolutionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('test_id');
+            $table->boolean('show')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')

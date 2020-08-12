@@ -27,6 +27,7 @@ Vue.component('delete-component', require('./components/DeleteComponent.vue').de
 Vue.component('change-language-guest-component', require('./components/ChangeLanguageGuestComponent.vue').default);
 Vue.component('change-language-user-component', require('./components/ChangeLanguageUserComponent.vue').default);
 Vue.component('settings-form-component', require('./components/SettingsFormComponent.vue').default);
+Vue.component('show-solution-results-component', require('./components/ShowSolutionResultsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
