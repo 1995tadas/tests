@@ -6,13 +6,13 @@
                 <span class="form-title" v-text="formTitle"></span>
                 <input v-if="method === 'put'" type="hidden" name="_method" value="PUT">
                 <div class="form-group">
-                    <label for="title">{{lang.testTitle}}</label>
-                    <input class="form-control" :class="{'border-success':title,'border-danger':!title}" type="text"
-                           id="title" name="title" v-model="title" maxlength="60" autofocus required>
+                    <label for="title">{{ lang.testTitle }}</label>
+                    <input class="form-control" :class="{'border-success':inputTitle,'border-danger':!inputTitle}" type="text"
+                           id="title" name="title" v-model="inputTitle" maxlength="60" autofocus required>
                     <small v-for="error in parsedErrors" class="text-danger" v-text="error"></small>
                 </div>
                 <div class="form-group">
-                    <input :disabled="!title" class="btn btn-success" type="submit" :value="lang.create">
+                    <input :disabled="!inputTitle" class="btn btn-success" type="submit" :value="lang.create">
                 </div>
             </form>
         </div>
@@ -25,7 +25,8 @@ export default {
         return {
             lang: JSON.parse(this.langJson),
             parsedErrors: '',
-            formTitle: ''
+            formTitle: '',
+            inputTitle: this.title
         }
     },
     props: {
@@ -45,7 +46,7 @@ export default {
             type: String,
             default: ''
         },
-        errors:String
+        errors: String
     },
     mounted() {
         this.changeTitle();
@@ -55,7 +56,7 @@ export default {
         changeTitle() {
             if (this.method === 'post') {
                 this.formTitle = this.lang.newTest;
-            } else if (this.method === 'put'){
+            } else if (this.method === 'put') {
                 this.formTitle = this.lang.editTest;
             }
         }

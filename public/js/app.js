@@ -2631,7 +2631,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       lang: JSON.parse(this.langJson),
       parsedErrors: '',
-      formTitle: ''
+      formTitle: '',
+      inputTitle: this.title
     };
   },
   props: {
@@ -40020,14 +40021,14 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.title,
-                    expression: "title"
+                    value: _vm.inputTitle,
+                    expression: "inputTitle"
                   }
                 ],
                 staticClass: "form-control",
                 class: {
-                  "border-success": _vm.title,
-                  "border-danger": !_vm.title
+                  "border-success": _vm.inputTitle,
+                  "border-danger": !_vm.inputTitle
                 },
                 attrs: {
                   type: "text",
@@ -40037,13 +40038,13 @@ var render = function() {
                   autofocus: "",
                   required: ""
                 },
-                domProps: { value: _vm.title },
+                domProps: { value: _vm.inputTitle },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.title = $event.target.value
+                    _vm.inputTitle = $event.target.value
                   }
                 }
               }),
@@ -40061,7 +40062,7 @@ var render = function() {
           _c("div", { staticClass: "form-group" }, [
             _c("input", {
               staticClass: "btn btn-success",
-              attrs: { disabled: !_vm.title, type: "submit" },
+              attrs: { disabled: !_vm.inputTitle, type: "submit" },
               domProps: { value: _vm.lang.create }
             })
           ])
