@@ -5,7 +5,7 @@
         <div v-else class="attempt-form">
             <input @keydown.enter="saveAttempts" type="number" :min="this.range[0]" :max="this.range[1]"
                    :placeholder="this.range[0]+'-'+this.range[1]"
-                   v-model="defaultNumber">
+                   v-model="newNumber">
             <button @click="saveAttempts">{{ lang.save }}</button>
         </div>
     </div>
@@ -32,10 +32,10 @@ export default {
     },
     data() {
         return {
-            newTestAttempts: this.defaultNumber,
+            newNumber: this.defaultNumber,
             lang: JSON.parse(this.langJson),
             saved: false,
-            error: false
+            error: false,
         }
     },
     methods: {
@@ -43,18 +43,25 @@ export default {
             if (this.defaultNumber >= this.range[0] && this.defaultNumber <= this.range[1]) {
                 axios.post(this.storeRoute, {
                     _method: 'put',
-                    new_number: this.defaultNumber
-                }).then(() => {
-                        this.saved = true;
+                    new_number: this.newNumber
+                }).then((response) => {
+                        if (response.data) {
+                            this.saved = true;
+                        } else {
+                            this.setError();
+                        }
                     }
                 ).catch(
                     () => {
-                        this.error = true;
+                        this.setError();
                     }
                 )
             } else {
-                this.error = true;
+                this.setError();
             }
+        },
+        setError() {
+            this.error = true;
         }
     }
 }
