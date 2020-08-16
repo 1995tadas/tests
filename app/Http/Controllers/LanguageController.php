@@ -11,9 +11,13 @@ class LanguageController extends Controller
     public function setLanguage($language = 'en')
     {
         if (Auth::check()) {
-            $setting = Setting::where('user_id', Auth::user()->id)->first();
-            $setting->update(['language' => $language]);
+            $this->settingModel()->getCurrentUser()->update(['language' => $language]);
         }
         Session::put('language', $language);
+    }
+
+    private function settingModel()
+    {
+        return new Setting;
     }
 }

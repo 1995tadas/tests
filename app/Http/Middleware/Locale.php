@@ -22,7 +22,7 @@ class Locale
         $languageInSession = Session::has('language');
         $user = Auth::check();
         if ($languageInSession) {
-            $language = Session::get('language');
+            $language = Session('language');
         } else if ($user) {
             $language = Setting::where('user_id', Auth::user()->id)->firstOrFail()->language;
         }
