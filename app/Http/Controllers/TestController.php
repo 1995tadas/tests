@@ -2,37 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TestRequest;
 use App\Test;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Vinkla\Hashids\Facades\Hashids;
 
 class TestController extends Controller
 {
+    private $test;
+
+    public function __construct()
+    {
+        $this->test = new Test;
+    }
+
     public function index()
     {
-        $tests = Test::where('user_id', Auth::user()->id)->latest()->paginate(10);
+        $tests = $this->test->getLatestUserTests();
         return view('test.index', compact('tests'));
     }
 
     public function show($url)
     {
-        if ($test_author = Test::where('url', $url)->where('user_id', Auth::user()->id)->first()) {
-            $questions = $test_author->questions()->with('answers')->paginate(5);
-            return view('test.show', ['test' => $test_author, 'questions' => $questions]);
-        } else if ($test_guest = Test::where('url', $url)->firstOrFail()) {
-            return redirect(route('solutions.create', ['url' => $test_guest->url]));
+        if ($testAuthor = $this->test->getTestAuthor($url)) {
+            $questions = $testAuthor->getUserQuestionsWithAnswers();
+            return view('test.show', ['test' => $testAuthor, 'questions' => $questions]);
+        } else if ($testGuest = $this->test->getTestGuest($url)) {
+            return redirect(route('solutions.create', ['url' => $testGuest->url]));
         }
     }
 
-    public function store(Request $request)
+    public function store(TestRequest $request)
     {
-        $request->validate($this->rules());
-        $test_id = Test::latest('id')->first();
-        !$test_id ? $test_id = 1 : $test_id = ($test_id->id) + 1;
         $test = Test::create([
             'title' => ucfirst($request->title),
-            'url' => Hashids::encode($test_id),
+            'url' => Hashids::encode($this->test->getNextId('tests')),
             'user_id' => Auth::user()->id
         ]);
         return redirect(route('tests.show', ['url' => $test->url]));
@@ -40,29 +44,26 @@ class TestController extends Controller
 
     public function edit($url)
     {
-        $test = Test::where('url', $url)->firstOrFail();
+        $test = $this->test->getTestByUrl($url);
         return view('test.edit', compact('test'));
     }
 
-    public function update(Request $request, $url)
+    public function update(TestRequest $request, $url)
     {
-        $request->validate($this->rules());
-        $test = Test::where('url', $url)->firstOrFail();
-        $test->update($request->all());
-        return redirect(route('tests.show', ['url' => $test->url]));
+        $test = $this->test->getTestByUrl($url);
+        $update = $test->update($request->all());
+        if ($update) {
+            return redirect(route('tests.show', compact('url')));
+        }
+        return abort('404');
     }
 
     public function destroy($url)
     {
-        Test::where('url', $url)->delete();
-        session()->flash('message', __('messages.test') . ' ' . __('messages.deleted') . '!');
-        return response('success', 204);
-    }
-
-    private function rules()
-    {
-        return [
-            'title' => 'bail|required|max:60'
-        ];
+        $delete = Test::where('url', $url)->firstOrFail()->delete();
+        if ($delete) {
+            return response('success', 204);
+        }
+        return response('error', 404);
     }
 }

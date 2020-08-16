@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\TestObserver;
+use App\Test;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('production')) {
             \URL::forceScheme('https');
         }
+        Test::observe(TestObserver::class);
     }
 }

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Test extends Model
 {
@@ -22,5 +24,36 @@ class Test extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getLatestUserTests()
+    {
+        return $this->where('user_id', Auth::user()->id)->latest()->paginate(10);
+    }
+
+    public function getTestAuthor($url)
+    {
+        return $this->where('url', $url)->where('user_id', Auth::user()->id)->first();
+    }
+
+    public function getTestGuest($url)
+    {
+        return $this->where('url', $url)->firstOrFail();
+    }
+
+    public function getUserQuestionsWithAnswers()
+    {
+        return $this->questions()->with('answers')->paginate(5);
+    }
+
+    public function getNextId($tableName)
+    {
+        $statement = DB::select("show table status like '" . $tableName . "'");
+        return $statement ? $statement[0]->Auto_increment : abort(404);
+    }
+
+    public function getTestByUrl($url)
+    {
+        return $this->where('url', $url)->firstOrFail();
     }
 }
