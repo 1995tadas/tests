@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Services\FlashService;
 use App\Test;
 
 class TestObserver
@@ -14,7 +15,7 @@ class TestObserver
      */
     public function created(Test $test)
     {
-        $this->flashMessageTest($test->title, 'messages.saved');
+        FlashService::flashMessage('test', 'messages.saved', $test->title);
     }
 
     /**
@@ -25,7 +26,7 @@ class TestObserver
      */
     public function updated(Test $test)
     {
-        $this->flashMessageTest($test->title, 'messages.edited');
+        FlashService::flashMessage('test', 'messages.edited', $test->title);
     }
 
     /**
@@ -36,7 +37,7 @@ class TestObserver
      */
     public function deleted(Test $test)
     {
-        $this->flashMessageTest($test->title, 'messages.deleted');
+        FlashService::flashMessage('test', 'messages.deleted', $test->title);
     }
 
     /**
@@ -59,10 +60,5 @@ class TestObserver
     public function forceDeleted(Test $test)
     {
         //
-    }
-
-    private function flashMessageTest($title, $message)
-    {
-        session()->flash('message', __('messages.test') . ' ' . $title . ' ' . __($message) . '!');
     }
 }

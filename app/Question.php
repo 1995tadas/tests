@@ -8,7 +8,13 @@ class Question extends Model
 {
     protected $fillable = ['content', 'test_id'];
 
-    public function answers(){
+    public function answers()
+    {
         return $this->hasMany(Answer::class);
+    }
+
+    public function findQuestion($id)
+    {
+        return $this->findOrFail($id);
     }
 }

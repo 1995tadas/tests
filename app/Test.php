@@ -56,4 +56,9 @@ class Test extends Model
     {
         return $this->where('url', $url)->firstOrFail();
     }
+
+    public function findTest($id)
+    {
+        return $this->findOrFail($id);
+    }
 }

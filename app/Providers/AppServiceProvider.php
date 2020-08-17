@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Observers\QuestionObserver;
 use App\Observers\TestObserver;
+use App\Question;
 use App\Test;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
         Test::observe(TestObserver::class);
+        Question::observe(QuestionObserver::class);
     }
 }
