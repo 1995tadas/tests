@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SolutionService;
 use App\Setting;
 use App\Solution;
 use App\SolutionAnswer;
@@ -12,14 +13,27 @@ use Illuminate\Support\Facades\Auth;
 
 class SolutionController extends Controller
 {
+
+    private $testModel;
+    private $solutionModel;
+
+    public function __construct()
+    {
+        $this->testModel = new Test;
+        $this->solutionModel = new Solution;
+    }
+
+    private function settingModel()
+    {
+        return new Setting();
+    }
+
     public function create($url)
     {
-        $test = Test::where('url', $url)->with('questions')->firstOrFail();
-        $this->checkforTestRetake($test, Auth:: user());
-        $solution = Solution::where('test_id', $test->id)->where('user_id', Auth::user()->id);
-        $solution_count = $solution->count();
-        $show = $solution->where('show', true)->exists();
-        $attempts = Setting::where('user_id', $test->user_id)->firstOrFail()->test_attempts;
+        $test = $this->testModel->getTestWithQuestions($url);
+        $solution_count = $this->solutionModel->countUserSolutionsByTestId($test->id, Auth::user()->id);
+        $show = $this->solutionModel->whereUserSolutionShowExistsByTestId($test->id, Auth::user()->id);
+        $attempts = $this->settingModel()->getUser($test->user_id)->test_attempts;
         return view('solution.create', ['test' => $solution_count >= $attempts || $show ? null : $test
                 , 'solution_count' => $attempts > 1 ? $solution_count + 1 : null
                 , 'attempts' => $attempts > 1 ? $attempts : null]
@@ -28,10 +42,11 @@ class SolutionController extends Controller
 
     public function store(Request $request, $url)
     {
-        $test = Test::where('url', $url)->firstOrFail();
-        if ($this->checkforTestRetake($test, Auth:: user())) {
+        $test = $this->testModel->getTestGuest($url);
+        $user = Auth:: user();
+        if (SolutionService::checkForTestRetake($test, $user)) {
             $solution = Solution::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $user->id,
                 'test_id' => $test->id
             ]);
             if ($solution) {
@@ -55,15 +70,14 @@ class SolutionController extends Controller
     public function index($url = null)
     {
         if ($url) {
-            $test = Test::where('url', $url)->firstOrFail();
-            $solutions = Solution::where('test_id', $test->id);
+            $test = $this->testModel->getTestGuest($url);
+            $solutions = $this->solutionModel::where('test_id', $test->id);
             $sender = false;
         } else {
-            $solutions = Solution::where('user_id', Auth::user()->id);
+            $solutions = $this->solutionModel::where('user_id', Auth::user()->id);
             $sender = true;
         }
-
-        $attempts = $this->solutionAttemptCount($solutions->get());
+        $attempts = SolutionService::formatAttemptCount($solutions->get());
         $solutionsItems = $solutions->latest()->paginate(5);
         return view('solution.index', ['solutions' => $solutionsItems], compact('attempts', 'sender'));
     }
@@ -75,83 +89,25 @@ class SolutionController extends Controller
 
     public function show($id)
     {
-        $solution = Solution::findOrFail($id);
-        $test = Test::findOrFail($solution->test_id);
-        $answerResults = [];
-        $final = 0;
-        foreach ($test->questions as $question) {
-            $answerResults[$question->id] = [];
-            $answerResults[$question->id]['answers'] = [];
-            $answerResults[$question->id]['correct'] = [];
-            $answerResults[$question->id]['result'] = [];
-            foreach ($question->answers as $answer) {
-                if ($answer->correct) {
-                    $answerResults[$question->id]['correct'][$answer->number] = $answer->correct;
-                }
-                foreach ($solution->solutionAnswers as $solution_answer) {
-                    if ($question->id === $solution_answer->question_id) {
-                        if ($answer->number === $solution_answer->answer_number && $answer->correct) {
-                            $answerResults[$question->id]['answers'][$answer->number] = true;
-                            break;
-                        } else if ($answer->number === $solution_answer->answer_number && !$answer->correct) {
-                            $answerResults[$question->id]['answers'][$answer->number] = false;
-                            break;
-                        }
-                    }
-                }
-            }
-            $guessesCount = count($answerResults[$question->id]['correct']);
-            $correctCount = count(array_intersect($answerResults[$question->id]['answers'], $answerResults[$question->id]['correct']));
-            $answerResults[$question->id]['result'] = $guessesCount === $correctCount && $answerResults[$question->id]['answers'] <= $answerResults[$question->id]['correct'];
-            if ($answerResults[$question->id]['result']) {
-                $final++;
-            }
-        }
-
-        $retry = $this->checkforTestRetake($test, Auth:: user(), $solution->user_id);
-
-        //pagination for array
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $resultsCollection = collect($answerResults);
-        $perPage = 2;
-        $currentPageResults = $resultsCollection->slice(($currentPage * $perPage) - $perPage, $perPage)->all();
-        $paginatedResults = new LengthAwarePaginator($currentPageResults, count($resultsCollection), $perPage);
-        $paginatedResults->setPath(\request()->url());
-        return view('solution.show', compact('test', 'final', 'paginatedResults', 'retry'), ['solutionId' => $solution->id]);
+        $solution = $this->solutionModel->findSolution($id);
+        $test = $this->testModel->findTest($solution->test_id);
+        $solutionService = new SolutionService;
+        $data = $solutionService::formResultData($test, $solution);
+        $retry = $solutionService::checkForTestRetake($test, Auth:: user(), $solution->user_id);
+        $paginatedResults = $solutionService::lengthAwarePaginator($data['answerResults']);
+        return view('solution.show',
+            compact('test', 'paginatedResults', 'retry'),
+            ['solutionId' => $solution->id, 'final' => $data['final']]);
     }
 
     public function showResults($id)
     {
-        $solution = Solution::where('show', false)->findOrFail($id);
-        $solution->update([
+        $solution = $this->solutionModel->findSolutionWhereShowFalse($id);
+        $update = $solution->update([
             'show' => true
         ]);
-        return response()->json($solution);
-    }
-
-    private function checkForTestRetake($test, $user, $solutionUserId = null)
-    {
-        if ($solutionUserId === $user->id || $solutionUserId === null) {
-            $NumberOfSolutions = Solution::where('user_id', $user->id)->where('test_id', $test->id)->count();
-            $AllowedNumberOfSolutions = Setting::where('user_id', $test->user_id)->first()->test_attempts;
-            return $NumberOfSolutions < $AllowedNumberOfSolutions && !Solution::where('user_id', $user->id)->where('test_id',$test->id)->where('show', true)->exists();//check
+        if ($update) {
+            return response()->json($solution);
         }
-
-        return false;
-    }
-
-    private function solutionAttemptCount($solutions)
-    {
-        $attempts = [];
-        foreach ($solutions as $solution) {
-            if (!array_key_exists($solution->user_id, $attempts)) {
-                $attempts[$solution->user_id] = [];
-            }
-            if (!array_key_exists($solution->test_id, $attempts[$solution->user_id])) {
-                $attempts[$solution->user_id][$solution->test_id] = [];
-            }
-            array_push($attempts[$solution->user_id][$solution->test_id], $solution->created_at);
-        }
-        return $attempts;
     }
 }

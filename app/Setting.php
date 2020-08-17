@@ -14,4 +14,8 @@ class Setting extends Model
         return $this->where('user_id', Auth::user()->id)->first();
     }
 
+    public function getUser($userId)
+    {
+        return $this->where('user_id', $userId)->first();
+    }
 }

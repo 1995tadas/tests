@@ -51,10 +51,9 @@
                     <div>
                         <a href="{{route('solutions.create',['url' => $test->url])}}">{{__('solutions.retry').' !'}}</a>
                     </div>
+                @else
+                    {{ $paginatedResults->links() }}
                 @endif
-            </div>
-            <div>
-                {{ $paginatedResults->links() }}
             </div>
         </div>
     </div>

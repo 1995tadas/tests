@@ -41,6 +41,11 @@ class Test extends Model
         return $this->where('url', $url)->firstOrFail();
     }
 
+    public function getTestWithQuestions($url)
+    {
+        return $this->where('url', $url)->with('questions')->firstOrFail();
+    }
+
     public function getUserQuestionsWithAnswers()
     {
         return $this->questions()->with('answers')->paginate(5);
