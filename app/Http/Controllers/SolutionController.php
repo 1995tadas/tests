@@ -8,7 +8,6 @@ use App\Solution;
 use App\SolutionAnswer;
 use App\Test;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 
 class SolutionController extends Controller
@@ -109,5 +108,6 @@ class SolutionController extends Controller
         if ($update) {
             return response()->json($solution);
         }
+        return response()->abort('500');
     }
 }
