@@ -6,7 +6,7 @@ namespace App\Services;
 
 class AnswerService
 {
-    public static function formatAnswersForStorage($request, $question_id)
+    public function formatAnswersForStorage($request, $question_id)
     {
         $answers = [];
         foreach ($request->answers as $index => $value) {
@@ -28,7 +28,7 @@ class AnswerService
         return $answers;
     }
 
-    public static function prepareAnswersForEdit($answers, $question)
+    public function prepareAnswersForEdit($answers, $question)
     {
         $values = [];
         $values['content'] = $question->content;

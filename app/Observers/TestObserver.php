@@ -7,37 +7,46 @@ use App\Test;
 
 class TestObserver
 {
+    private $flashService;
+
+    public function __construct()
+    {
+        $this->flashService = new FlashService();
+    }
     /**
      * Handle the test "created" event.
      *
      * @param \App\Test $test
+     * @param FlashService $flashService
      * @return void
      */
     public function created(Test $test)
     {
-        FlashService::flashMessage('test', 'messages.saved', $test->title);
+        $this->flashService->flashMessage('test', 'messages.saved', $test->title);
     }
 
     /**
      * Handle the test "updated" event.
      *
      * @param \App\Test $test
+     * @param FlashService $flashService
      * @return void
      */
     public function updated(Test $test)
     {
-        FlashService::flashMessage('test', 'messages.edited', $test->title);
+        $this->flashService->flashMessage('test', 'messages.edited', $test->title);
     }
 
     /**
      * Handle the test "deleted" event.
      *
      * @param \App\Test $test
+     * @param FlashService $flashService
      * @return void
      */
     public function deleted(Test $test)
     {
-        FlashService::flashMessage('test', 'messages.deleted', $test->title);
+        $this->flashService->flashMessage('test', 'messages.deleted', $test->title);
     }
 
     /**

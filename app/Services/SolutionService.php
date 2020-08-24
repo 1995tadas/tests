@@ -11,7 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class SolutionService
 {
 
-    public static function checkForTestRetake($test, $user, $solutionUserId = null)
+    public function checkForTestRetake($test, $user, $solutionUserId = null)
     {
         if ($solutionUserId === $user->id || $solutionUserId === null) {
             $solution = new Solution();
@@ -24,7 +24,7 @@ class SolutionService
         return false;
     }
 
-    public static function formResultData($test, $solution)
+    public function formResultData($test, $solution)
     {
         $answerResults = [];
         $final = 0;
@@ -61,7 +61,7 @@ class SolutionService
             'final' => $final
         ];
     }
-    public static function formatAttemptCount($solutions){
+    public function formatAttemptCount($solutions){
         $attempts = [];
         foreach ($solutions as $solution) {
             if (!array_key_exists($solution->user_id, $attempts)) {
@@ -75,7 +75,7 @@ class SolutionService
         return $attempts;
     }
 
-    public static function lengthAwarePaginator($answerResults)
+    public function lengthAwarePaginator($answerResults)
     {
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $resultsCollection = collect($answerResults);

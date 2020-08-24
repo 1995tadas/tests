@@ -6,7 +6,7 @@ namespace App\Services;
 
 class FlashService
 {
-    public static function flashMessage($messageType, $message, $title = '')
+    public function flashMessage($messageType, $message, $title = '')
     {
         if ($title) {
             $title = ' ' . $title;

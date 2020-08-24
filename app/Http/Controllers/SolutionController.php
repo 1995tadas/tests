@@ -43,7 +43,8 @@ class SolutionController extends Controller
     {
         $test = $this->testModel->getTestGuest($url);
         $user = Auth:: user();
-        if (SolutionService::checkForTestRetake($test, $user)) {
+        $solutionService = new SolutionService();
+        if ($solutionService->checkForTestRetake($test, $user)) {
             $solution = Solution::create([
                 'user_id' => $user->id,
                 'test_id' => $test->id
@@ -76,7 +77,8 @@ class SolutionController extends Controller
             $solutions = $this->solutionModel::where('user_id', Auth::user()->id);
             $sender = true;
         }
-        $attempts = SolutionService::formatAttemptCount($solutions->get());
+        $solutionService = new SolutionService();
+        $attempts = $solutionService->formatAttemptCount($solutions->get());
         $solutionsItems = $solutions->latest()->paginate(5);
         return view('solution.index', ['solutions' => $solutionsItems], compact('attempts', 'sender'));
     }
@@ -91,9 +93,9 @@ class SolutionController extends Controller
         $solution = $this->solutionModel->findSolution($id);
         $test = $this->testModel->findTest($solution->test_id);
         $solutionService = new SolutionService;
-        $data = $solutionService::formResultData($test, $solution);
-        $retry = $solutionService::checkForTestRetake($test, Auth:: user(), $solution->user_id);
-        $paginatedResults = $solutionService::lengthAwarePaginator($data['answerResults']);
+        $data = $solutionService->formResultData($test, $solution);
+        $retry = $solutionService->checkForTestRetake($test, Auth:: user(), $solution->user_id);
+        $paginatedResults = $solutionService->lengthAwarePaginator($data['answerResults']);
         return view('solution.show',
             compact('test', 'paginatedResults', 'retry'),
             ['solutionId' => $solution->id, 'final' => $data['final']]);

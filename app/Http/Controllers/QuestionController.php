@@ -29,7 +29,8 @@ class QuestionController extends Controller
             'test_id' => $request->test_id
         ]);
         if ($question) {
-            $answers = AnswerService::formatAnswersForStorage($request, $question->id);
+            $answersService = new AnswerService();
+            $answers = $answersService->formatAnswersForStorage($request, $question->id);
         }
         if ($answers || isset($answers)) {
             $this->answerModel()::insert($answers);
@@ -42,7 +43,8 @@ class QuestionController extends Controller
     {
         $question = $this->questionModel()->findQuestion($id);
         $test = $this->testModel()->findTest($question->test_id);
-        $preparedValues = AnswerService::prepareAnswersForEdit($question->answers, $question);
+        $answerService = new AnswerService();
+        $preparedValues = $answerService->prepareAnswersForEdit($question->answers, $question);
         return view('question.edit', compact('preparedValues', 'test', 'question'));
     }
 
@@ -52,7 +54,8 @@ class QuestionController extends Controller
         $question->update(['content' => $request->content]);
 
         if ($question) {
-            $answers = AnswerService::formatAnswersForStorage($request, $id);
+            $answersService = new AnswerService();
+            $answers = $answersService->formatAnswersForStorage($request, $id);
         }
         if ($answers || isset($answers)) {
             $this->answerModel()->deleteAnswersByQuestionId($question->id, count($answers));
