@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Solution::class);
     }
+
+    public function setting()
+    {
+        return $this->hasOne(Setting::class);
+    }
 }
