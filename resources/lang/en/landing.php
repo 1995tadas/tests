@@ -2,7 +2,7 @@
 
 return [
 
-    'test' => 'Test',
+    'test' => 'TestQuiz',
     'explanations' => [
         'Sign up and log in',
         'Create your own test',

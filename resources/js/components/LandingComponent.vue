@@ -51,7 +51,6 @@ h1 {
     background-color: #f6d743;
     color: black;
     mix-blend-mode: exclusion;
-    width: 60vw;
 
     @include media-breakpoint-down(md) {
         font-size: 5rem;

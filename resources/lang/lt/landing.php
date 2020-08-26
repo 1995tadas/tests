@@ -2,7 +2,7 @@
 
 return [
 
-    'test' => 'Testas',
+    'test' => 'TestQuiz',
     'explanations' => [
         'Registruokitės ir junkitės',
         'Susikurkite savo testą',
