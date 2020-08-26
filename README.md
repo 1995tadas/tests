@@ -2,14 +2,18 @@
 
 DEMO: https://tadas-tests.herokuapp.com/
 
-### Website for creating sharable tests
+![Alt Text](https://i.imgur.com/zGqBrIC.gif)
+
+## Description
+
+Do you want to create fun simple knowledge tests? 
+If answer is yes then this is perfect tool for you. 
+
 
 - [x] User authentication
 - [x] Custom request middleware
 - [x] VueJs components for reusable parts
 - [x] In English and lithuanian languages 
-- [x] Responsive
-- [x] Easy to Use
 
 
 Build in Laravel, VueJs, Scss, Axios, MySql and some Bootstrap
