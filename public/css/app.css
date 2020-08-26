@@ -33237,7 +33237,6 @@ a.text-dark:focus {
   font-size: 1.5em;
   display: inline-block;
   width: 40%;
-  padding: 20px;
   margin-top: 20px;
   background-color: #4eb9de;
 }
@@ -33247,8 +33246,8 @@ a.text-dark:focus {
 }
 
 .list-container .list-wrapper .list-single ul .correct {
-  border: 10px solid #38c172;
-  padding: 10px;
+  color: #000;
+  text-shadow: -1px -1px 0 #38c172, 1px -1px 0 #38c172, -1px 1px 0 #38c172, 1px 1px 0 #38c172;
 }
 
 .user-wrapper .user-title {

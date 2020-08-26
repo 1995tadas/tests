@@ -1,7 +1,7 @@
 <?php
 return [
     'testTitle'=>'Test title',
-    'create'=>'Create',
+    'create'=>'Save',
     'newTest' => 'New test',
     'editTest'=> 'Edit test'
 ];

@@ -83,7 +83,6 @@
                     font-size: 1.5em;
                     display: inline-block;
                     width: 40%;
-                    padding: 20px;
                     margin-top: 20px;
                     background-color: #4eb9de;
 
@@ -93,8 +92,11 @@
                 }
 
                 .correct {
-                    border: 10px solid $green;
-                    padding: 10px;
+                    color: $black;
+                    text-shadow: -1px -1px 0 $green,
+                    1px -1px 0 $green,
+                    -1px 1px 0 $green,
+                    1px 1px 0 $green;
                 }
             }
         }
